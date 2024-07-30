@@ -6,6 +6,8 @@ import { FaUsers } from "react-icons/fa";
 import { IoIosListBox } from "react-icons/io";
 import { HomeCard } from "./components/HomeCard";
 
+import { NavIconItem } from "./components/NavIconItem";
+
 export default function Home() {
   return (
     <div className="h-screen flex-col">
@@ -19,27 +21,11 @@ export default function Home() {
             className="w-full"
           ></Image>
           <nav className="flex flex-col space-y-4 mt-8">
-            <a href="" className="flex items-center gap-2 hover:font-semibold">
-              <RxDashboard />
-              Dashboards
-            </a>
-            <a href="" className="flex items-center gap-2 hover:font-semibold">
-              <LuWarehouse />
-              Ambientes
-            </a>
-            <a href="" className="flex items-center gap-2 hover:font-semibold">
-              <GoTools />
-              Equipamentos
-            </a>
-            <a href="" className="flex items-center gap-2 hover:font-semibold">
-              <IoIosListBox />
-              Manutenções
-            </a>
-
-            <a href="" className="flex items-center gap-2 hover:font-semibold">
-              <FaUsers />
-              Usuários
-            </a>
+            <NavIconItem href="" icon={<RxDashboard />} value="Dashboards" />
+            <NavIconItem href="" icon={<LuWarehouse />} value="Ambientes" />
+            <NavIconItem href="" icon={<GoTools />} value="Equipamentos" />
+            <NavIconItem href="" icon={<IoIosListBox />} value="Manutenções" />
+            <NavIconItem href="" icon={<FaUsers />} value="Usuários" />
           </nav>
         </aside>
         <main className="flex-1 flex flex-col p-6">
@@ -57,12 +43,6 @@ export default function Home() {
               color="bg-slate-200/60"
               icon={<GoTools size={30} />}
             />
-            <HomeCard
-              value={500}
-              category="Ferramentas"
-              color="bg-purple-600/60"
-              icon={<GoTools size={30} />}
-            />
           </div>
         </main>
       </div>
@@ -71,7 +51,4 @@ export default function Home() {
       </footer>
     </div>
   );
-
 }
-
-
