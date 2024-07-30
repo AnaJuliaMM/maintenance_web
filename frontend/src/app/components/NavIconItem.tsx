@@ -1,6 +1,6 @@
 import React from "react";
 
-type NavIconItemProps = {
+export type NavIconItemProps = {
   value: string;
   href: string;
   icon: React.ReactNode;
