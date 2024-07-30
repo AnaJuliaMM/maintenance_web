@@ -1,5 +1,4 @@
 import React from 'react'
-import { LuWarehouse } from 'react-icons/lu'
 
 type HomeCardProps =  {
   value:number;
