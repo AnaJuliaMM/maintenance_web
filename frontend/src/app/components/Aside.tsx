@@ -40,7 +40,7 @@ export const Aside = () => {
   ];
 
   return (
-    <aside className="w-64 p-6 bg-gray-950/35">
+    <aside className="w-60 p-6 bg-gray-950/35 fixed h-full">
       <Image
         src={"/image/logo.svg"}
         alt="Logo"
