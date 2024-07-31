@@ -20,7 +20,7 @@ export const TableRow: React.FC<TableRowCard> = ({
       <p>{equipment}</p>
       <p>{requisiton}</p>
       <p>{service}</p>
-      <div className="flex gap-2">
+      <div className="flex items-center  gap-2">
         <MdOutlineEdit className="cursor-pointer" size={20}/>
         <MdDeleteOutline className="cursor-pointer" size={20}/>
       </div>
