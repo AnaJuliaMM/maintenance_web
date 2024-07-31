@@ -43,8 +43,8 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex-1 flex flex-col p-10 overflow-y-auto ml-60">
-      <h1 className="text-3xl pb-6 text-center">Dashboards</h1>
+    <main className="flex-1 flex flex-col p-10 overflow-y-auto ml-60 mb-20">
+      <h1 className="text-3xl pb-6 text-center">Dashboard</h1>
       <div className="grid grid-cols-4 gap-3 pb-5">
         <HomeCard
           value={200}
