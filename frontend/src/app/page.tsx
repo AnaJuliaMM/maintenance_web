@@ -6,7 +6,8 @@ import { MdOutlineEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 
 import { HomeCard } from "./components/HomeCard";
-import { TableRow } from "./components/TableRow";
+import { DataTable } from "./components/DataTable";
+import BarChartComponent from "./components/BarChart";
 
 export default function Home() {
   const tableRows = [
@@ -43,51 +44,39 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex-1 flex flex-col p-10 overflow-y-auto ml-60 mb-20">
+    <main className="flex-1 flex flex-col p-10 ml-60 mb-20">
       <h1 className="text-3xl pb-6 text-center">Dashboard</h1>
-      <div className="grid grid-cols-4 gap-3 pb-5">
-        <HomeCard
-          value={200}
-          category="Ambientes"
-          color="bg-pink-600/90"
-          icon={<LuWarehouse size={30} />}
-        />
-        <HomeCard
-          value={1454}
-          category="Equipamentos"
-          color="bg-blue-500/60"
-          icon={<GoTools size={30} />}
-        />
-        <HomeCard
-          value={100}
-          category="Manutenções"
-          color="bg-purple-500/60"
-          icon={<IoIosListBox size={30} />}
-        />
-        <HomeCard
-          value={150}
-          category="Usuários"
-          color="bg-slate-200/60"
-          icon={<FaUsers size={30} />}
-        />
-      </div>
-      <div className="bg-gray-500/30 p-5 rounded-lg">
-        <div className="grid grid-cols-5 bg-gray-500/50 p-5 rounded-lg font-semibold">
-          <p>Ambiente</p>
-          <p>Equipamento</p>
-          <p>Solicitações</p>
-          <p>Atendimento</p>
-          <p>Ações</p>
-        </div>
-        {tableRows.map((obj) => (
-          <TableRow
-            environment={obj.environment}
-            equipment={obj.equipment}
-            requisiton={obj.requisiton}
-            service={obj.service}
+      <div className="max-h-svh overflow-y-auto">
+        <div className="grid grid-cols-4 gap-3 pb-5">
+          <HomeCard
+            value={200}
+            category="Ambientes"
+            color="bg-pink-600/90"
+            icon={<LuWarehouse size={30} />}
           />
-        ))}
+          <HomeCard
+            value={1454}
+            category="Equipamentos"
+            color="bg-blue-500/60"
+            icon={<GoTools size={30} />}
+          />
+          <HomeCard
+            value={100}
+            category="Manutenções"
+            color="bg-purple-500/60"
+            icon={<IoIosListBox size={30} />}
+          />
+          <HomeCard
+            value={150}
+            category="Usuários"
+            color="bg-slate-200/60"
+            icon={<FaUsers size={30} />}
+          />
+        </div>
+        <DataTable />
+        <BarChartComponent />
       </div>
     </main>
   );
 }
+6;
