@@ -21,8 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-gray-900 h-svh">
         <Aside />
-        {children}
-  
+        <div className="flex h-svh pl-[20%]">{children}</div>
       </body>
     </html>
   );
