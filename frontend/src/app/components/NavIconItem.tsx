@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export type NavIconItemProps = {
@@ -12,9 +13,9 @@ export const NavIconItem: React.FC<NavIconItemProps> = ({
   icon,
 }) => {
   return (
-    <a href={href} className="flex items-center gap-2 hover:font-semibold">
+    <Link href={href} className="flex items-center gap-2 hover:font-semibold">
       {icon}
       {value}
-    </a>
+    </Link>
   );
 };
