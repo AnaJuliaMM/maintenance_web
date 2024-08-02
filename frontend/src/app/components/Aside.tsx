@@ -4,6 +4,7 @@ import Image from "next/image";
 import { GoTools } from "react-icons/go";
 import { LuWarehouse } from "react-icons/lu";
 import { RxDashboard } from "react-icons/rx";
+import { PiWashingMachine } from "react-icons/pi";
 import { FaUsers } from "react-icons/fa";
 import { IoIosListBox } from "react-icons/io";
 
@@ -13,9 +14,9 @@ import { NavIconItemProps } from "./NavIconItem";
 export const Aside = () => {
   const navItems: NavIconItemProps[] = [
     {
-      value: "Dashboards",
-      href: "",
-      icon: <RxDashboard />,
+      value: "Máquinas",
+      href: "machine",
+      icon: <PiWashingMachine />,
     },
     {
       value: "Ambientes",
