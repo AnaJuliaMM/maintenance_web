@@ -1,11 +1,23 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Title } from "@/app/components/Title";
 import { IoAddCircle } from "react-icons/io5";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { useRouter } from "next/navigation";
+
+type Machine = {
+  name: string;
+  type: string;
+  model: string;
+  manufactureDate: string;
+  serialNumber: string;
+  location: string;
+};
 
 export default function Machine() {
+  const router = useRouter();
   const products = [
     {
       name: "Computador A",
@@ -136,6 +148,13 @@ export default function Machine() {
       location: "Sala de TI",
     },
   ];
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+
+  const onRowSelect = (event: any) => {
+
+    router.push(`/machines/${event.data.serialNumber}`);
+
+  };
 
   return (
     <main className="flex flex-col p-6 w-svw gap-4 h-fit">
@@ -149,13 +168,26 @@ export default function Machine() {
       <section className="flex">
         <DataTable
           value={products}
+          selectionMode="single"
+          selection={selectedProduct}
+          onSelectionChange={(e) => setSelectedProduct(e.value)}
+          onRowSelect={onRowSelect}
+          metaKeySelection={false}
+          dataKey="serialNumber"
           paginator
           rows={8}
           paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-          currentPageReportTemplate="{first} to {last} of {totalRecords}"
+          currentPageReportTemplate="{first} a {last} de {totalRecords}"
           className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
           tableStyle={{ width: "55rem", lineBreak: "anywhere" }}
         >
+          <Column
+            field="serialNumber"
+            header="Série"
+            sortable
+            className="p-datatable-column"
+            style={{ width: "20%" }}
+          ></Column>
           <Column
             field="name"
             header="Nome"
@@ -170,16 +202,10 @@ export default function Machine() {
             className="p-datatable-column"
             style={{ width: "20%" }}
           ></Column>
+
           <Column
             field="manufactureDate"
             header="Fabricação"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "20%" }}
-          ></Column>
-          <Column
-            field="serialNumber"
-            header="Série"
             sortable
             className="p-datatable-column"
             style={{ width: "20%" }}
