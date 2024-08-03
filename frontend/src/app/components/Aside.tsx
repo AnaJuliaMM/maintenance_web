@@ -15,7 +15,7 @@ export const Aside = () => {
   const navItems: NavIconItemProps[] = [
     {
       value: "Máquinas",
-      href: "machine",
+      href: "machines",
       icon: <PiWashingMachine />,
     },
     {
