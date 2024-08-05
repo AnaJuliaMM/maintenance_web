@@ -177,7 +177,7 @@ export default function Machine() {
           paginator
           rows={8}
           paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-          currentPageReportTemplate="{first} a {last} de {totalRecords}"
+          currentPageReportTemplate="{last} de {totalRecords}"
           className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
           tableStyle={{ width: "55rem", lineBreak: "anywhere" }}
         >
