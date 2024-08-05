@@ -27,7 +27,7 @@ export default function MachineDetail({ params }: MachineDetailProps) {
   const itemTemplate = (item: MachineType) => {
     return (
       <img
-        src={item.imagesUrl}
+        src={item.imageUrl}
         alt={`Imagem relacionada à máquina ${item.name}`}
         style={{ width: "100%" }}
       />
