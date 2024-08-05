@@ -5,7 +5,7 @@ export type MachineType = {
     manufactureDate: string;
     serialNumber: string;
     location: string;
-    imagesUrl: string
+    imageUrl: string
   };
 
 
