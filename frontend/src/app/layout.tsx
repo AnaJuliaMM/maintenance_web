@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-gray-900 h-svh">
+      <body className="bg-gray-950 h-svh">
         <Aside />
         <div className="flex h-svh pl-[20%]">{children}</div>
       </body>
