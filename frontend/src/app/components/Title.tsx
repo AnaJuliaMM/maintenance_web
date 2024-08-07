@@ -6,6 +6,6 @@ type TitleProps = {
 
 export const Title: React.FC<TitleProps> = ({ children }) => {
   return (
-    <h1 className="p-2  text-blue-50 text-xl border-b">{children}</h1>
+    <h1 className="p-4  text-blue-100 text-2xl border-b-2 border-gray-500 font-bold">{children}</h1>
   );
 };
