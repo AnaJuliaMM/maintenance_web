@@ -15,33 +15,33 @@ export const Aside = () => {
   const navItems: NavIconItemProps[] = [
     {
       value: "Máquinas",
-      href: "machines",
+      href: "/machines",
       icon: <PiWashingMachine />,
     },
     {
       value: "Ambientes",
-      href: "",
+      href: "/",
       icon: <LuWarehouse />,
     },
     {
       value: "Equipamentos",
-      href: "",
+      href: "/",
       icon: <GoTools />,
     },
     {
       value: "Manutenções",
-      href: "",
+      href: "/",
       icon: <IoIosListBox />,
     },
     {
       value: "Usuários",
-      href: "",
+      href: "/",
       icon: <FaUsers />,
     },
   ];
 
   return (
-    <aside className="w-1/5 p-6 bg-gray-950/35 fixed h-svh">
+    <aside className="w-1/5 p-6 bg-gray-900/35 fixed h-svh">
       <Image
         src={"/image/logo.svg"}
         alt="Logo"
