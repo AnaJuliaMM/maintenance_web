@@ -20,9 +20,9 @@ export default function Machine() {
   return (
     <main className="flex flex-col p-6 w-svw gap-4 h-fit">
       <Title>Máquinas</Title>
-      <section className="flex gap-2 items-center cursor-pointer">
-        <div className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold">
-          <IoAddCircle size={30} />
+      <section className="flex justify-items-end gap-2 items-center cursor-pointer">
+        <div className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm">
+          <IoAddCircle size={20} />
           Cadastrar máquina
         </div>
       </section>
