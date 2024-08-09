@@ -18,7 +18,7 @@ A aplicação será utilizada principalmente por três grupos de usuários dentr
 | Perfil de usuário | Descrição, necessidades e interesses. |
 | --- | --- |
 | Gerentes de Manutenção	| Necessitam de uma visão geral das atividades de manutenção, relatórios detalhados e controle de custos.  |
-| Equipes de Manutenção	 | Precisam cadastrar solicitações de manutenção e informar o status, registrar atividades e acompanhar o estoque de peças. |
+| Técnicos de Manutenção	 | Precisam cadastrar solicitações de manutenção e informar o status, registrar atividades e acompanhar o estoque de peças. |
 
 # Personas
 
@@ -38,107 +38,221 @@ A aplicação será utilizada principalmente por três grupos de usuários dentr
 
 # *Requisitos Funcionais*
 
-## Gerenciamento de Máquinas
+### 1. Gerenciamento de Máquinas
 
-1. *FI - Cadastrar Máquina*
-   - **Descrição:** Realizar cadastro de uma nova máquina no sistema
-   - **Critérios de Aceitação:** Incluir no cadastro os campos nome, tipo, modelo, data de fabricação, número de série, localização, histórico de manutenção e a possibilidade de fazer upload de imagens
+1.1 ***Cadastrar máquina***
+   - **Descrição:** Realizar cadastro de uma nova máquina no sistema.
+   - **Critérios de Aceitação:** Incluir no cadastro os campos nome, tipo, modelo, data de fabricação, número de série, localização, histórico de manutenção e a possibilidade de fazer upload de imagens.
    - **Prioridade:** P1
 
-2. *FI - Visualizar detalhes da Máquina*
-   - **Descrição:** Visualizar informações detalhadas sobre a máquina e o histórico de manutenção.
-   - **Critérios de Aceitação:** Incluir nos detalhes o nome, tipo, modelo, data de fabricação, número de série e localização da máquina. Além da visualização de imagem (caso forem adicionadas), histórico de manutenção e as peças e materiais utilizados. 
+1.2 ***Atualizar registro de máquina***
+   - **Descrição:** Atualizar o cadastro de uma máquina no sistema.
+   - **Critérios de Aceitação:** Poder alterar o valor dos campos nome, tipo, modelo, data de fabricação, número de série, localização, histórico de manutenção e remover ou adicionar novas imagens.
+   - **Prioridade:** P2
+
+1.3. ***Visualizar detalhes da máquina***
+   - **Descrição:** Visualizar informações detalhadas sobre a máquina e o histórico de manutenção da mesma.
+   - **Critérios de Aceitação:** Incluir nos detalhes o nome, tipo, modelo, data de fabricação, número de série e localização da máquina. Além da visualização de imagens (caso forem adicionadas), histórico de manutenção e as peças e materiais utilizados. 
    - **Prioridade:** P1
 
-## Gestão de solicitações de manutenção
+### 2. Gestão de solicitações de manutenção
 
-3. *FI - Cadastro de solicitações de manutenção*
-   - **Descrição:** Cadastrar informações referentes a uma nova solitcitação de manutenção
-   - **Critérios de Aceitação:** Incluir no cadastro a descrição do problema, data de solicitação, prioridade e o responsável. 
+2.1 ***Cadastrar uma solicitação de manutenção***
+   - **Descrição:** Cadastrar informações referentes a uma nova solicitação de manutenção.
+   - **Critérios de Aceitação:** Incluir no cadastro a descrição do problema, tipo (preventiva, corretiva, preditiva), data de solicitação, prioridade e o responsável. 
    - **Prioridade:** P1
 
-4. *FI - Visualizar o status da manutenção*
-   - **Descrição:** Visualizar o status da solicitação de manutenção 
-   - **Critérios de Aceitação:** Visualizar o status da manutenção 
-   - **Prioridade:** P1
-
-5. *FI - Atualizar o status da manutenção*
-   - **Descrição:** Atualizar o status da solicitação de manutenção
-   - **Critérios de Aceitação:** Atualizar o status entre pendente, em andamento, concluída, cancelada. 
-   - **Prioridade:** P1
-
-6. *FI - Adicionar comentários e arquivos*
-   - **Descrição:** Adicionar comentários e arquivos relacionados à uma solicitação de manutenção já registrada
-   - **Critérios de Aceitação:** Adição de comentários e arquivos  
-   - **Prioridade:** P1
-
-7. *FI - Atribuir equipes de manutenção às solicitações.*
-   - **Descrição:** Atribuir uma equipe de manutenção como responsável por uma solicitação de manutenção já cadastrada no sistema
+2.2 ***Atribuir equipes de manutenção às solicitações***
+   - **Descrição:** Atribuir uma equipe de manutenção como responsável por uma solicitação de manutenção já cadastrada no sistema.
    - **Critérios de Aceitação:** Tornar uma equipe de manutenção responsável por uma soliticação.
    - **Prioridade:** P1
 
-
-
-
-1. **F1: Gerenciamento de Máquinas**
-   - **Descrição:** Cadastro de máquinas com informações detalhadas, visualização do histórico de manutenções.
-   - **Critérios de Aceitação:** Deve ser possível cadastrar, editar e visualizar máquinas e seu histórico.
+2.3 ***Gerenciar o status da manutenção***
+   - **Descrição:** Visualizar e atualizar o status de andamento da manutenção cadastrada.
+   - **Critérios de Aceitação:** Visualizar o status da manutenção e atualizar entre as opções: pendente, em andamento, concluída, cancelada.
    - **Prioridade:** P1
 
-2. **F2: Gerenciamento de Manutenções**
-   - **Descrição:** Cadastro e acompanhamento de solicitações de manutenção, atribuição de equipes.
-   - **Critérios de Aceitação:** Deve ser possível cadastrar solicitações, atualizar status e adicionar comentários e arquivos.
+2.4.***Adicionar comentários e arquivos***
+   - **Descrição:** Adicionar comentários e arquivos a uma solicitação de manutenção já registrada.
+   - **Critérios de Aceitação:** Adição de comentários, imagens (jpeg e png) ou documentos (pdf).
    - **Prioridade:** P1
 
-3. **F3: Controle de Estoque de Peças**
-   - **Descrição:** Cadastro e gerenciamento de peças de reposição, visualização de estoque em tempo real.
-   - **Critérios de Aceitação:** Deve ser possível registrar entrada e saída de peças, visualizar relatórios de estoque.
+2.5 ***Registrar peças e materiais***
+   - **Descrição:** Registrar as peças e materiais utilizados durante a manutenção, incluindo quantidade e fornecedor.
+   - **Critérios de Aceitação:** O registro deve conter as peças e materiais utilizados durante a manutenção, bem como a quantidade de cada um e o fornecedor.
+   - *Prioridade:* P1
+
+2.6 ***Gerar relatórios de manutenção*** 
+   - **Descrição:** Gerar relatórios de manutenção por máquina, por período (data de solicitação) ou por tipo de manutenção (preventiva, corretiva, preditiva).
+   - **Critérios de Aceitação:** O relatório deve ser por máquina, período ou tipo de manutenção.
+   - **Prioridade:** P1
+
+### 3. Controle de Estoque de Peças
+
+3.1 ***Cadastrar peças***
+   - **Descrição:** Realizar cadastro de peças.
+   - **Critérios de Aceitação:** Incluir no cadastro nome, código, fornecedor, quantidade em estoque, valor unitário.
+   - **Prioridade:** P1
+
+3.2 ***Registrar entrada e saída de peças***
+   - **Descrição:** Registrar a entrada e saída de peças no estoque.
+   - **Critérios de Aceitação:** O registro pode ser de entrada ou saída, e deve conter os campos data e quantidade.
+   - **Prioridade:** P1
+
+3.3 ***Visualizar o estoque de peças***
+   - **Descrição:** Visualizar o estoque de peças em tempo real e gerar relatórios de estoque.
+   - **Critérios de Aceitação:** Visulizar o estoque atualizado em tempo real
+    - **Prioridade:** P1
+
+3.4 ***Gerar relatório de estoque***
+   - **Descrição:** Visualizar o estoque de peças em tempo real e gerar relatórios de estoque.
+   - **Critérios de Aceitação:** gerar relatório com os itens no estoque  
+   - **Prioridade:** P1
+
+### 4. Autenticação e Autorização
+
+4.1 ***Criação de Contas de Usuário***
+   - **Descrição:** O sistema deve permitir a criação de contas de usuário para diferentes tipos de acesso (gerentes, técnicos de manutenção.).
+   - **Critérios de Aceitação:** Contas criadas com sucesso e acessos controlados conforme perfil.
    - **Prioridade:** P1
 
-4. **F4: Gerenciamento de Equipes**
-   - **Descrição:** Cadastro de equipes de manutenção e gerenciamento da disponibilidade dos colaboradores.
-   - **Critérios de Aceitação:** Deve ser possível cadastrar equipes, atribuir solicitações e visualizar disponibilidade.
-   - **Prioridade:** P2
+4.2 ***Controle de Acessos***
+   - **Descrição:** O sistema deve controlar o acesso das funcionalidadescom base no tipo de usuário.
+   - **Critérios de Aceitação:** Acesso controlado corretamente e funcionalidades acessíveis conforme o tipo de usuário. 
+   - **Prioridade:** P1
 
-5. **F5: Autenticação e Autorização**
-   - **Descrição:** Criação de contas de usuário com diferentes níveis de acesso.
-   - **Critérios de Aceitação:** Deve ser possível criar contas e controlar acesso às funcionalidades da aplicação.
-   - **Prioridade:** P1
 
-**P1** = **Crítico | P1 = Importante | P2 = Bom ter**
+# *Casos de uso para os requisitos funcionais*
 
-### *Casos de uso*
+### 1. Gerenciamento de Máquinas
 
-> **Caso de uso 1:** Descreva como os usuários utilizarão o produto em diferentes cenários. Isso ajuda a ilustrar a aplicação prática das funcionalidades.
-> 
+1.1 ***Cadastrar máquina***
+> Como um **gerente de manutenção**, eu quero **cadastrar uma nova máquina** para que **o sistema possa rastrear e gerenciar as manutenções dessa máquina de forma eficiente**.
 
-> **Caso de uso 2:** Descreva como os usuários utilizarão o produto em diferentes cenários. Isso ajuda a ilustrar a aplicação prática das funcionalidades.
-> 
+1.2 ***Atualizar registro de máquina***
 
-> **Caso de uso 3:** Descreva como os usuários utilizarão o produto em diferentes cenários. Isso ajuda a ilustrar a aplicação prática das funcionalidades.
-> 
+> Como um **gerente de manutenção**, eu quero **atualizar o cadastro de uma máquina** para que **as informações estejam sempre corretas e atualizadas no sistema**.
+
+1.3 ***Visualizar detalhes da máquina***
+
+> Como um **gerente de manutenção** ou um **técnico de manutenção**, eu quero **visualizar os detalhes de uma máquina** para que **eu possa acessar informações relevante, o histórico de manutenção e verificar as pessoas que foram utilizadas no processo**.
+
+
+### 2. Gestão de solicitações de manutenção
+
+2.1 ***Cadastrar uma solicitação de manutenção***
+
+> Como um **gerente de manutenção**, eu quero **cadastrar uma solicitação de manutenção** para que **minha equipe tenha acesso à novas demandas.**
+
+2.2 ***Atribuir equipes de manutenção às solicitações***
+
+> Como um **gerente de manutenção**, eu quero **atribuir equipes de manutenção às solicitações** para que **as tarefas sejam distribuídas de forma organizada e eficiente**.
+
+2.3 ***Gerenciar o status da manutenção***
+
+> Como um **técnico de manutenção**, eu quero **atualizar o status da manutenção** para que **todos saibam em que estágio o processo está e possam agir de acordo**.
+
+2.4 ***Adicionar comentários e arquivos***
+
+> Como um **técnico de manutenção**, eu quero **adicionar comentários e arquivos** a uma solicitação de manutenção para que **possa fornecer informações adicionais ou evidências do problema e assim compartilhar com a equipe todas as informações necessárias para a resolução**.
+
+2.5 ***Registrar peças e materiais***
+
+> Como um **técnico de manutenção**, eu quero **registrar as peças e materiais utilizados** para que **o sistema tenha um registro preciso do que foi utilizado em cada manutenção**.
+
+2.6 ***Gerar relatórios de manutenção***
+
+> Como um **gerente de manutenção**, eu quero **gerar relatórios de manutenção** para que **possa analisar o desempenho das máquinas e a eficiência das manutenções realizadas**.
+
+### 3. Controle de Estoque de Peças
+
+3.1 ***Cadastrar peças***
+
+> Como um **técnico de manutenção**, eu quero **cadastrar peças** para que **o estoque esteja atualizado e disponível para consulta**.
+
+3.2 ***Registrar entrada e saída de peças***
+
+> Como um **técnico de manutenção**, eu quero **registrar a entrada e saída de peças** para que **o sistema mantenha o controle preciso do estoque**.
+
+3.3 ***Visualizar o estoque de peças***
+
+> Como um **técnico de manutenção**, eu quero **visualizar o estoque de peças em tempo real** para que **possa tomar decisões informadas sobre novas solicitações de compra e uso de materiais**.
+
+3.4 ***Gerar relatório de estoque***
+
+> Como um **gerente de manutenção**, eu quero **gerar relatórios de estoque** para que **possa avaliar as necessidades futuras de peças e materiais**.
+
+### 4. Autenticação e Autorização
+
+4.1 ***Criação de Contas de Usuário***
+
+> Como um **gerente de manutenção**, eu quero **criar contas de usuário** para que **cada técnico de manutenção tenha o acesso ao sistema e suas funcionalidades**.
+
+4.2 ***Controle de Acessos***
+
+> Como um **gerente de manutenção**, eu quero **controlar o tipo de usuário** para que **cada usuário só tenha acesso ao que é relevante para sua função**.
 
 ---
 
 # *Requisitos Não Funcionais*
 
-[Os requisitos não funcionais descrevem os critérios de desempenho, segurança, usabilidade e outras características que o sistema deve possuir. Eles garantem que o sistema funcione eficientemente sob diversas condições.]
+1. ***Desempenho***
+   - **Descrição:** O sistema deve suportar até 500 solicitações de manutenção simultaneamente com um tempo de resposta inferior a 2 segundos.
+   - **Critérios de Aceitação:** Testes de desempenho mostram que o sistema atende aos requisitos estabelecidos.
+   - **Prioridade:** P1
 
-1. **NF1:** Identifique aspectos como desempenho, segurança, usabilidade, confiabilidade, etc. **P1**
-2. **NF2:** Identifique aspectos como desempenho, segurança, usabilidade, confiabilidade, etc. **P2**
-3. **NF3:** Identifique aspectos como desempenho, segurança, usabilidade, confiabilidade, etc. **P3**
+2. ***Segurança***
+   - **Descrição:** O sistema deve garantir que apenas usuários autorizados possam acessar e modificar informações sensíveis.
+   - **Critérios de Aceitação:** Implementação de autenticação e autorização adequadas, com testes de segurança realizados.
+   - **Prioridade:** P1
 
-**P1** = **Crítico | P1 = Importante | P2 = Bom ter**
+3. ***Usabilidade***
+   - **Descrição:** O sistema deve ter uma interface intuitiva e fácil de usar para garantir que os usuários possam realizar suas tarefas sem dificuldades.
+   - **Critérios de Aceitação:** Feedback positivo de testes de usabilidade realizados com usuários representativos.
+   - **Prioridade:** P1
+
+4. ***Responsividade***
+   - **Descrição:** A aplicação web deve funcionar perfeitamente em diferentes dispositivos (computadores, tablets, smartphones).
+   - **Critérios de Aceitação:** Testes de responsividade confirmam que a aplicação é utilizável e funcional em diversos tamanhos de tela.
+   - **Prioridade:** P1
+
+
 
 ### 📊 Métricas
 
-[Seja específico ao descrever os padrões ou métricas que devem ser atendidos. Inclua descrições detalhadas e, se possível, métricas mensuráveis.]
+### Desempenho
 
-| Medida | Estado atual | Esperado | Resultados |
-| --- | --- | --- | --- |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+| Medida                | Estado atual | Esperado                                               | Resultados |
+| --------------------- | ------------ | ------------------------------------------------------ | ---------- |
+| **Latência máxima**   | N/A          | Resposta em < 2 segundos para 95% das solicitações     |            |
+| **Capacidade de Carga** | N/A        | Suportar até 500 solicitações simultâneas              |            |
+| **Testes de Stress**  | N/A          | Suporte até 700 solicitações simultâneas sem falhas    |            |
+
+### Segurança
+
+| Medida                              | Estado atual | Esperado                                                        | Resultados |
+| ----------------------------------- | ------------ | --------------------------------------------------------------- | ---------- |
+| **Cobertura de Autenticação**       | N/A          | 100% das páginas/funcionalidades requerem autenticação |            |
+| **Teste de Penetração**             | N/A          | 0 vulnerabilidades críticas ou altas após testes semestrais     |            |
+| **Auditoria de Segurança**          | N/A          | Correções em até 30 dias para vulnerabilidades encontradas       |            |
+
+### Usabilidade
+
+| Medida                                | Estado atual | Esperado                                                   | Resultados |
+| ------------------------------------- | ------------ | ---------------------------------------------------------- | ---------- |
+| **Taxa de Erros de Usuário**          | N/A          | < 5% dos usuários relatarão dificuldades                    |            |
+| **Tempo Médio para Completar Tarefas** | N/A          | Completar tarefas principais em < 3 minutos                |            |
+| **Satisfação do Usuário**             | N/A          | Alcançar uma pontuação mínima de 85% de satisfação          |            |
+| **Índice de Aprendizagem**            | N/A          | Novos usuários executam tarefas comuns em < 10 minutos      |            |
+
+### Responsividade
+
+| Medida                                | Estado atual | Esperado                                                | Resultados |
+| ------------------------------------- | ------------ | ------------------------------------------------------- | ---------- |
+| **Compatibilidade Multidispositivo**  | N/A          | 100% das funcionalidades críticas testadas e aprovadas  |            |
+| **Taxa de Zoom e Escala**             | N/A          | Layout funcional e legível em resoluções de 1024px a 2560px |            |
+| **Teste de Cross-Browser**            | N/A          | Compatibilidade em, no mínimo, 2 navegadores principais  |            |
+
 
 ---
 
