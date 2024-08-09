@@ -12,27 +12,27 @@ A implementação deste sistema visa resolver problemas críticos do sistema man
 
 # ***Público alvo***
 
-A aplicação será utilizada principalmente por três grupos de usuários dentro da empresa:
+A aplicação será utilizada principalmente por dois grupos de usuários dentro da empresa:
 
 
 | Perfil de usuário | Descrição, necessidades e interesses. |
 | --- | --- |
-| Gerentes de Manutenção	| Necessitam de uma visão geral das atividades de manutenção, relatórios detalhados e controle de custos.  |
-| Técnicos de Manutenção	 | Precisam cadastrar solicitações de manutenção e informar o status, registrar atividades e acompanhar o estoque de peças. |
+| Gerentes de Manutenção	| Necessitam de uma visão geral das atividades de manutenção, relatórios detalhados e controle do estoque de peças.  |
+| Técnicos de Manutenção	 | Precisam cadastrar solicitações de manutenção, informar o status, registrar atividades e acompanhar o estoque de peças. |
 
 # Personas
 
 1. **Carlos, o Gerente de Manutenção:** 
-    - Nome: Carlos Silva
-    - Ocupação: Gerente de Manutenção
-    - Objetivos: Manter a operação eficiente, reduzir custos de manutenção, garantir a segurança.
-    - Frustrações: Falta de visibilidade sobre o status das manutenções e dificuldade em gerar relatórios detalhados.
+   - Nome: Carlos Henrique
+   - Ocupação: Gerente de Manutenção
+   - Objetivos: Manter a operação eficiente, gerenciar as operações de manutenção e garantir a segurança.
+   - Frustrações: Falta de visibilidade sobre o status das manutenções e dificuldade em gerar relatórios detalhados.
 
 2. **Camila, a Técnica de Manutenção:** 
-    - Nome: Camila Yukari
-    - Ocupação: Técnica de Manutenção
-    - Objetivos: Resolver problemas de manutenção rapidamente, registrar atividades de forma eficaz.
-    - Frustrações: Comunicação ineficiente com outros membros da equipe e dificuldade em rastrear peças e materiais utilizados.
+   - Nome: Camila Yukari
+   - Ocupação: Técnica de Manutenção
+   - Objetivos: Resolver problemas de manutenção rapidamente, registrar atividades de forma eficaz.
+   - Frustrações: Comunicação ineficiente com outros membros da equipe e dificuldade em rastrear peças e materiais utilizados.
 
 ---
 
