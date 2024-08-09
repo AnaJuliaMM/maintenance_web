@@ -2,7 +2,7 @@
 
 # *Introdução & objetivo*
 
-O objetivo deste projeto é desenvolver uma aplicação web para gerenciar as atividades de manutenção em uma empresa industrial que fabrica peças automotivas. O sistema atual, que é manual, apresenta diversos problemas como falta de organização, comunicação ineficiente e perda de produtividade. A nova aplicação visa otimizar os processos, melhorar a comunicação e organização, e, consequentemente, aumentar a produtividade e segurança dos colaboradores.
+A gestão manual de manutenção é um desafio para muitas empresas. Perda de dados, dificuldade em acompanhar o histórico das máquinas e comunicação ineficiente entre as equipes são alguns dos problemas mais comuns. Nossa plataforma digital de gerenciamento de manutenção resolve essa problemática ao centralizar os dados operacionais e automatizar processos, como a geração de relatórios e a gestão de novas demandas. Dessa forma, nossa solução melhora a organização e a comunicação entre equipes, acarretando na redução de custos e preparando empresas para um mercado cada vez mais competitivo.
 
 # *Por que* implementar isto?
 
