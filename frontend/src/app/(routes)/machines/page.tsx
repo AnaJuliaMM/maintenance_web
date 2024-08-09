@@ -1,85 +1,92 @@
 "use client";
 import React, { useState } from "react";
-import { Title } from "@/app/components/Title";
-import { machineList } from "@/app/constants/machine";
 
 import { IoAddCircle } from "react-icons/io5";
-
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
+import { RiFileList2Line } from "react-icons/ri";
+
+import { Title } from "@/app/components/Title";
+import { machineList } from "@/app/constants/machine";
 
 export default function Machine() {
   const router = useRouter();
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [selectedRow, setSelectedRow] = useState<any>(null);
 
+  // Functions
   const onRowSelect = (event: any) => {
     router.push(`/machines/${event.data.serialNumber}`);
   };
 
   return (
-    <main className="flex flex-col p-6 w-svw gap-4 h-fit">
-      <Title>Máquinas</Title>
-      <section className="flex justify-items-end gap-2 items-center cursor-pointer">
-        <div className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm">
-          <IoAddCircle size={20} />
-          Cadastrar máquina
+    <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
+      <div className="flex  justify-between p-5">
+        <h1 className="text-blue-100 text-2xl font-bold">Máquinas</h1>
+        <div className="flex gap-4">
+          <div className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm">
+            <IoAddCircle size={20} />
+            Cadastrar máquina
+          </div>
+          <div className="flex gap-2 justify-center items-center bg-pink-600 py-2 px-4 rounded-lg font-semibold text-sm">
+            <RiFileList2Line size={20} />
+            Gerar Relatório
+          </div>
         </div>
-      </section>
-      <section className="flex">
-        <DataTable
-          value={machineList}
-          selectionMode="single"
-          selection={selectedProduct}
-          onSelectionChange={(e) => setSelectedProduct(e.value)}
-          onRowSelect={onRowSelect}
-          metaKeySelection={false}
-          dataKey="serialNumber"
-          paginator
-          rows={8}
-          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-          currentPageReportTemplate="{last} de {totalRecords}"
-          className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
-          tableStyle={{ width: "55rem", lineBreak: "anywhere" }}
-        >
-          <Column
-            field="serialNumber"
-            header="Série"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "20%" }}
-          ></Column>
-          <Column
-            field="name"
-            header="Nome"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "20%" }}
-          ></Column>
-          <Column
-            field="model"
-            header="Modelo"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "20%" }}
-          ></Column>
+      </div>
 
-          <Column
-            field="manufactureDate"
-            header="Fabricação"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "20%" }}
-          ></Column>
-          <Column
-            field="location"
-            header="Localização"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "20%" }}
-          ></Column>
-        </DataTable>
-      </section>
+      <DataTable
+        value={machineList}
+        selectionMode="single"
+        selection={selectedRow}
+        onSelectionChange={(e) => setSelectedRow(e.value)}
+        onRowSelect={onRowSelect}
+        metaKeySelection={false}
+        dataKey="serialNumber"
+        paginator
+        rows={8}
+        paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+        currentPageReportTemplate="{last} de {totalRecords}"
+        className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
+        tableStyle={{ lineBreak: "anywhere" }}
+      >
+        <Column
+          field="serialNumber"
+          header="Série"
+          sortable
+          className="p-datatable-column"
+          style={{ width: "20%" }}
+        ></Column>
+        <Column
+          field="name"
+          header="Nome"
+          sortable
+          className="p-datatable-column"
+          style={{ width: "20%" }}
+        ></Column>
+        <Column
+          field="model"
+          header="Modelo"
+          sortable
+          className="p-datatable-column"
+          style={{ width: "20%" }}
+        ></Column>
+
+        <Column
+          field="manufactureDate"
+          header="Fabricação"
+          sortable
+          className="p-datatable-column"
+          style={{ width: "20%" }}
+        ></Column>
+        <Column
+          field="location"
+          header="Localização"
+          sortable
+          className="p-datatable-column"
+          style={{ width: "20%" }}
+        ></Column>
+      </DataTable>
     </main>
   );
 }
