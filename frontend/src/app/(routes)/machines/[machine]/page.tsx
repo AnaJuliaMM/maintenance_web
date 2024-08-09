@@ -1,14 +1,14 @@
 "use client";
-import React from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import React, { useState } from "react";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { useRouter } from "next/navigation";
+import { Galleria } from "primereact/galleria";
 
 import { machineList } from "@/app/constants/machine";
-import { MachineType } from "@/app/types/machine";
+import { maintenanceList } from "@/app/constants/maintenance";
 import { Title } from "@/app/components/Title";
-import { Galleria } from "primereact/galleria";
 
 type Params = {
   machine: string;
@@ -19,9 +19,16 @@ interface MachineDetailProps {
 }
 
 export default function MachineDetail({ params }: MachineDetailProps) {
-  const machineDetail: MachineType = machineList.filter(
-    (machine: MachineType) => machine.serialNumber === params.machine
+  const router = useRouter();
+  const [selectedRow, setSelectedRow] = useState<any>(null);
+  const machineDetail = machineList.filter(
+    (machine) => machine.serialNumber === params.machine
   )[0];
+
+  // Functions
+  const onRowSelect = (event: any) => {
+    router.push(`/maintenances/${event.data.code}`);
+  };
 
   const itemTemplate = (item: string) => {
     return (
@@ -38,100 +45,87 @@ export default function MachineDetail({ params }: MachineDetailProps) {
   };
 
   return (
-    <main className="flex flex-col p-6 w-svw gap-4 h-fit">
-      <section>
-        <Title> {machineDetail.name}</Title>
-        <div className="flex items-center gap-1 ">
-          <Galleria
-            value={machineDetail.imagesUrl}
-            numVisible={5}
-            circular
-            style={{ maxWidth: "20rem" }}
-            item={itemTemplate}
-            thumbnail={thumbnailTemplate}
-            showItemNavigators
-            showItemNavigatorsOnHover
-            showIndicators
-            showThumbnails={false}
-            className="bg-[var(--surface-card)] p-4 rounded-lg w-1/2"
-          />
-          <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-lg p-4 w-1/2">
-            <div>
-              <span className="font-bold">Nome:</span> {machineDetail.name}
-            </div>
-            <div>
-              <span className="font-bold">Tipo :</span> {machineDetail.type}
-            </div>
-            <div>
-              <span className="font-bold">Modelo:</span> {machineDetail.model}
-            </div>
-            <div>
-              <span className="font-bold">Localização:</span>{" "}
-              {machineDetail.location}
-            </div>
-            <div>
-              <span className="font-bold">Número de Série :</span>{" "}
-              {machineDetail.serialNumber}
-            </div>
-            <div>
-              <span className="font-bold">Data de fabricação :</span>{" "}
-              {machineDetail.manufactureDate}
-            </div>
+    <main className="flex flex-col p-6 w-svw h-fit">
+      <Title>{machineDetail.name}</Title>
+      <section className="flex flex-col items-center gap-4">
+        <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-5 w-full border-b-4  border-purple-700">
+          <div>
+            <span className="font-bold">Nome:</span> {machineDetail.name}
+          </div>
+          <div>
+            <span className="font-bold">Tipo :</span> {machineDetail.type}
+          </div>
+          <div>
+            <span className="font-bold">Modelo:</span> {machineDetail.model}
+          </div>
+          <div>
+            <span className="font-bold">Localização:</span>{" "}
+            {machineDetail.location}
+          </div>
+          <div>
+            <span className="font-bold">Número de Série :</span>{" "}
+            {machineDetail.serialNumber}
+          </div>
+          <div>
+            <span className="font-bold">Data de fabricação :</span>{" "}
+            {machineDetail.manufactureDate}
           </div>
         </div>
+        <Galleria
+          value={machineDetail.imagesUrl}
+          numVisible={5}
+          circular
+          style={{ maxWidth: "40rem" }}
+          item={itemTemplate}
+          thumbnail={thumbnailTemplate}
+          showItemNavigators
+          showItemNavigatorsOnHover
+          showIndicators
+          showThumbnails={false}
+          className="p-4 rounded-lg w-1/2"
+        />
       </section>
       <section>
-        <h1 className="p-4  text-blue-50/95 text-xl"> Peças e Materiais</h1>
-      </section>
-      <section>
-        <h1 className="p-4  text-blue-50/95 text-xl">
-          {" "}
-          Histórico de Manutenções
-        </h1>
+        <Title>Histórico de Manutenção</Title>
         <DataTable
-          value={machineList}
+          value={maintenanceList}
+          selectionMode="single"
+          selection={selectedRow}
+          onSelectionChange={(e) => setSelectedRow(e.value)}
+          onRowSelect={onRowSelect}
+          metaKeySelection={false}
+          dataKey="serialNumber"
           paginator
           rows={8}
           paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
           currentPageReportTemplate="{last} de {totalRecords}"
           className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
-          tableStyle={{ width: "55rem", lineBreak: "anywhere" }}
+          tableStyle={{ lineBreak: "anywhere" }}
         >
           <Column
-            field="serialNumber"
-            header="Série"
+            field="requisitionDate"
+            header="Data"
             sortable
             className="p-datatable-column"
-            style={{ width: "20%" }}
           ></Column>
           <Column
-            field="name"
-            header="Nome"
+            field="description"
+            header="Descrição"
             sortable
             className="p-datatable-column"
-            style={{ width: "20%" }}
+            style={{ width: "35%" }}
           ></Column>
           <Column
-            field="model"
-            header="Modelo"
+            field="type"
+            header="Tipo"
             sortable
             className="p-datatable-column"
-            style={{ width: "20%" }}
-          ></Column>
-
-          <Column
-            field="manufactureDate"
-            header="Fabricação"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "20%" }}
           ></Column>
           <Column
-            field="location"
-            header="Localização"
+            field="responsableTeam"
+            header="Equipe"
             sortable
             className="p-datatable-column"
-            style={{ width: "20%" }}
           ></Column>
         </DataTable>
       </section>
