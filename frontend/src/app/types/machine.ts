@@ -1,4 +1,4 @@
-export type MachineType = {
+export type machineType = {
   name: string;
   type: string;
   model: string;
