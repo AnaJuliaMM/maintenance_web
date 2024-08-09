@@ -242,8 +242,8 @@ A aplicação será utilizada principalmente por dois grupos de usuários dentro
 | ------------------------------------- | ------------ | ---------------------------------------------------------- | ---------- |
 | **Taxa de Erros de Usuário**          | N/A          | < 5% dos usuários relatarão dificuldades                    |            |
 | **Tempo Médio para Completar Tarefas** | N/A          | Completar tarefas principais em < 3 minutos                |            |
-| **Satisfação do Usuário**             | N/A          | Alcançar uma pontuação mínima de 85% de satisfação          |            |
 | **Índice de Aprendizagem**            | N/A          | Novos usuários executam tarefas comuns em < 10 minutos      |            |
+| **Satisfação do Usuário**             | N/A          | Alcançar uma pontuação mínima de 85% de satisfação          |            |
 
 ### Responsividade
 
