@@ -46,7 +46,6 @@ body {
   }
 
   /* FileUpload (from PrimeReact) */
-
   .file-upload > div > span,
   .file-upload > div > button {
     display: flex;
@@ -54,6 +53,7 @@ body {
     margin: 0.5rem;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
+    color: #f0f8ff;
   }
   .file-upload > div > button {
     background-color: #ff0060;
@@ -67,9 +67,9 @@ body {
     border-radius: 0.5rem;
     padding: 1rem 0.5rem;
     background-color: rgba(195, 195, 195, 0.474);
+  }
 
   /*  Register Form*/
-  }
   .register-form {
     display: flex;
     width: 100%;
@@ -89,7 +89,7 @@ body {
     padding: .25rem;
     width: 50%;
     color: black;
-    background-color: rgba(246, 246, 246, 0.922);
+    background-color: rgb(214, 210, 210);
     border-radius: .1rem;
   }
 }
