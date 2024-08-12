@@ -18,7 +18,7 @@ export default function Home({ params }: MaintenanceDetailProps) {
 
   return (
     <main className="flex flex-col p-6 w-svw gap-4 h-fit">
-      <div className="flex  justify-between p-5">
+      <div className="flex  justify-between py-5">
         <h1 className="text-blue-100 text-2xl font-bold">
           {maintenanceDetail.title}
         </h1>
