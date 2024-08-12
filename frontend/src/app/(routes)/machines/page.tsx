@@ -9,6 +9,7 @@ import { RiFileList2Line } from "react-icons/ri";
 
 import { Title } from "@/app/components/Title";
 import { machineList } from "@/app/constants/machine";
+import Link from "next/link";
 
 export default function Machine() {
   const router = useRouter();
@@ -24,10 +25,13 @@ export default function Machine() {
       <div className="flex  justify-between p-5">
         <h1 className="text-blue-100 text-2xl font-bold">Máquinas</h1>
         <div className="flex gap-4">
-          <div className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm">
-            <IoAddCircle size={20} />
-            Cadastrar máquina
-          </div>
+          <Link href="/machines/register">
+            <div className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm">
+              <IoAddCircle size={20} />
+              Cadastrar máquina
+            </div>
+          </Link>
+
           <div className="flex gap-2 justify-center items-center bg-pink-600 py-2 px-4 rounded-lg font-semibold text-sm">
             <RiFileList2Line size={20} />
             Gerar Relatório
