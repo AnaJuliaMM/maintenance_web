@@ -98,18 +98,21 @@ export default function Home() {
           />
         </div>
         <div>
-          <label htmlFor="location">Imagens:</label>
-          <FileUpload
-            name="demo[]"
-            url={"/api/upload"}
-            multiple
-            accept="image/*"
-            maxFileSize={1000000}
-            emptyTemplate={<p className="m-0">Faça o upload de imagens.</p>}
-            className="w-3/4 p-4 mb-4 bg-gray-200 rounded-sm text-black"
+          <label htmlFor="images">Imagens:</label>
+          <input
+            type="file"
+            id="images"
+            name="images"
+            required
           />
+          
         </div>
-        <button type="submit" className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm">Submit</button>
+        <button
+          type="submit"
+          className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
+        >
+          Submit
+        </button>
       </form>
     </main>
   );
