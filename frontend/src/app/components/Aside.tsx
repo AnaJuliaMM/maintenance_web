@@ -19,22 +19,17 @@ export const Aside = () => {
       icon: <PiWashingMachine />,
     },
     {
-      value: "Ambientes",
+      value: "Manutenções",
+      href: "/maintenances",
+      icon: <IoIosListBox />,
+    },
+    {
+      value: "Estoque",
       href: "/",
       icon: <LuWarehouse />,
     },
     {
-      value: "Equipamentos",
-      href: "/",
-      icon: <GoTools />,
-    },
-    {
-      value: "Manutenções",
-      href: "/",
-      icon: <IoIosListBox />,
-    },
-    {
-      value: "Usuários",
+      value: "Acessos",
       href: "/",
       icon: <FaUsers />,
     },
