@@ -99,13 +99,7 @@ export default function Home() {
         </div>
         <div>
           <label htmlFor="images">Imagens:</label>
-          <input
-            type="file"
-            id="images"
-            name="images"
-            required
-          />
-          
+          <input type="file" id="images" name="images" required />
         </div>
         <button
           type="submit"
