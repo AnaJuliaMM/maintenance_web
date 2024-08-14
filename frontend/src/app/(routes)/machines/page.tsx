@@ -59,14 +59,14 @@ export default function Machine() {
           header="Série"
           sortable
           className="p-datatable-column"
-          style={{ width: "20%" }}
+          style={{ width: "15%" }}
         ></Column>
         <Column
           field="name"
           header="Nome"
           sortable
           className="p-datatable-column"
-          style={{ width: "20%" }}
+          style={{ width: "25%" }}
         ></Column>
         <Column
           field="model"
@@ -81,7 +81,7 @@ export default function Machine() {
           header="Fabricação"
           sortable
           className="p-datatable-column"
-          style={{ width: "20%" }}
+          style={{ width: "15%" }}
         ></Column>
         <Column
           field="location"
