@@ -26,9 +26,10 @@ export default function Home({ params }: MaintenanceDetailProps) {
           {maintenanceDetail.status}
         </div>
       </div>
-      <p>{maintenanceDetail.description}</p>
+
       <section className="flex flex-col items-center gap-4">
         <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-5 w-full border-b-4 border-pink-700">
+          <p>{maintenanceDetail.description}</p>
           <div>
             <span className="font-bold">Código:</span> {maintenanceDetail.code}
           </div>
@@ -44,7 +45,7 @@ export default function Home({ params }: MaintenanceDetailProps) {
             {maintenanceDetail.priority}
           </div>
           <div>
-            <span className="font-bold">Time:</span>
+            <span className="font-bold">Time: </span>
             {maintenanceDetail.responsableTeam}
           </div>
         </div>
