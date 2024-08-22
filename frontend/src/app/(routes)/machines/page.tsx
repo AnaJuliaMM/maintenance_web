@@ -8,16 +8,44 @@ import { useRouter } from "next/navigation";
 import { RiFileList2Line } from "react-icons/ri";
 
 import { Title } from "@/app/components/Title";
+import MachineRegisterModal from "@/app/components/modals/ModelTest";
 import { machineList } from "@/app/constants/machine";
 import Link from "next/link";
 
 export default function Machine() {
   const router = useRouter();
   const [selectedRow, setSelectedRow] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    type: "",
+    model: "",
+    manufactureDate: "",
+    serialNumber: "",
+    location: "",
+    images: null,
+  });
 
   // Functions
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const onRowSelect = (event: any) => {
     router.push(`/machines/${event.data.serialNumber}`);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, files } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Form Data:", formData);
+    setIsModalOpen(false); // Fechar o modal após o envio
   };
 
   return (
@@ -25,12 +53,13 @@ export default function Machine() {
       <div className="flex  justify-between p-5">
         <h1 className="text-blue-100 text-2xl font-bold">Máquinas</h1>
         <div className="flex gap-4">
-          <Link href="/machines/register">
-            <div className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm">
-              <IoAddCircle size={20} />
-              Cadastrar máquina
-            </div>
-          </Link>
+          <button
+            onClick={openModal}
+            className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
+          >
+            <IoAddCircle size={20} />
+            Cadastrar Produto
+          </button>
 
           <div className="flex gap-2 justify-center items-center bg-pink-600 py-2 px-4 rounded-lg font-semibold text-sm">
             <RiFileList2Line size={20} />
@@ -39,6 +68,13 @@ export default function Machine() {
         </div>
       </div>
 
+      <MachineRegisterModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        formData={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
       <DataTable
         value={machineList}
         selectionMode="single"

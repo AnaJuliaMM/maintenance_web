@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 import { FileUpload } from "primereact/fileupload";
+import { MdBookmarkAdd } from "react-icons/md";
 
 import { Title } from "@/app/components/Title";
 import { machineType } from "@/app/types/machine";
@@ -28,8 +29,12 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col p-6 w-svw gap-4 h-fit">
-      <Title>Cadastrar Máquina</Title>
+    <main className="flex flex-col p-6 w-svw gap-4 h-fit items-center">
+      <div className="flex justify-center items-center gap-4">
+        <MdBookmarkAdd color={"#d2e2f7"} size={40}/>
+        <Title>Cadastrar Máquina</Title>
+      </div>
+
       <form className="register-form">
         <div>
           <label htmlFor="name">Nome:</label>

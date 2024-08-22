@@ -74,22 +74,23 @@ body {
     display: flex;
     width: 100%;
     flex-direction: column;
-    padding: 1rem;
+    padding: .5rem;
     background-color: rgb(161 161 170 / 0.1);
   }
   .register-form div {
     display: flex;
+    gap: 1rem;
     justify-content: space-between;
-    padding: .5rem;
+    align-items: center;
+    padding: .2rem;
     font-weight: 600;
   }
   .register-form div input {
     display: flex;
     justify-content: center;
-    padding: .25rem;
-    width: 50%;
+    padding: .2rem;
     color: black;
-    background-color: rgb(214, 210, 210);
-    border-radius: .1rem;
+    background-color: #d2e2f7;
+    border-radius: .25rem;
   }
 }
