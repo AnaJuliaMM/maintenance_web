@@ -6,6 +6,7 @@ import { IoIosAddCircle } from "react-icons/io";
 interface MachineRegisterModalProps {
   isOpen: boolean;
   onClose: () => void;
+  title: string;
   children: React.ReactNode;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
@@ -13,6 +14,7 @@ interface MachineRegisterModalProps {
 const MachineRegisterModal: React.FC<MachineRegisterModalProps> = ({
   isOpen,
   onClose,
+  title,
   children,
   handleSubmit,
 }) => {
@@ -28,7 +30,7 @@ const MachineRegisterModal: React.FC<MachineRegisterModalProps> = ({
         <div className="flex justify-between items-center">
           <div className="flex justify-center items-center gap-4">
             <IoIosAddCircle color={"#d2e2f7"} size={25} />
-            <Title>Cadastrar Máquina</Title>
+            <Title>{title}</Title>
           </div>
           <button onClick={onClose} className="text-white hover:text-gray-900">
             X

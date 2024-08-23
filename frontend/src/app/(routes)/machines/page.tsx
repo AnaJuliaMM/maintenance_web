@@ -59,15 +59,16 @@ export default function Machine() {
             Cadastrar Produto
           </button>
 
-          <div className="flex gap-2 justify-center items-center bg-pink-600 py-2 px-4 rounded-lg font-semibold text-sm">
+          <button className="flex gap-2 justify-center items-center bg-pink-600 py-2 px-4 rounded-lg font-semibold text-sm">
             <RiFileList2Line size={20} />
             Gerar Relatório
-          </div>
+          </button>
         </div>
       </div>
 
       <MachineRegisterModal
         isOpen={isModalOpen}
+        title="Cadastrar Máquina"
         onClose={() => setIsModalOpen(false)}
         handleSubmit={handleSubmit}
       >
