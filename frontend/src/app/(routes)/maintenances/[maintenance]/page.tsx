@@ -213,7 +213,7 @@ export default function Home({ params }: MaintenanceDetailProps) {
                 id="description"
                 name="description"
                 required
-                className=" p-5"
+                className=" p-5 rounded-md"
               />
             </div>
             <button
