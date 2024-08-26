@@ -36,8 +36,8 @@ export const Aside = () => {
       icon: <LuWarehouse />,
     },
     {
-      value: "Acessos",
-      href: "/acess",
+      value: "Equipes",
+      href: "/teams",
       icon: <FaUsers />,
     },
   ];
