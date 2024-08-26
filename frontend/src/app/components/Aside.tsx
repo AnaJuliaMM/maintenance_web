@@ -7,6 +7,8 @@ import { RxDashboard } from "react-icons/rx";
 import { PiWashingMachine } from "react-icons/pi";
 import { FaUsers } from "react-icons/fa";
 import { IoIosListBox } from "react-icons/io";
+import { MdAttachMoney } from "react-icons/md";
+
 
 import { NavIconItem } from "./NavIconItem";
 import { NavIconItemProps } from "./NavIconItem";
@@ -24,13 +26,18 @@ export const Aside = () => {
       icon: <IoIosListBox />,
     },
     {
+      value: "Despesas",
+      href: "/expenses",
+      icon: <MdAttachMoney />,
+    },
+    {
       value: "Estoque",
-      href: "/",
+      href: "/stock",
       icon: <LuWarehouse />,
     },
     {
       value: "Acessos",
-      href: "/",
+      href: "/acess",
       icon: <FaUsers />,
     },
   ];
