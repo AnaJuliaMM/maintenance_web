@@ -48,7 +48,9 @@ export default function MachineDetail({ params }: MachineDetailProps) {
     <main className="flex flex-col p-6 w-svw h-fit">
       <Title>{machineDetail.name}</Title>
       <section className="flex flex-col items-center gap-4">
-        <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-5 w-full border-b-4  border-purple-700">
+
+        {/* Details card */}
+        <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-5 w-full border-l-4  border-purple-700">
           <div>
             <span className="font-bold">Nome:</span> {machineDetail.name}
           </div>
@@ -71,6 +73,8 @@ export default function MachineDetail({ params }: MachineDetailProps) {
             {machineDetail.manufactureDate}
           </div>
         </div>
+
+        {/* Photos */}
         <Galleria
           value={machineDetail.imagesUrl}
           numVisible={5}
@@ -85,6 +89,8 @@ export default function MachineDetail({ params }: MachineDetailProps) {
           className="p-4 rounded-lg w-1/2"
         />
       </section>
+
+      {/* Maintenance table */}
       <section>
         <Title>Histórico de Manutenção</Title>
         <DataTable
