@@ -18,16 +18,79 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer components {
+  /* Estilização de componentes */
+
+  /* Datatable (from PrimeReact) */
+  .p-datatable-column {
+    padding: 0.5rem;
+    border-bottom: 2px solid #cdd7f445;
+  }
+  .p-datatable .p-datatable-thead > tr > th {
+    background-color: rgba(161, 161, 170, 0.399);
+    padding: 0.5rem;
+  }
+  .p-datatable > div {
+    display: flex;
+    width: -webkit-fill-available;
+    gap: 1rem;
+    padding: 0.25rem;
+  }
+
+  /* FileUpload (from PrimeReact) */
+  .file-upload > div > span,
+  .file-upload > div > button {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    color: #f0f8ff;
+  }
+  .file-upload > div > button {
+    background-color: #ff0060;
+  }
+  .file-upload > div > span {
+    background-color: #ff00c4;
+  }
+  .file-upload > div > p {
+    display: flex;
+    justify-content: center;
+    border-radius: 0.5rem;
+    padding: 1rem 0.5rem;
+    background-color: rgba(195, 195, 195, 0.474);
+  }
+
+  /*  Register Form*/
+  .register-form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: .5rem;
+    background-color: rgb(161 161 170 / 0.1);
+  }
+  .register-form div {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: .2rem;
+    font-weight: 600;
+  }
+  .register-form div input {
+    display: flex;
+    justify-content: center;
+    padding: .2rem;
+    color: black;
+    background-color: #d2e2f7;
+    border-radius: .25rem;
   }
 }
