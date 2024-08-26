@@ -182,16 +182,6 @@ A aplicação será utilizada principalmente por dois grupos de usuários dentro
 
 > Como um **gerente de manutenção**, eu quero **gerar relatórios de estoque** para que **possa avaliar as necessidades futuras de peças e materiais**.
 
-### 4. Autenticação e Autorização
-
-4.1 ***Criação de Contas de Usuário***
-
-> Como um **gerente de manutenção**, eu quero **criar contas de usuário** para que **cada técnico de manutenção tenha o acesso ao sistema e suas funcionalidades**.
-
-4.2 ***Controle de Acessos***
-
-> Como um **gerente de manutenção**, eu quero **controlar o tipo de usuário** para que **cada usuário só tenha acesso ao que é relevante para sua função**.
-
 ---
 
 # *Requisitos Não Funcionais*

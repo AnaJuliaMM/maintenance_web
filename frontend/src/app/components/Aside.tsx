@@ -8,13 +8,18 @@ import { PiWashingMachine } from "react-icons/pi";
 import { FaUsers } from "react-icons/fa";
 import { IoIosListBox } from "react-icons/io";
 import { MdAttachMoney } from "react-icons/md";
-
+import { GoGraph } from "react-icons/go";
 
 import { NavIconItem } from "./NavIconItem";
 import { NavIconItemProps } from "./NavIconItem";
 
 export const Aside = () => {
   const navItems: NavIconItemProps[] = [
+    {
+      value: "Relatório",
+      href: "/",
+      icon: <GoGraph />,
+    },
     {
       value: "Máquinas",
       href: "/machines",
