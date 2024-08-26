@@ -36,7 +36,7 @@ export default function Machine() {
   const closeModal = () => setIsModalOpen(false);
 
   const onRowSelect = (event: any) => {
-    router.push(`/machines/${event.data.serialNumber}`);
+    router.push(`/maintenances/${event.data.code}`);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +55,7 @@ export default function Machine() {
   return (
     <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
       <Title>Manutenções</Title>
-      <div className="flex gap-4 py-2">
+      <header className="flex gap-4 py-2">
         <button
           onClick={openModal}
           className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
@@ -68,8 +68,9 @@ export default function Machine() {
           <RiFileList2Line size={20} />
           Gerar Relatório
         </button>
-      </div>
+      </header>
 
+      {/* Modal */}
       <MachineRegisterModal
         isOpen={isModalOpen}
         title="Nova Solicitação"
@@ -171,12 +172,8 @@ export default function Machine() {
       </MachineRegisterModal>
 
       <section>
-        <Title>Status da Manutenções</Title>
-      </section>
-
-      <section>
-        <Link href="/maintenances/register" className="flex cursor-pointer">
-          <Title>Histórico de Mantenções</Title>
+        <Link href="/maintenances/" className="flex cursor-pointer">
+          <Title>Histórico de Manutenções</Title>
         </Link>
 
         <DataTable
