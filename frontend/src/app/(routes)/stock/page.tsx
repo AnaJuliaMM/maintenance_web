@@ -43,21 +43,30 @@ export default function Machine() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form Data:", formData);
-    setIsModalOpen(false); // Fechar o modal após o envio
+    setIsModalOpen(false);
   };
 
   return (
     <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
       {/* Header */}
       <header className="flex  justify-between p-5">
-        <h1 className="text-blue-100 text-2xl font-bold">Máquinas</h1>
+        <h1 className="text-blue-100 text-2xl font-bold">
+          Estoque de peças e materiais
+        </h1>
         <div className="flex gap-4">
           <button
             onClick={openModal}
             className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
           >
             <IoAddCircle size={20} />
-            Cadastrar Máquina
+            Novo registro
+          </button>
+          <button
+            onClick={openModal}
+            className="flex gap-2 justify-center items-center bg-purple-700 py-2 px-4 rounded-lg font-semibold text-sm"
+          >
+            <IoAddCircle size={20} />
+            Registrar entrada/saída
           </button>
 
           <button className="flex gap-2 justify-center items-center bg-pink-600 py-2 px-4 rounded-lg font-semibold text-sm">
@@ -70,7 +79,7 @@ export default function Machine() {
       {/* Modal */}
       <MachineRegisterModal
         isOpen={isModalOpen}
-        title="Cadastrar Máquina"
+        title="Cadastrar Peça"
         onClose={closeModal}
         handleSubmit={handleSubmit}
       >
@@ -89,7 +98,7 @@ export default function Machine() {
             />
             <div>
               <label htmlFor="serialNumber" className="block font-medium">
-                Numero de Série:
+                Código:
               </label>
               <input
                 type="text"
@@ -106,23 +115,23 @@ export default function Machine() {
         <div className="flex gap-5">
           <div>
             <label htmlFor="manufactureDate" className="block font-medium">
-              Data de Fabricação:
+              Fornecedor:
             </label>
             <input
-              type="date"
-              id="manufactureDate"
-              name="manufactureDate"
-              value={formData.manufactureDate}
+              type="text"
+              id="supplier"
+              name="supplier"
+              value={formData.type}
               onChange={handleChange}
               required
             />
           </div>
           <div>
             <label htmlFor="type" className="block font-medium">
-              Tipo:
+              Valor Un.:
             </label>
             <input
-              type="text"
+              type="number"
               id="type"
               name="type"
               value={formData.type}
@@ -132,37 +141,20 @@ export default function Machine() {
           </div>
         </div>
 
-        <div className="flex gap-5">
-          <div>
-            <label htmlFor="model" className="block font-medium">
-              Modelo:
-            </label>
-            <input
-              type="text"
-              id="model"
-              name="model"
-              value={formData.model}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="location" className="block font-medium">
-              Localização:
-            </label>
-            <input
-              type="text"
-              id="location"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-
         <div>
+          <div>
+            <label htmlFor="type" className="block font-medium">
+              Qtd.:
+            </label>
+            <input
+              type="number"
+              id="type"
+              name="type"
+              value={formData.type}
+              onChange={handleChange}
+              required
+            />
+          </div>
           <label htmlFor="images" className="block font-medium">
             Imagens:
           </label>

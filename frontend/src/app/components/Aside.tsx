@@ -7,6 +7,8 @@ import { RxDashboard } from "react-icons/rx";
 import { PiWashingMachine } from "react-icons/pi";
 import { FaUsers } from "react-icons/fa";
 import { IoIosListBox } from "react-icons/io";
+import { MdAttachMoney } from "react-icons/md";
+
 
 import { NavIconItem } from "./NavIconItem";
 import { NavIconItemProps } from "./NavIconItem";
@@ -15,33 +17,33 @@ export const Aside = () => {
   const navItems: NavIconItemProps[] = [
     {
       value: "Máquinas",
-      href: "machines",
+      href: "/machines",
       icon: <PiWashingMachine />,
     },
     {
-      value: "Ambientes",
-      href: "",
-      icon: <LuWarehouse />,
-    },
-    {
-      value: "Equipamentos",
-      href: "",
-      icon: <GoTools />,
-    },
-    {
       value: "Manutenções",
-      href: "",
+      href: "/maintenances",
       icon: <IoIosListBox />,
     },
     {
-      value: "Usuários",
-      href: "",
+      value: "Despesas",
+      href: "/expenses",
+      icon: <MdAttachMoney />,
+    },
+    {
+      value: "Estoque",
+      href: "/stock",
+      icon: <LuWarehouse />,
+    },
+    {
+      value: "Equipes",
+      href: "/teams",
       icon: <FaUsers />,
     },
   ];
 
   return (
-    <aside className="w-1/5 p-6 bg-gray-950/35 fixed h-svh">
+    <aside className="w-1/5 p-6 bg-gray-900/35 fixed h-svh">
       <Image
         src={"/image/logo.svg"}
         alt="Logo"

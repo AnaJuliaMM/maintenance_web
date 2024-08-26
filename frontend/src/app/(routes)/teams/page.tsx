@@ -43,26 +43,21 @@ export default function Machine() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form Data:", formData);
-    setIsModalOpen(false); // Fechar o modal após o envio
+    setIsModalOpen(false);
   };
 
   return (
     <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
       {/* Header */}
       <header className="flex  justify-between p-5">
-        <h1 className="text-blue-100 text-2xl font-bold">Máquinas</h1>
+        <h1 className="text-blue-100 text-2xl font-bold">Equipes</h1>
         <div className="flex gap-4">
           <button
             onClick={openModal}
             className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
           >
             <IoAddCircle size={20} />
-            Cadastrar Máquina
-          </button>
-
-          <button className="flex gap-2 justify-center items-center bg-pink-600 py-2 px-4 rounded-lg font-semibold text-sm">
-            <RiFileList2Line size={20} />
-            Gerar Relatório
+            Nova equipe
           </button>
         </div>
       </header>
@@ -70,7 +65,7 @@ export default function Machine() {
       {/* Modal */}
       <MachineRegisterModal
         isOpen={isModalOpen}
-        title="Cadastrar Máquina"
+        title="Nova Equipe"
         onClose={closeModal}
         handleSubmit={handleSubmit}
       >
@@ -87,93 +82,9 @@ export default function Machine() {
               onChange={handleChange}
               required
             />
-            <div>
-              <label htmlFor="serialNumber" className="block font-medium">
-                Numero de Série:
-              </label>
-              <input
-                type="text"
-                id="serialNumber"
-                name="serialNumber"
-                value={formData.serialNumber}
-                onChange={handleChange}
-                required
-              />
-            </div>
           </div>
         </div>
 
-        <div className="flex gap-5">
-          <div>
-            <label htmlFor="manufactureDate" className="block font-medium">
-              Data de Fabricação:
-            </label>
-            <input
-              type="date"
-              id="manufactureDate"
-              name="manufactureDate"
-              value={formData.manufactureDate}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="type" className="block font-medium">
-              Tipo:
-            </label>
-            <input
-              type="text"
-              id="type"
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-5">
-          <div>
-            <label htmlFor="model" className="block font-medium">
-              Modelo:
-            </label>
-            <input
-              type="text"
-              id="model"
-              name="model"
-              value={formData.model}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="location" className="block font-medium">
-              Localização:
-            </label>
-            <input
-              type="text"
-              id="location"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-
-        <div>
-          <label htmlFor="images" className="block font-medium">
-            Imagens:
-          </label>
-          <input
-            type="file"
-            id="images"
-            name="images"
-            onChange={handleChange}
-            required
-          />
-        </div>
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
