@@ -36,9 +36,6 @@ export default function Home({ params }: MaintenanceDetailProps) {
           {maintenanceDetail.title}
         </h1>
         <div className="flex gap-4">
-          <button className="flex gap-2 justify-center items-center bg-purple-700 py-2 px-4 rounded-lg font-semibold text-sm">
-            {maintenanceDetail.status}
-          </button>
           <button
             onClick={openModal}
             className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
@@ -50,11 +47,7 @@ export default function Home({ params }: MaintenanceDetailProps) {
       </header>
 
       {/* Modal */}
-      <SimpleModal
-        isOpen={isModalOpen}
-        title="Status"
-        onClose={closeModal}
-      >
+      <SimpleModal isOpen={isModalOpen} title="Status" onClose={closeModal}>
         <div className="flex flex-col gap-4 p-4">
           <SelectOption
             id="priority"
@@ -79,25 +72,33 @@ export default function Home({ params }: MaintenanceDetailProps) {
 
       <section className="flex flex-col items-center gap-4">
         {/* Detail card */}
-        <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-5 w-full border-l-4 border-pink-700">
-          <p className="mb-4">{maintenanceDetail.description}</p>
-          <div>
-            <span className="font-bold">Código:</span> {maintenanceDetail.code}
+        <div className="flex justify-between p-5 bg-zinc-400/10 border-l-4 border-pink-700 rounded-sm w-full">
+          <div className="flex flex-col justify-center gap-1  w-3/4  ">
+            <p className="mb-4">{maintenanceDetail.description}</p>
+            <div>
+              <span className="font-bold">Código:</span>{" "}
+              {maintenanceDetail.code}
+            </div>
+            <div>
+              <span className="font-bold">Tipo :</span> {maintenanceDetail.type}
+            </div>
+            <div>
+              <span className="font-bold">Data:</span>{" "}
+              {maintenanceDetail.requisitionDate}
+            </div>
+            <div>
+              <span className="font-bold">Prioridade:</span>{" "}
+              {maintenanceDetail.priority}
+            </div>
+            <div>
+              <span className="font-bold">Time: </span>
+              {maintenanceDetail.responsableTeam}
+            </div>
           </div>
-          <div>
-            <span className="font-bold">Tipo :</span> {maintenanceDetail.type}
-          </div>
-          <div>
-            <span className="font-bold">Data:</span>{" "}
-            {maintenanceDetail.requisitionDate}
-          </div>
-          <div>
-            <span className="font-bold">Prioridade:</span>{" "}
-            {maintenanceDetail.priority}
-          </div>
-          <div>
-            <span className="font-bold">Time: </span>
-            {maintenanceDetail.responsableTeam}
+          <div className="flex gap-4">
+            <div className="flex gap-2 justify-center items-center bg-pink-700  py-2 px-4 rounded-lg font-semibold text-sm h-fit">
+              {maintenanceDetail.status}
+            </div>
           </div>
         </div>
       </section>
