@@ -162,6 +162,21 @@ export default function Machine() {
           />
         </div>
 
+        {/* Files */}
+        <div>
+          <label htmlFor="images" className="block font-medium">
+            File:
+          </label>
+          <input
+            type="file"
+            id="files"
+            name="files"
+            onChange={handleChange}
+            required
+            className="w-3/4"
+          />
+        </div>
+
         {/* Submit button */}
         <button
           type="submit"
