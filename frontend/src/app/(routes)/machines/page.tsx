@@ -72,7 +72,7 @@ export default function Machine() {
       <MachineRegisterModal
         isOpen={isModalOpen}
         title="Cadastrar Máquina"
-        onClose={() => setIsModalOpen(false)}
+        onClose={closeModal}
         handleSubmit={handleSubmit}
       >
         <div>

@@ -7,7 +7,13 @@ import { Title } from "@/app/components/Title";
 import { AiOutlineAlert } from "react-icons/ai";
 import { SimpleModal } from "@/app/components/modals/SimpleModal";
 import { SelectOption } from "@/app/components/SelectOption";
+import { Comment } from "@/app/components/Comment";
+
 import { GiConfirmed } from "react-icons/gi";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { useRouter } from "next/navigation";
+import { IoAddCircle } from "react-icons/io5";
 
 type Params = {
   maintenance: string;
@@ -18,15 +24,25 @@ interface MaintenanceDetailProps {
 }
 
 export default function Home({ params }: MaintenanceDetailProps) {
+  const router = useRouter();
   const maintenanceDetail = maintenanceList.filter(
     (maintenance) => maintenance.code === params.maintenance
   )[0];
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
+
+  const [selectedRow, setSelectedRow] = useState<any>(null);
   const [status, setStatus] = useState<string>("");
 
   // Functions
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openStatusModal = () => setIsStatusModalOpen(true);
+  const closeStatusModal = () => setIsStatusModalOpen(false);
+  const openCommentsModal = () => setIsCommentsModalOpen(true);
+  const closeCommentsModal = () => setIsCommentsModalOpen(false);
+
+  const onRowSelect = (event: any) => {
+    router.push(`/machines/${event.data.serialNumber}`);
+  };
 
   return (
     <main className="flex flex-col p-6 w-svw gap-4 h-fit">
@@ -37,7 +53,7 @@ export default function Home({ params }: MaintenanceDetailProps) {
         </h1>
         <div className="flex gap-4">
           <button
-            onClick={openModal}
+            onClick={openStatusModal}
             className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
           >
             <AiOutlineAlert size={20} />
@@ -47,7 +63,11 @@ export default function Home({ params }: MaintenanceDetailProps) {
       </header>
 
       {/* Modal */}
-      <SimpleModal isOpen={isModalOpen} title="Status" onClose={closeModal}>
+      <SimpleModal
+        isOpen={isStatusModalOpen}
+        title="Status"
+        onClose={closeStatusModal}
+      >
         <div className="flex flex-col gap-4 p-4">
           <SelectOption
             id="priority"
@@ -61,7 +81,7 @@ export default function Home({ params }: MaintenanceDetailProps) {
             ]}
           />
           <button
-            onClick={closeModal}
+            onClick={closeStatusModal}
             className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
           >
             <GiConfirmed size={20} />
@@ -70,8 +90,9 @@ export default function Home({ params }: MaintenanceDetailProps) {
         </div>
       </SimpleModal>
 
+      {/* Detail card */}
+
       <section className="flex flex-col items-center gap-4">
-        {/* Detail card */}
         <div className="flex justify-between p-5 bg-zinc-400/10 border-l-4 border-pink-700 rounded-sm w-full">
           <div className="flex flex-col justify-center gap-1  w-3/4  ">
             <p className="mb-4">{maintenanceDetail.description}</p>
@@ -102,6 +123,8 @@ export default function Home({ params }: MaintenanceDetailProps) {
           </div>
         </div>
       </section>
+
+      {/* Files */}
       <section>
         <Title>Arquivos</Title>
 
@@ -112,11 +135,99 @@ export default function Home({ params }: MaintenanceDetailProps) {
           height={200}
         />
       </section>
+
+      {/* Materials table */}
       <section>
         <Title>Peças e Materiais utilizados</Title>
+        <DataTable
+          value={maintenanceList}
+          selectionMode="single"
+          selection={selectedRow}
+          onSelectionChange={(e) => setSelectedRow(e.value)}
+          onRowSelect={onRowSelect}
+          metaKeySelection={false}
+          dataKey="serialNumber"
+          paginator
+          rows={2}
+          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+          currentPageReportTemplate="Clique para Ler mais"
+          className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
+          tableStyle={{ lineBreak: "anywhere" }}
+        >
+          <Column
+            field="requisitionDate"
+            header="Data"
+            sortable
+            className="p-datatable-column"
+          ></Column>
+          <Column
+            field="description"
+            header="Descrição"
+            sortable
+            className="p-datatable-column"
+            style={{ width: "35%" }}
+          ></Column>
+          <Column
+            field="type"
+            header="Tipo"
+            sortable
+            className="p-datatable-column"
+          ></Column>
+          <Column
+            field="responsableTeam"
+            header="Equipe"
+            sortable
+            className="p-datatable-column"
+          ></Column>
+        </DataTable>
       </section>
+
+      {/* Comments */}
       <section>
-        <Title>Comentários</Title>
+        <header className="flex  justify-between py-5">
+          <h1 className="text-blue-100 text-2xl font-bold">Comentários</h1>
+          <div className="flex gap-4">
+            <button
+              onClick={openCommentsModal}
+              className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
+            >
+              <IoAddCircle size={20} />
+              adicionar novo comentário
+            </button>
+          </div>
+        </header>
+
+        {/* Modal */}
+        <SimpleModal
+          isOpen={isCommentsModalOpen}
+          title="Comentários"
+          onClose={closeCommentsModal}
+        >
+          <div className="flex flex-col justify-center items-center gap-4 p-4 w-full">
+            <div className="flex flex-col gap-4">
+              <label htmlFor="images" className="block font-medium">
+                Descrição:
+              </label>
+              <input
+                type="textarea"
+                id="description"
+                name="description"
+                required
+                className=" p-5"
+              />
+            </div>
+            <button
+              onClick={closeCommentsModal}
+              className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
+            >
+              <GiConfirmed size={20} />
+              Confirmar
+            </button>
+          </div>
+        </SimpleModal>
+
+        {/* Comments card */}
+        <Comment id="" content="exemplo" />
       </section>
     </main>
   );

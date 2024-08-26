@@ -49,7 +49,7 @@ export default function Machine() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsModalOpen(false); // Fechar o modal após o envio
+    setIsModalOpen(false);
   };
 
   return (
@@ -74,7 +74,7 @@ export default function Machine() {
       <MachineRegisterModal
         isOpen={isModalOpen}
         title="Nova Solicitação"
-        onClose={() => setIsModalOpen(false)}
+        onClose={closeModal}
         handleSubmit={handleSubmit}
       >
         {/* Title, type and priority */}
