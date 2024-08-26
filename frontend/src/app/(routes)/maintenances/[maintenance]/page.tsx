@@ -138,7 +138,18 @@ export default function Home({ params }: MaintenanceDetailProps) {
 
       {/* Materials table */}
       <section>
-        <Title>Peças e Materiais utilizados</Title>
+      <header className="flex  justify-between py-5">
+          <h1 className="text-blue-100 text-2xl font-bold">Peças e Materiais</h1>
+          <div className="flex gap-4">
+            <button
+              onClick={openCommentsModal}
+              className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
+            >
+              <IoAddCircle size={20} />
+              novo registro
+            </button>
+          </div>
+        </header>
         <DataTable
           value={maintenanceList}
           selectionMode="single"
