@@ -74,7 +74,7 @@ body {
     display: flex;
     width: 100%;
     flex-direction: column;
-    padding: .5rem;
+    padding: 0.5rem;
     background-color: rgb(161 161 170 / 0.1);
   }
   .register-form div {
@@ -82,15 +82,25 @@ body {
     gap: 1rem;
     justify-content: space-between;
     align-items: center;
-    padding: .2rem;
+    padding: 0.2rem;
     font-weight: 600;
   }
   .register-form div input {
     display: flex;
     justify-content: center;
-    padding: .2rem;
+    padding: 0.2rem;
     color: black;
     background-color: #d2e2f7;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
+  }
+
+  /* Graficos */
+  .card {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(161 161 170 / 0.1);
+    padding: 1rem;
+    border-radius: 1rem;
+    height:fit-content
   }
 }
