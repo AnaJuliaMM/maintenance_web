@@ -28,6 +28,7 @@
     "@react-stately/datepicker": "^3.10.1",
     "@remixicon/react": "^4.2.0",
     "@tremor/react": "^3.17.4",
+    "chart.js": "^4.4.4",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "next": "14.2.5",
