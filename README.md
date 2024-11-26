@@ -5,4 +5,4 @@ A gestão manual de manutenção é um desafio para muitas empresas. Perda de da
 ## Documentos de Requisistos do Projeto
 Acesse o documento de requisitos do projeto [aqui](./PRODUCT_REQUIREMENTS.md)
 
-## Documentação dos componentes
+
