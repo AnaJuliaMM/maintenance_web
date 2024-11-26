@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { IoAddCircle } from "react-icons/io5";
 import { DataTable } from "primereact/datatable";
@@ -10,8 +10,43 @@ import { RiFileList2Line } from "react-icons/ri";
 import MachineRegisterModal from "@/app/components/modals/Register";
 import { machineList } from "@/app/constants/machine";
 
+import WarehouseService from "@/services/Warehouse";
+
 export default function Machine() {
   const router = useRouter();
+
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    /**
+     * Função assíncrona para buscar os itens da API e atualizar o estado do componente.
+     *
+     * A função tenta realizar uma requisição através de `WarehouseService.get("")` para buscar os dados.
+     * Em caso de sucesso, ela atualiza o estado de `items` com os dados obtidos. Se ocorrer um erro,
+     * ela atualiza o estado `error` com uma mensagem de falha e loga o erro no console.
+     * Independentemente do sucesso ou falha da requisição, o estado `loading` é atualizado para `false`
+     * para indicar que o processo de carregamento foi concluído.
+     *
+     * @async
+     * @function
+     * @returns {Promise<void>} Retorna uma Promise que resolve quando a operação for concluída.
+     */
+    const fetchItems = async (): Promise<void> => {
+      try {
+        let data: any[] = await WarehouseService.get("");
+        setItems(data);
+      } catch (error) {
+        setError(`Falha ao carregar os dados: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -23,13 +58,11 @@ export default function Machine() {
     location: "",
     images: null,
   });
-
-  // Functions
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const onRowSelect = (event: any) => {
-    router.push(`/machines/${event.data.serialNumber}`);
+    router.push(`/machines/${event.data.id}`);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,8 +206,9 @@ export default function Machine() {
           Cadastrar
         </button>
       </MachineRegisterModal>
+
       <DataTable
-        value={machineList}
+        value={items}
         selectionMode="single"
         selection={selectedRow}
         onSelectionChange={(e) => setSelectedRow(e.value)}
@@ -189,37 +223,37 @@ export default function Machine() {
         tableStyle={{ lineBreak: "anywhere" }}
       >
         <Column
-          field="serialNumber"
-          header="Série"
+          field="id"
+          header="Id"
           sortable
           className="p-datatable-column"
-          style={{ width: "15%" }}
+          style={{ width: "10%" }}
         ></Column>
         <Column
           field="name"
           header="Nome"
           sortable
           className="p-datatable-column"
-          style={{ width: "25%" }}
+          style={{ width: "20%" }}
         ></Column>
         <Column
-          field="model"
-          header="Modelo"
+          field="description"
+          header="Descrição"
           sortable
           className="p-datatable-column"
-          style={{ width: "20%" }}
+          style={{ width: "25%" }}
         ></Column>
 
         <Column
-          field="manufactureDate"
-          header="Fabricação"
+          field="quantity"
+          header="Qtd"
           sortable
           className="p-datatable-column"
-          style={{ width: "15%" }}
+          style={{ width: "10%" }}
         ></Column>
         <Column
-          field="location"
-          header="Localização"
+          field="status"
+          header="Status"
           sortable
           className="p-datatable-column"
           style={{ width: "20%" }}
