@@ -5,7 +5,7 @@ import Image from "next/image";
 import { maintenanceList } from "@/app/constants/maintenance";
 import { Title } from "@/app/components/Title";
 import { AiOutlineAlert } from "react-icons/ai";
-import { SimpleModal } from "@/app/components/modals/SimpleModal";
+import { SimpleModal } from "@/components/modals/SimpleModal";
 import { SelectOption } from "@/app/components/SelectOption";
 import { Comment } from "@/app/components/Comment";
 
@@ -138,8 +138,10 @@ export default function Home({ params }: MaintenanceDetailProps) {
 
       {/* Materials table */}
       <section>
-      <header className="flex  justify-between py-5">
-          <h1 className="text-blue-100 text-2xl font-bold">Peças e Materiais</h1>
+        <header className="flex  justify-between py-5">
+          <h1 className="text-blue-100 text-2xl font-bold">
+            Peças e Materiais
+          </h1>
           <div className="flex gap-4">
             <button
               onClick={openCommentsModal}

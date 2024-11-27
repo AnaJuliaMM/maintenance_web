@@ -7,7 +7,7 @@ import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
 import { RiFileList2Line } from "react-icons/ri";
 
-import MachineRegisterModal from "@/app/components/modals/Register";
+import MachineRegisterModal from "@/components/modals/Register";
 import { machineList } from "@/app/constants/machine";
 
 export default function Machine() {

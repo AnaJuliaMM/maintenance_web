@@ -11,7 +11,7 @@ import { Dropdown } from "primereact/dropdown";
 
 import { Title } from "@/app/components/Title";
 import { maintenanceList } from "@/app/constants/maintenance";
-import MachineRegisterModal from "@/app/components/modals/Register";
+import MachineRegisterModal from "@/components/modals/Register";
 import { SelectOption } from "@/app/components/SelectOption";
 
 export default function Machine() {

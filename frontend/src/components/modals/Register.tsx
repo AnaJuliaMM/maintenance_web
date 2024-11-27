@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Title } from "../Title";
+import { Title } from "../../app/components/Title";
 import { IoIosAddCircle } from "react-icons/io";
 
 interface MachineRegisterModalProps {
@@ -8,13 +8,15 @@ interface MachineRegisterModalProps {
   onClose: () => void;
   title: string;
   children: React.ReactNode;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-export const SimpleModal: React.FC<MachineRegisterModalProps> = ({
+const MachineRegisterModal: React.FC<MachineRegisterModalProps> = ({
   isOpen,
   onClose,
   title,
   children,
+  handleSubmit,
 }) => {
   if (!isOpen) return null;
 
@@ -27,16 +29,20 @@ export const SimpleModal: React.FC<MachineRegisterModalProps> = ({
       <div className="bg-gray-700 rounded-lg shadow-lg m-auto z-10  p-10">
         <div className="flex justify-between items-center">
           <div className="flex justify-center items-center gap-4">
+            <IoIosAddCircle color={"#d2e2f7"} size={25} />
             <Title>{title}</Title>
           </div>
           <button onClick={onClose} className="text-white hover:text-gray-900">
             X
           </button>
         </div>
-          {children}
 
+        <form className="space-y-4 register-form" onSubmit={handleSubmit}>
+          {children}
+        </form>
       </div>
     </div>
   );
 };
 
+export default MachineRegisterModal;
