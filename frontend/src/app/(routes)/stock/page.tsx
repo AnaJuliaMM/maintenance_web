@@ -15,19 +15,45 @@ import { Item } from "@/Types/Item";
 
 export default function Machine() {
   const router = useRouter();
-
   const [selectedRow, setSelectedRow] = useState<any>(null);
-  const onRowSelect = (event: any) => {
-    router.push(`/machines/${event.data.id}`);
-  };
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const [formData, setFormData] = useState<Item>({
+    name: "",
+    description: "",
+    type: "",
+    acquisitionDate: "",
+    supplier: "",
+    quantity: 0,
+    status: "",
+    images: null,
+  });
 
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  /**
+   * Função para lidar com a seleção de uma linha. Quando uma linha é selecionada,
+   * a função redireciona o usuário para a página correspondente ao item selecionada.
+   *
+   * @param {any} event - O evento de seleção da linha, que contém os dados da linha selecionada.
+   */
+  const onRowSelect = (event: any) => {
+    router.push(`/machines/${event.data.id}`);
+  };
+
+  /**
+   * Função para abrir o modal. Define o estado `isModalOpen` como `true`,
+   * tornando o modal visível na tela.
+   */
+
+  const openModal = () => setIsModalOpen(true);
+
+  /**
+   * Função para fechar o modal. Define o estado `isModalOpen` como `false`,
+   * tornando o modal invisível na tela.
+   */
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     /**
@@ -57,17 +83,13 @@ export default function Machine() {
     fetchItems();
   }, []);
 
-  const [formData, setFormData] = useState<Item>({
-    name: "",
-    description: "",
-    type: "",
-    acquisitionDate: "",
-    supplier: "",
-    quantity: 0,
-    status: "",
-    images: null,
-  });
-
+  /**
+   * Função para lidar com as mudanças nos campos de entrada de um formulário.
+   * Atualiza o estado `formData` com o valor do campo alterado.
+   * Para campos de texto, o valor é armazenado diretamente. Para campos de arquivo, o primeiro arquivo selecionado é armazenado.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} e - O evento de mudança no campo de entrada.
+   */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
     setFormData((prevData) => ({
@@ -76,6 +98,12 @@ export default function Machine() {
     }));
   };
 
+  /**
+   * Função para lidar com o envio do formulário.
+   * Previne o envio padrão, envia os dados para a API e lida com a resposta.
+   *
+   * @param {React.FormEvent<HTMLFormElement>} e - O evento de envio do formulário.
+   */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
