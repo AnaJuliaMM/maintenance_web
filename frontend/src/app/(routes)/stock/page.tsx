@@ -82,7 +82,7 @@ export default function Machine() {
     try {
       await WarehouseService.post("", formData);
       setIsModalOpen(false);
-      window.location.reload(); 
+      window.location.reload();
     } catch (error) {
       setError(`Falha ao enviar os dados: ${error}`);
     } finally {
