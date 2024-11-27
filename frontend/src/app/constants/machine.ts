@@ -1,6 +1,6 @@
-import { machineType } from "../types/machine";
+import { machineType } from "../../types/machine";
 
-export const machineList: machineType[]= [
+export const machineList: machineType[] = [
   {
     name: "Computador A",
     type: "Desktop",
