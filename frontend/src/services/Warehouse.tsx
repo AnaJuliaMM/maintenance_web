@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 
-import { Item } from "@/Types/Item";
+import { itemType } from "@/types/item";
 
 class WarehouseService {
   private api: AxiosInstance;
@@ -14,7 +14,7 @@ class WarehouseService {
     });
   }
 
-  async get(endpoint: string): Promise<Item[]> {
+  async get(endpoint: string): Promise<itemType[]> {
     try {
       const response = await this.api.get(endpoint);
       return response.data;
@@ -24,7 +24,7 @@ class WarehouseService {
     }
   }
 
-  async post(endpoint: string, data: Item): Promise<AxiosResponse> {
+  async post(endpoint: string, data: itemType): Promise<AxiosResponse> {
     try {
       const response = await this.api.post(endpoint, data);
       return response;
