@@ -1,11 +1,11 @@
 export type Item = {
-    id: number;
-    name: string | null;
-    description: string | null;
-    type: string | null;
-    acquisitionDate: string | null;
-    supplier: string | null;
-    quantity: number;
-    status: string | null;
-  };
-  
+  id?: number;
+  name: string;
+  description: string;
+  type: string;
+  acquisitionDate: string;
+  supplier: string;
+  quantity: number;
+  status: string;
+  images?: string[] | null;
+};
