@@ -11,13 +11,13 @@ import MachineRegisterModal from "@/components/modals/Register";
 import LoadingContainer from "@/components/LoadingContainer";
 import InputLabel from "@/components/InputLabel";
 import WarehouseService from "@/services/Warehouse";
-import { Item } from "@/Types/Item";
+import { itemType } from "@/types/item";
 
 export default function Machine() {
   const router = useRouter();
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState<Item>({
+  const [formData, setFormData] = useState<itemType>({
     name: "",
     description: "",
     type: "",
@@ -28,7 +28,7 @@ export default function Machine() {
     images: null,
   });
 
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<itemType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
