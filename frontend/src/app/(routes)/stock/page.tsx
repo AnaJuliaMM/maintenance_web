@@ -7,13 +7,23 @@ import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
 import { RiFileList2Line } from "react-icons/ri";
 
-import MachineRegisterModal from "@/app/components/modals/Register";
+import MachineRegisterModal from "@/components/modals/Register";
 import LoadingContainer from "@/components/LoadingContainer";
+import InputLabel from "@/components/InputLabel";
 import WarehouseService from "@/services/Warehouse";
 import { Item } from "@/Types/Item";
 
 export default function Machine() {
   const router = useRouter();
+
+  const [selectedRow, setSelectedRow] = useState<any>(null);
+  const onRowSelect = (event: any) => {
+    router.push(`/machines/${event.data.id}`);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
@@ -47,23 +57,16 @@ export default function Machine() {
     fetchItems();
   }, []);
 
-  const [selectedRow, setSelectedRow] = useState<any>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Item>({
     name: "",
+    description: "",
     type: "",
-    model: "",
-    manufactureDate: "",
-    serialNumber: "",
-    location: "",
+    acquisitionDate: "",
+    supplier: "",
+    quantity: 0,
+    status: "",
     images: null,
   });
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  const onRowSelect = (event: any) => {
-    router.push(`/machines/${event.data.id}`);
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
@@ -73,10 +76,18 @@ export default function Machine() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    setIsModalOpen(false);
+
+    try {
+      await WarehouseService.post("", formData);
+      setIsModalOpen(false);
+      window.location.reload(); 
+    } catch (error) {
+      setError(`Falha ao enviar os dados: ${error}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -117,77 +128,67 @@ export default function Machine() {
         handleSubmit={handleSubmit}
       >
         <div>
-          <div>
-            <label htmlFor="name" className="block font-medium">
-              Nome:
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-            <div>
-              <label htmlFor="serialNumber" className="block font-medium">
-                Código:
-              </label>
-              <input
-                type="text"
-                id="serialNumber"
-                name="serialNumber"
-                value={formData.serialNumber}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex gap-5">
-          <div>
-            <label htmlFor="manufactureDate" className="block font-medium">
-              Fornecedor:
-            </label>
-            <input
-              type="text"
-              id="supplier"
-              name="supplier"
-              value={formData.type}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="type" className="block font-medium">
-              Valor Un.:
-            </label>
-            <input
-              type="number"
-              id="type"
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <InputLabel
+            id="name"
+            type="text"
+            label="Nome"
+            value={formData.name}
+            onChange={handleChange}
+          />
         </div>
 
         <div>
-          <div>
-            <label htmlFor="type" className="block font-medium">
-              Qtd.:
-            </label>
-            <input
-              type="number"
-              id="type"
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <InputLabel
+            id="description"
+            type="text"
+            label="Descrição"
+            value={formData.description}
+            onChange={handleChange}
+          />
+          <InputLabel
+            id="acquisitionDate"
+            type="date"
+            label="Aquisição"
+            value={formData.acquisitionDate}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="flex gap-5">
+          <InputLabel
+            id="supplier"
+            type="text"
+            label="Fornecedor"
+            value={formData.supplier}
+            onChange={handleChange}
+          />
+          <InputLabel
+            id="type"
+            type="text"
+            label="Tipo"
+            value={formData.type}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="flex gap-5">
+          <InputLabel
+            id="quantity"
+            type="number"
+            label="Qtd."
+            value={String(formData.quantity)}
+            onChange={handleChange}
+          />
+          <InputLabel
+            id="status"
+            type="text"
+            label="Status"
+            value={formData.status}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
           <label htmlFor="images" className="block font-medium">
             Imagens:
           </label>
@@ -196,9 +197,9 @@ export default function Machine() {
             id="images"
             name="images"
             onChange={handleChange}
-            required
           />
         </div>
+
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
