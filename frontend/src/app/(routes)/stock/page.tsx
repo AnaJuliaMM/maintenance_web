@@ -8,14 +8,14 @@ import { useRouter } from "next/navigation";
 import { RiFileList2Line } from "react-icons/ri";
 
 import MachineRegisterModal from "@/app/components/modals/Register";
-import { machineList } from "@/app/constants/machine";
-
+import LoadingContainer from "@/components/LoadingContainer";
 import WarehouseService from "@/services/Warehouse";
+import { Item } from "@/Types/Item";
 
 export default function Machine() {
   const router = useRouter();
 
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -207,58 +207,62 @@ export default function Machine() {
         </button>
       </MachineRegisterModal>
 
-      <DataTable
-        value={items}
-        selectionMode="single"
-        selection={selectedRow}
-        onSelectionChange={(e) => setSelectedRow(e.value)}
-        onRowSelect={onRowSelect}
-        metaKeySelection={false}
-        dataKey="serialNumber"
-        paginator
-        rows={8}
-        paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-        currentPageReportTemplate="{last} de {totalRecords}"
-        className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
-        tableStyle={{ lineBreak: "anywhere" }}
-      >
-        <Column
-          field="id"
-          header="Id"
-          sortable
-          className="p-datatable-column"
-          style={{ width: "10%" }}
-        ></Column>
-        <Column
-          field="name"
-          header="Nome"
-          sortable
-          className="p-datatable-column"
-          style={{ width: "20%" }}
-        ></Column>
-        <Column
-          field="description"
-          header="Descrição"
-          sortable
-          className="p-datatable-column"
-          style={{ width: "25%" }}
-        ></Column>
+      {loading ? (
+        <LoadingContainer />
+      ) : (
+        <DataTable
+          value={items}
+          selectionMode="single"
+          selection={selectedRow}
+          onSelectionChange={(e) => setSelectedRow(e.value)}
+          onRowSelect={onRowSelect}
+          metaKeySelection={false}
+          dataKey="serialNumber"
+          paginator
+          rows={8}
+          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+          currentPageReportTemplate="{last} de {totalRecords}"
+          className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
+          tableStyle={{ lineBreak: "anywhere" }}
+        >
+          <Column
+            field="id"
+            header="Id"
+            sortable
+            className="p-datatable-column"
+            style={{ width: "10%" }}
+          ></Column>
+          <Column
+            field="name"
+            header="Nome"
+            sortable
+            className="p-datatable-column"
+            style={{ width: "20%" }}
+          ></Column>
+          <Column
+            field="description"
+            header="Descrição"
+            sortable
+            className="p-datatable-column"
+            style={{ width: "25%" }}
+          ></Column>
 
-        <Column
-          field="quantity"
-          header="Qtd"
-          sortable
-          className="p-datatable-column"
-          style={{ width: "10%" }}
-        ></Column>
-        <Column
-          field="status"
-          header="Status"
-          sortable
-          className="p-datatable-column"
-          style={{ width: "20%" }}
-        ></Column>
-      </DataTable>
+          <Column
+            field="quantity"
+            header="Qtd"
+            sortable
+            className="p-datatable-column"
+            style={{ width: "10%" }}
+          ></Column>
+          <Column
+            field="status"
+            header="Status"
+            sortable
+            className="p-datatable-column"
+            style={{ width: "20%" }}
+          ></Column>
+        </DataTable>
+      )}
     </main>
   );
 }
