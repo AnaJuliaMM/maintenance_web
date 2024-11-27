@@ -4,7 +4,18 @@ export type machineType = {
   name: string;
   model?: string;
   manufactureDate?: string;
-  location?: string;
-  category?: string;
+  category?: categoryType;
+  location?: locationType;
   imagesUrl?: string[];
+};
+
+export type categoryType = {
+  id?: number;
+  name: string;
+};
+
+export type locationType = {
+  id?: number;
+  name: string;
+  description: string;
 };
