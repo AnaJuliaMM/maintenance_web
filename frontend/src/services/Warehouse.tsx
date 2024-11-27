@@ -7,7 +7,7 @@ class WarehouseService {
 
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:3014/api/Item",
+      baseURL: "http://localhost:3013/api/Item",
       headers: {
         "Content-Type": "application/json",
       },
