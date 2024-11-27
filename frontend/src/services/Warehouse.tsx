@@ -24,47 +24,20 @@ class WarehouseService {
     }
   }
 
-  // async post<T, R extends T>(endpoint: string, data: T): Promise<R | R[]> {
-  //   try {
-  //     const response: AxiosResponse<ApiResponse<R>> = await this.api.post(
-  //       endpoint,
-  //       data
-  //     );
-
-  //     return response.data.data;
-  //   } catch (error: any) {
-  //     this.handleError(error);
-  //     throw error;
-  //   }
-  // }
-
-  // async put<T, R extends T>(endpoint: string, data: T): Promise<R | R[]> {
-  //   try {
-  //     const response: AxiosResponse<ApiResponse<R>> = await this.api.put(
-  //       endpoint,
-  //       data
-  //     );
-  //     return response.data.data;
-  //   } catch (error: any) {
-  //     this.handleError(error);
-  //     throw error;
-  //   }
-  // }
-
-  // async delete<T>(endpoint: string): Promise<T | T[]> {
-  //   try {
-  //     const response: AxiosResponse<ApiResponse<T>> = await this.api.delete(
-  //       endpoint
-  //     );
-  //     return response.data.data;
-  //   } catch (error: any) {
-  //     this.handleError(error);
-  //     throw error;
-  //   }
-  // }
+  async post(endpoint: string, data: Item): Promise<AxiosResponse> {
+    try {
+      const response = await this.api.post(endpoint, data);
+      return response;
+    } catch (error: any) {
+      this.handleError(error);
+      throw error;
+    }
+  }
 
   private handleError(error: AxiosError): void {
     if (error.response) {
+      console.error(error.response);
+
       console.error(
         `Erro na resposta: ${error.response.status}`,
         error.response.data
