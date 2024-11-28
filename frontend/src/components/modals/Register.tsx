@@ -11,7 +11,7 @@ interface MachineRegisterModalProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const MachineRegisterModal: React.FC<MachineRegisterModalProps> = ({
+const RegisterModal: React.FC<MachineRegisterModalProps> = ({
   isOpen,
   onClose,
   title,
@@ -45,4 +45,4 @@ const MachineRegisterModal: React.FC<MachineRegisterModalProps> = ({
   );
 };
 
-export default MachineRegisterModal;
+export default RegisterModal;
