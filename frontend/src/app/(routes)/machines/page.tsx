@@ -7,26 +7,34 @@ import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
 import { RiFileList2Line } from "react-icons/ri";
 
-import MachineRegisterModal from "@/components/modals/Register";
+import RegisterModal from "@/components/modals/Register";
 import LoadingContainer from "@/components/LoadingContainer";
-import { machineType } from "@/types/machine";
+import CustomSelect from "@/components/CustomSelect";
+import InputLabel from "@/components/InputLabel";
+import { machineType, categoryType, locationType } from "@/types/machine";
+import LocationService from "@/services/Location";
 import MachineService from "@/services/Machine";
+import CategoryService from "@/services/Category";
 
 export default function Machine() {
   const router = useRouter();
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [machines, setMachines] = useState<machineType[]>([]);
+  const [categories, setCategories] = useState<categoryType[]>([]);
+  const [locatons, setLocations] = useState<locationType[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     serialNumber: "",
     model: "",
     manufactureDate: "",
-    location: "",
-    category: "",
-    images: null,
+
+    //  Não vai atualizar pq só faz a requisição para o backend depoissss
+    location: locatons.length == 1 ? locatons[0].name : "",
+    category: categories.length == 1 ? categories[0].name : "",
   });
 
-  const [machines, setMachines] = useState<machineType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -77,21 +85,73 @@ export default function Machine() {
       }
     };
 
+    /**
+     * Função assíncrona para buscar os itens da API e atualizar o estado do componente.
+     *
+     * A função tenta realizar uma requisição através de `CategoryService.get("")` para buscar os dados.
+     * Em caso de sucesso, ela atualiza o estado de `categories` com os dados obtidos. Se ocorrer um erro,
+     * ela atualiza o estado `error` com uma mensagem de falha.
+     * Independentemente do sucesso ou falha da requisição, o estado `loading` é atualizado para `false`
+     * para indicar que o processo de carregamento foi concluído.
+     *
+     * @async
+     * @function
+     * @returns {Promise<void>} Retorna uma Promise que resolve quando a operação for concluída.
+     */
+    const fetchCategory = async (): Promise<void> => {
+      try {
+        let data = await CategoryService.get("");
+        setCategories(data);
+      } catch (error) {
+        setError(`Falha ao carregar os dados: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    /**
+     * Função assíncrona para buscar os itens da API e atualizar o estado do componente.
+     *
+     * A função tenta realizar uma requisição através de `LocationService.get("")` para buscar os dados.
+     * Em caso de sucesso, ela atualiza o estado de `locations` com os dados obtidos. Se ocorrer um erro,
+     * ela atualiza o estado `error` com uma mensagem de falha.
+     * Independentemente do sucesso ou falha da requisição, o estado `loading` é atualizado para `false`
+     * para indicar que o processo de carregamento foi concluído.
+     *
+     * @async
+     * @function
+     * @returns {Promise<void>} Retorna uma Promise que resolve quando a operação for concluída.
+     */
+    const fetchLocation = async (): Promise<void> => {
+      try {
+        let data = await LocationService.get("");
+        setLocations(data);
+      } catch (error) {
+        setError(`Falha ao carregar os dados: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchItems();
+    fetchCategory();
+    fetchLocation();
   }, []);
 
   /**
    * Função para lidar com as mudanças nos campos de entrada de um formulário.
    * Atualiza o estado `formData` com o valor do campo alterado.
-   * Para campos de texto, o valor é armazenado diretamente. Para campos de arquivo, o primeiro arquivo selecionado é armazenado.
+   * Para campos de texto e numeros, o valor é armazenado diretamente.
    *
-   * @param {React.ChangeEvent<HTMLInputElement>} e - O evento de mudança no campo de entrada.
+   * @param {React.ChangeEvent<HTMLInputElement | HTMLSelectElement>} e - O evento de mudança no campo de entrada.
    */
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: files ? files[0] : value,
+      [name]: value,
     }));
   };
 
@@ -104,9 +164,19 @@ export default function Machine() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await MachineService.post("", formData);
+      console.log(categories);
+      console.log(formData);
+
+      console.log(formData.category);
+
+      let categoryId = categories.filter(
+        (category) => category.name == formData.category
+      );
+      console.log(categoryId);
+
+      // await MachineService.post("", formData);
       setIsModalOpen(false);
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       setError(`Falha ao enviar os dados: ${error}`);
     } finally {
@@ -136,119 +206,72 @@ export default function Machine() {
       </header>
 
       {/* Modal */}
-      <MachineRegisterModal
+      <RegisterModal
         isOpen={isModalOpen}
         title="Cadastrar Máquina"
         onClose={closeModal}
         handleSubmit={handleSubmit}
       >
         <div>
-          <div>
-            <label htmlFor="name" className="block font-medium">
-              Nome:
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-            <div>
-              <label htmlFor="serialNumber" className="block font-medium">
-                Numero de Série:
-              </label>
-              <input
-                type="text"
-                id="serialNumber"
-                name="serialNumber"
-                value={formData.serialNumber}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex gap-5">
-          <div>
-            <label htmlFor="manufactureDate" className="block font-medium">
-              Data de Fabricação:
-            </label>
-            <input
-              type="date"
-              id="manufactureDate"
-              name="manufactureDate"
-              value={formData.manufactureDate}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="type" className="block font-medium">
-              Tipo:
-            </label>
-            <input
-              type="text"
-              id="type"
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-5">
-          <div>
-            <label htmlFor="model" className="block font-medium">
-              Modelo:
-            </label>
-            <input
-              type="text"
-              id="model"
-              name="model"
-              value={formData.model}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="location" className="block font-medium">
-              Localização:
-            </label>
-            <input
-              type="text"
-              id="location"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-
-        <div>
-          <label htmlFor="images" className="block font-medium">
-            Imagens:
-          </label>
-          <input
-            type="file"
-            id="images"
-            name="images"
+          <InputLabel
+            id="name"
+            type="text"
+            label="Nome"
+            value={formData.name}
             onChange={handleChange}
-            required
+          />
+          <InputLabel
+            id="serialNumber"
+            type="number"
+            label="Nº de Série"
+            value={formData.serialNumber}
+            onChange={handleChange}
           />
         </div>
+
+        <div className="flex gap-5">
+          <InputLabel
+            id="model"
+            type="text"
+            label="Modelo"
+            value={formData.model}
+            onChange={handleChange}
+          />
+          <InputLabel
+            id="manufactureDate"
+            type="date"
+            label="Dt de Fabricação"
+            value={formData.manufactureDate}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="flex gap-5">
+          <CustomSelect
+            id="category"
+            label="Categoria"
+            placeholder=""
+            items={categories.map((category) => category.name)}
+            value={formData.category}
+            onChange={handleChange}
+          />
+          <CustomSelect
+            id="location"
+            label="Localização"
+            placeholder=""
+            items={locatons.map((location) => location.name)}
+            value={formData.location}
+            onChange={handleChange}
+          />
+        </div>
+
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
         >
           Cadastrar
         </button>
-      </MachineRegisterModal>
+      </RegisterModal>
 
       {loading ? (
         <LoadingContainer />
