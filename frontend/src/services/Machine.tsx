@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 
-import { machineType } from "@/types/machine";
+import { machineType, machinePostType } from "@/types/machine";
 
 class MachineService {
   private api: AxiosInstance;
@@ -24,7 +24,7 @@ class MachineService {
     }
   }
 
-  async post(endpoint: string, data: machineType): Promise<AxiosResponse> {
+  async post(endpoint: string, data: machinePostType): Promise<AxiosResponse> {
     try {
       const response = await this.api.post(endpoint, data);
       return response;
