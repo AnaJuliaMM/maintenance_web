@@ -9,9 +9,14 @@ import { RiFileList2Line } from "react-icons/ri";
 
 import RegisterModal from "@/components/modals/Register";
 import LoadingContainer from "@/components/LoadingContainer";
-import CustomSelect from "@/components/CustomSelect";
+import CustomSelect from "@/components/SelectLabel";
 import InputLabel from "@/components/InputLabel";
-import { machineType, categoryType, locationType } from "@/types/machine";
+import {
+  machineType,
+  categoryType,
+  locationType,
+  machinePostType,
+} from "@/types/machine";
 import LocationService from "@/services/Location";
 import MachineService from "@/services/Machine";
 import CategoryService from "@/services/Category";
@@ -23,16 +28,14 @@ export default function Machine() {
 
   const [machines, setMachines] = useState<machineType[]>([]);
   const [categories, setCategories] = useState<categoryType[]>([]);
-  const [locatons, setLocations] = useState<locationType[]>([]);
-  const [formData, setFormData] = useState({
+  const [locations, setLocations] = useState<locationType[]>([]);
+  const [formData, setFormData] = useState<machinePostType>({
     name: "",
     serialNumber: "",
     model: "",
     manufactureDate: "",
-
-    //  Não vai atualizar pq só faz a requisição para o backend depoissss
-    location: locatons.length == 1 ? locatons[0].name : "",
-    category: categories.length == 1 ? categories[0].name : "",
+    categoryId: "",
+    locationId: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -157,26 +160,31 @@ export default function Machine() {
 
   /**
    * Função para lidar com o envio do formulário.
-   * Previne o envio padrão, envia os dados para a API e lida com a resposta.
+   * Previne o envio padrão, formata o payload e envia os dados para a API e lida com a resposta.
    *
    * @param {React.FormEvent<HTMLFormElement>} e - O evento de envio do formulário.
    */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log(categories);
-      console.log(formData);
-
-      console.log(formData.category);
-
+      // Find user chosen category id
       let categoryId = categories.filter(
-        (category) => category.name == formData.category
-      );
-      console.log(categoryId);
+        (category) => category.name == formData.categoryId
+      )[0].id;
+      // Replace category name by id to sent to backend
+      formData.categoryId = categoryId;
 
-      // await MachineService.post("", formData);
+      // Find location chosen category id
+      let locationId = locations.filter(
+        (location) => location.name == formData.locationId
+      )[0].id;
+      // Replace location name by id to sent to backend
+      formData.locationId = locationId;
+
+      await MachineService.post("", formData);
+
       setIsModalOpen(false);
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       setError(`Falha ao enviar os dados: ${error}`);
     } finally {
@@ -248,19 +256,17 @@ export default function Machine() {
 
         <div className="flex gap-5">
           <CustomSelect
-            id="category"
+            id="categoryId"
             label="Categoria"
-            placeholder=""
             items={categories.map((category) => category.name)}
-            value={formData.category}
+            value={formData.categoryId}
             onChange={handleChange}
           />
           <CustomSelect
-            id="location"
+            id="locationId"
             label="Localização"
-            placeholder=""
-            items={locatons.map((location) => location.name)}
-            value={formData.location}
+            items={locations.map((location) => location.name)}
+            value={formData.locationId}
             onChange={handleChange}
           />
         </div>
