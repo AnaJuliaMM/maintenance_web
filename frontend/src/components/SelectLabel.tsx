@@ -3,7 +3,6 @@ import React from "react";
 interface CustomSelectPros {
   id: string;
   label: string;
-  placeholder: string;
   items: string[];
   value?: string | number;
   onChange: (
@@ -11,14 +10,7 @@ interface CustomSelectPros {
   ) => void;
 }
 
-function CustomSelect({
-  id,
-  label,
-  placeholder,
-  items,
-  value,
-  onChange,
-}: CustomSelectPros) {
+function SelectLabel({ id, label, items, value, onChange }: CustomSelectPros) {
   return (
     <div className="flex flex-col w-full">
       <label htmlFor={id} className="block font-medium">
@@ -32,6 +24,7 @@ function CustomSelect({
         onChange={onChange}
         className="flex bg-blue-100 rounded-sm h-10 w-full p-1 text-gray-900 font-semibold"
       >
+        <option className="italic">Selecione</option>
         {items.map((item, index) => (
           <option key={index} value={item}>
             {item}
@@ -42,4 +35,4 @@ function CustomSelect({
   );
 }
 
-export default CustomSelect;
+export default SelectLabel;
