@@ -7,11 +7,11 @@ import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
 import { RiFileList2Line } from "react-icons/ri";
 
-import MachineRegisterModal from "@/components/modals/Register";
+import RegisterModal from "@/components/modals/Register";
 import LoadingContainer from "@/components/LoadingContainer";
 import InputLabel from "@/components/InputLabel";
 import WarehouseService from "@/services/Warehouse";
-import { itemType } from "@/types/item";
+import { itemType } from "@/types/Item";
 
 export default function Machine() {
   const router = useRouter();
@@ -149,7 +149,7 @@ export default function Machine() {
       </header>
 
       {/* Modal */}
-      <MachineRegisterModal
+      <RegisterModal
         isOpen={isModalOpen}
         title="Cadastrar Peça"
         onClose={closeModal}
@@ -234,7 +234,7 @@ export default function Machine() {
         >
           Cadastrar
         </button>
-      </MachineRegisterModal>
+      </RegisterModal>
 
       {loading ? (
         <LoadingContainer />

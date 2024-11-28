@@ -11,7 +11,7 @@ import { Dropdown } from "primereact/dropdown";
 
 import { Title } from "@/app/components/Title";
 import { maintenanceList } from "@/app/constants/maintenance";
-import MachineRegisterModal from "@/components/modals/Register";
+import RegisterModal from "@/components/modals/Register";
 import { SelectOption } from "@/app/components/SelectOption";
 
 export default function Machine() {
@@ -71,7 +71,7 @@ export default function Machine() {
       </header>
 
       {/* Modal */}
-      <MachineRegisterModal
+      <RegisterModal
         isOpen={isModalOpen}
         title="Nova Solicitação"
         onClose={closeModal}
@@ -184,7 +184,7 @@ export default function Machine() {
         >
           Cadastrar
         </button>
-      </MachineRegisterModal>
+      </RegisterModal>
 
       <section>
         <Link href="/maintenances/" className="flex cursor-pointer">
