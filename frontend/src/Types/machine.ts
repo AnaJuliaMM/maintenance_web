@@ -4,9 +4,8 @@ export type machineType = {
   name: string;
   model?: string;
   manufactureDate?: string;
-  category?: categoryType;
-  location?: locationType;
-  imagesUrl?: string[];
+  category?: categoryType | string | number;
+  location?: locationType | string | number; 
 };
 
 export type categoryType = {
