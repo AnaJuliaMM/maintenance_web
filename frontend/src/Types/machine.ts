@@ -5,7 +5,16 @@ export type machineType = {
   model?: string;
   manufactureDate?: string;
   category?: categoryType | string | number;
-  location?: locationType | string | number; 
+  location?: locationType | string | number;
+};
+
+export type machinePostType = {
+  name: string;
+  serialNumber: string;
+  model: string;
+  manufactureDate: string;
+  categoryId?: string | number;
+  locationId?: string | number;
 };
 
 export type categoryType = {
