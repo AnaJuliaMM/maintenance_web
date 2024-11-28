@@ -7,7 +7,7 @@ import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
 import { RiFileList2Line } from "react-icons/ri";
 
-import MachineRegisterModal from "@/components/modals/Register";
+import RegisterModal from "@/components/modals/Register";
 import { machineList } from "@/app/constants/machine";
 
 export default function Machine() {
@@ -68,7 +68,7 @@ export default function Machine() {
       </header>
 
       {/* Modal */}
-      <MachineRegisterModal
+      <RegisterModal
         isOpen={isModalOpen}
         title="Nova despesa"
         onClose={closeModal}
@@ -109,7 +109,7 @@ export default function Machine() {
         >
           Cadastrar
         </button>
-      </MachineRegisterModal>
+      </RegisterModal>
       <DataTable
         value={machineList}
         selectionMode="single"
