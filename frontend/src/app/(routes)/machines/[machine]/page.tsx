@@ -4,11 +4,11 @@ import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
-import { Galleria } from "primereact/galleria";
 
-import { machineList } from "@/app/constants/machine";
 import { maintenanceList } from "@/app/constants/maintenance";
 import { Title } from "@/app/components/Title";
+import MachineInfo from "@/components/MachineInfo";
+import LoadingContainer from "@/components/LoadingContainer";
 
 import MachineService from "@/services/machine";
 import { machineType } from "@/types/machineType";
@@ -77,53 +77,34 @@ export default function machine({ params }: machineProps) {
     router.push(`/maintenances/${event.data.code}`);
   };
 
-  const itemTemplate = (item: string) => {
-    return (
-      <img
-        src={item}
-        alt={`Imagem relacionada ao equipamento`}
-        style={{ width: "100%", borderRadius: ".5rem" }}
-      />
-    );
-  };
-
-  const thumbnailTemplate = (item: string) => {
-    return <img src={item} alt={`Imagem relacionada ao equipamento`} />;
-  };
-
   return (
     <main className="flex flex-col p-6 w-svw h-fit">
-      <Title>{machine.name}</Title>
-      <section className="flex flex-col items-center gap-4">
-        {/* Details card */}
-        <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-5 w-full border-l-4  border-purple-700">
-          <div>
-            <span className="font-bold">Número de Série :</span>{" "}
-            {machine.serialNumber}
-          </div>
-          <div>
-            <span className="font-bold">Nome:</span> {machine.name}
-          </div>
-
-          <div>
-            <span className="font-bold">Modelo:</span> {machine.model}
-          </div>
-          <div>
-            <div>
-              <span className="font-bold">Categoria :</span>{" "}
-              {machine.category?.name}
+      {loading ? (
+        <>
+          <Title>Detalhes da Máquina</Title>
+          <LoadingContainer />
+        </>
+      ) : (
+        <>
+          <Title>{machine.name}</Title>
+          <section className="flex flex-col items-start gap-4">
+            <div className="flex flex-col justify-center  gap-1 bg-zinc-400/10 rounded-sm p-8 m-4 w-1/2 border-b-4  border-purple-700">
+              <MachineInfo
+                label="Número de Série"
+                value={machine.serialNumber}
+              />
+              <MachineInfo label="Nome" value={machine.name} />
+              <MachineInfo label="Modelo" value={machine.model} />
+              <MachineInfo label="Categoria" value={machine.category?.name} />
+              <MachineInfo label="Local" value={machine.location?.name} />
+              <MachineInfo label="Fabricação" value={machine.manufactureDate} />
             </div>
-            <span className="font-bold">Local:</span> {machine.location?.name}
-          </div>
-
-          <div>
-            <span className="font-bold">Data de fabricação :</span>{" "}
-            {machine.manufactureDate}
-          </div>
-        </div>
-      </section>
+          </section>
+        </>
+      )}
 
       {/* Maintenance table */}
+      <hr className="border-t-2 border-gray-500 my-4" />
       <section>
         <Title>Histórico de Manutenção</Title>
         <DataTable
