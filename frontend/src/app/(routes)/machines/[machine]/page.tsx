@@ -1,16 +1,18 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
 
-import { maintenanceList } from "@/app/constants/maintenance";
 import { Title } from "@/app/components/Title";
 import MachineInfo from "@/components/MachineInfo";
 import LoadingContainer from "@/components/LoadingContainer";
+import DataTable from "@/components/DataTable";
+
+import manteinanceTableColumns from "@/app/constants/manteinanceTableColumns";
+import { maintenanceList } from "@/app/constants/maintenance";
 
 import MachineService from "@/services/machine";
+
 import { machineType } from "@/types/machineType";
 
 type Params = {
@@ -23,7 +25,6 @@ interface machineProps {
 
 export default function machine({ params }: machineProps) {
   const router = useRouter();
-  const [selectedRow, setSelectedRow] = useState<any>(null);
 
   const [machine, setMachine] = useState<machineType>({
     id: 0,
@@ -107,47 +108,7 @@ export default function machine({ params }: machineProps) {
       <hr className="border-t-2 border-gray-500 my-4" />
       <section>
         <Title>Histórico de Manutenção</Title>
-        <DataTable
-          value={maintenanceList}
-          selectionMode="single"
-          selection={selectedRow}
-          onSelectionChange={(e) => setSelectedRow(e.value)}
-          onRowSelect={onRowSelect}
-          metaKeySelection={false}
-          dataKey="serialNumber"
-          paginator
-          rows={8}
-          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-          currentPageReportTemplate="{last} de {totalRecords}"
-          className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
-          tableStyle={{ lineBreak: "anywhere" }}
-        >
-          <Column
-            field="requisitionDate"
-            header="Data"
-            sortable
-            className="p-datatable-column"
-          ></Column>
-          <Column
-            field="description"
-            header="Descrição"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "35%" }}
-          ></Column>
-          <Column
-            field="type"
-            header="Tipo"
-            sortable
-            className="p-datatable-column"
-          ></Column>
-          <Column
-            field="responsableTeam"
-            header="Equipe"
-            sortable
-            className="p-datatable-column"
-          ></Column>
-        </DataTable>
+        <DataTable columns={manteinanceTableColumns} data={maintenanceList} />
       </section>
     </main>
   );
