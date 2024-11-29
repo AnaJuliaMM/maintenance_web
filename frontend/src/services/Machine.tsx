@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 
-import { machineType, machinePostType } from "@/types/machine";
+import { machineType, machinePostType } from "@/types/machineType";
 
 class MachineService {
   private api: AxiosInstance;
@@ -24,9 +24,43 @@ class MachineService {
     }
   }
 
+  async getById(endpoint: string, id: number): Promise<machineType> {
+    try {
+      const response = await this.api.get(`${endpoint}/${id}`);
+      return response.data;
+    } catch (error: any) {
+      this.handleError(error);
+      throw error;
+    }
+  }
+
   async post(endpoint: string, data: machinePostType): Promise<AxiosResponse> {
     try {
       const response = await this.api.post(endpoint, data);
+      return response;
+    } catch (error: any) {
+      this.handleError(error);
+      throw error;
+    }
+  }
+
+  async update(
+    endpoint: string,
+    id: number,
+    data: machinePostType
+  ): Promise<AxiosResponse> {
+    try {
+      const response = await this.api.put(`${endpoint}/${id}`, data);
+      return response;
+    } catch (error: any) {
+      this.handleError(error);
+      throw error;
+    }
+  }
+
+  async delete(endpoint: string, id: number): Promise<AxiosResponse> {
+    try {
+      const response = await this.api.delete(`${endpoint}/${id}`);
       return response;
     } catch (error: any) {
       this.handleError(error);
