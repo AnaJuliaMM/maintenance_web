@@ -1,5 +1,5 @@
 export type itemType = {
-  id?: number;
+  id: number;
   name: string;
   description: string;
   type: string;
@@ -7,5 +7,4 @@ export type itemType = {
   supplier: string;
   quantity: number;
   status: string;
-  images?: string[] | null;
 };
