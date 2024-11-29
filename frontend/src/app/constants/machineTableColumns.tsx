@@ -1,8 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 import { TiDelete } from "react-icons/ti";
-import { MdEdit } from "react-icons/md";
 
 import { machineType } from "@/types/machineType";
 import { categoryType } from "@/types/categoryType";
@@ -25,7 +23,7 @@ const machineTableColumns: ColumnDef<machineType>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {
-      return <TableCellHeader text="Name" column={column} />;
+      return <TableCellHeader text="ID" column={column} />;
     },
   },
   {
