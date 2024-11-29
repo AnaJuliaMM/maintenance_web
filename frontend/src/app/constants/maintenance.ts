@@ -1,4 +1,4 @@
-import { maintenanceType } from "../../types/maintenance";
+import { maintenanceType } from "@/types/maintenanceType";
 
 export const maintenanceList: maintenanceType[] = [
   {
