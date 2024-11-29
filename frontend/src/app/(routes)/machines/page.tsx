@@ -2,28 +2,25 @@
 import React, { useState, useEffect } from "react";
 
 import { IoAddCircle } from "react-icons/io5";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { useRouter } from "next/navigation";
 import { RiFileList2Line } from "react-icons/ri";
 
 import RegisterModal from "@/components/modals/Register";
 import LoadingContainer from "@/components/LoadingContainer";
 import CustomSelect from "@/components/SelectLabel";
 import InputLabel from "@/components/InputLabel";
-import {
-  machineType,
-  categoryType,
-  locationType,
-  machinePostType,
-} from "@/types/machine";
+import DataTable from "@/components/DataTable";
+
+import { machineType, machinePostType } from "@/types/machineType";
+import { categoryType } from "@/types/categoryType";
+import { locationType } from "@/types/locationType";
+
+import machineTableColumns from "@/app/constants/machineTableColumns";
+
 import LocationService from "@/services/Location";
-import MachineService from "@/services/Machine";
+import MachineService from "@/services/machine";
 import CategoryService from "@/services/Category";
 
 export default function Machine() {
-  const router = useRouter();
-  const [selectedRow, setSelectedRow] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [machines, setMachines] = useState<machineType[]>([]);
@@ -40,16 +37,6 @@ export default function Machine() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  /**
-   * Função para lidar com a seleção de uma linha. Quando uma linha é selecionada,
-   * a função redireciona o usuário para a página correspondente ao item selecionada.
-   *
-   * @param {any} event - O evento de seleção da linha, que contém os dados da linha selecionada.
-   */
-  const onRowSelect = (event: any) => {
-    router.push(`/machines/${event.data.serialNumber}`);
-  };
 
   /**
    * Função para abrir o modal. Define o estado `isModalOpen` como `true`,
@@ -282,57 +269,7 @@ export default function Machine() {
       {loading ? (
         <LoadingContainer />
       ) : (
-        <DataTable
-          value={machines}
-          selectionMode="single"
-          selection={selectedRow}
-          onSelectionChange={(e) => setSelectedRow(e.value)}
-          onRowSelect={onRowSelect}
-          metaKeySelection={false}
-          dataKey="serialNumber"
-          paginator
-          rows={8}
-          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-          currentPageReportTemplate="{last} de {totalRecords}"
-          className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
-          tableStyle={{ lineBreak: "anywhere" }}
-        >
-          <Column
-            field="serialNumber"
-            header="Série"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "15%" }}
-          ></Column>
-          <Column
-            field="name"
-            header="Nome"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "20%" }}
-          ></Column>
-          <Column
-            field="model"
-            header="Modelo"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "15%" }}
-          ></Column>
-          <Column
-            field="location.name"
-            header="Localização"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "15%" }}
-          ></Column>
-          <Column
-            field="category.name"
-            header="Categoria"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "15%" }}
-          ></Column>
-        </DataTable>
+        <DataTable columns={machineTableColumns} data={machines} />
       )}
     </main>
   );
