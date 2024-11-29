@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 
-import { locationType } from "@/types/machine";
+import { locationType } from "@/types/locationType";
 
 class LocationService {
   private api: AxiosInstance;

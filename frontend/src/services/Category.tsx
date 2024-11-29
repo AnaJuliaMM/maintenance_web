@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 
-import { categoryType } from "@/types/machine";
+import { categoryType } from "@/types/categoryType";
 
 class CategoryService {
   private api: AxiosInstance;
