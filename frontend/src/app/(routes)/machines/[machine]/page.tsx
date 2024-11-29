@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -10,20 +10,67 @@ import { machineList } from "@/app/constants/machine";
 import { maintenanceList } from "@/app/constants/maintenance";
 import { Title } from "@/app/components/Title";
 
+import MachineService from "@/services/machine";
+import { machineType } from "@/types/machineType";
+
 type Params = {
   machine: string;
 };
 
-interface MachineDetailProps {
+interface machineProps {
   params: Params;
 }
 
-export default function MachineDetail({ params }: MachineDetailProps) {
+export default function machine({ params }: machineProps) {
   const router = useRouter();
   const [selectedRow, setSelectedRow] = useState<any>(null);
-  const machineDetail = machineList.filter(
-    (machine) => machine.serialNumber === params.machine
-  )[0];
+
+  const [machine, setMachine] = useState<machineType>({
+    id: 0,
+    name: "",
+    serialNumber: "",
+    model: "",
+    manufactureDate: "",
+    category: {
+      id: 0,
+      name: "",
+    },
+    location: {
+      id: 0,
+      name: "",
+      description: "",
+    },
+  });
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    /**
+     * Função assíncrona para buscar os itens da API e atualizar o estado do componente.
+     *
+     * A função tenta realizar uma requisição através de `MachineService.getById("")` para buscar os dados.
+     * Em caso de sucesso, ela atualiza o estado de `machine` com os dados obtidos. Se ocorrer um erro,
+     * ela atualiza o estado `error` com uma mensagem de falha.
+     * Independentemente do sucesso ou falha da requisição, o estado `loading` é atualizado para `false`
+     * para indicar que o processo de carregamento foi concluído.
+     *
+     * @async
+     * @function
+     * @returns {Promise<void>} Retorna uma Promise que resolve quando a operação for concluída.
+     */
+    const fetchMachine = async (id: number): Promise<void> => {
+      try {
+        let data = await MachineService.getById("", id);
+        setMachine(data);
+      } catch (error) {
+        setError(`Falha ao carregar os dados: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMachine(parseInt(params.machine));
+  }, []);
 
   // Functions
   const onRowSelect = (event: any) => {
@@ -46,48 +93,34 @@ export default function MachineDetail({ params }: MachineDetailProps) {
 
   return (
     <main className="flex flex-col p-6 w-svw h-fit">
-      <Title>{machineDetail.name}</Title>
+      <Title>{machine.name}</Title>
       <section className="flex flex-col items-center gap-4">
-
         {/* Details card */}
         <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-5 w-full border-l-4  border-purple-700">
           <div>
-            <span className="font-bold">Nome:</span> {machineDetail.name}
-          </div>
-          <div>
-            <span className="font-bold">Tipo :</span> {machineDetail.type}
-          </div>
-          <div>
-            <span className="font-bold">Modelo:</span> {machineDetail.model}
-          </div>
-          <div>
-            <span className="font-bold">Localização:</span>{" "}
-            {machineDetail.location}
-          </div>
-          <div>
             <span className="font-bold">Número de Série :</span>{" "}
-            {machineDetail.serialNumber}
+            {machine.serialNumber}
           </div>
+          <div>
+            <span className="font-bold">Nome:</span> {machine.name}
+          </div>
+
+          <div>
+            <span className="font-bold">Modelo:</span> {machine.model}
+          </div>
+          <div>
+            <div>
+              <span className="font-bold">Categoria :</span>{" "}
+              {machine.category?.name}
+            </div>
+            <span className="font-bold">Local:</span> {machine.location?.name}
+          </div>
+
           <div>
             <span className="font-bold">Data de fabricação :</span>{" "}
-            {machineDetail.manufactureDate}
+            {machine.manufactureDate}
           </div>
         </div>
-
-        {/* Photos */}
-        <Galleria
-          value={machineDetail.imagesUrl}
-          numVisible={5}
-          circular
-          style={{ maxWidth: "40rem" }}
-          item={itemTemplate}
-          thumbnail={thumbnailTemplate}
-          showItemNavigators
-          showItemNavigatorsOnHover
-          showIndicators
-          showThumbnails={false}
-          className="p-4 rounded-lg w-1/2"
-        />
       </section>
 
       {/* Maintenance table */}
