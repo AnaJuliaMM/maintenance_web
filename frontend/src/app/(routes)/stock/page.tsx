@@ -2,22 +2,26 @@
 import React, { useState, useEffect } from "react";
 
 import { IoAddCircle } from "react-icons/io5";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
 import { RiFileList2Line } from "react-icons/ri";
 
 import RegisterModal from "@/components/modals/Register";
 import LoadingContainer from "@/components/LoadingContainer";
 import InputLabel from "@/components/InputLabel";
-import WarehouseService from "@/services/Warehouse";
-import { itemType } from "@/types/Item";
+import DataTable from "@/components/DataTable";
 
-export default function Machine() {
+import WarehouseService from "@/services/warehouse";
+
+import { itemType } from "@/types/itemType";
+
+import warehouseTableColumns from "@/app/constants/warehouseTableColumns";
+
+export default function Stock() {
   const router = useRouter();
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<itemType>({
+    id: 0,
     name: "",
     description: "",
     type: "",
@@ -25,7 +29,6 @@ export default function Machine() {
     supplier: "",
     quantity: 0,
     status: "",
-    images: null,
   });
 
   const [items, setItems] = useState<itemType[]>([]);
@@ -216,18 +219,6 @@ export default function Machine() {
           />
         </div>
 
-        <div>
-          <label htmlFor="images" className="block font-medium">
-            Imagens:
-          </label>
-          <input
-            type="file"
-            id="images"
-            name="images"
-            onChange={handleChange}
-          />
-        </div>
-
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
@@ -239,58 +230,7 @@ export default function Machine() {
       {loading ? (
         <LoadingContainer />
       ) : (
-        <DataTable
-          value={items}
-          selectionMode="single"
-          selection={selectedRow}
-          onSelectionChange={(e) => setSelectedRow(e.value)}
-          onRowSelect={onRowSelect}
-          metaKeySelection={false}
-          dataKey="serialNumber"
-          paginator
-          rows={8}
-          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-          currentPageReportTemplate="{last} de {totalRecords}"
-          className="bg-zinc-400/10 rounded-lg p-4 p-datatable"
-          tableStyle={{ lineBreak: "anywhere" }}
-        >
-          <Column
-            field="id"
-            header="Id"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "10%" }}
-          ></Column>
-          <Column
-            field="name"
-            header="Nome"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "20%" }}
-          ></Column>
-          <Column
-            field="description"
-            header="Descrição"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "25%" }}
-          ></Column>
-
-          <Column
-            field="quantity"
-            header="Qtd"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "10%" }}
-          ></Column>
-          <Column
-            field="status"
-            header="Status"
-            sortable
-            className="p-datatable-column"
-            style={{ width: "20%" }}
-          ></Column>
-        </DataTable>
+        <DataTable columns={warehouseTableColumns} data={items} />
       )}
     </main>
   );
