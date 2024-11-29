@@ -2,7 +2,7 @@ import React from "react";
 
 interface MachineInfoProps {
   label: string;
-  value?: string | JSX.Element;
+  value?: string | number | JSX.Element;
 }
 
 export default function MachineInfo({ label, value }: MachineInfoProps) {
