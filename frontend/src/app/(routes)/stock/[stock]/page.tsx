@@ -74,7 +74,7 @@ export default function Stock({ params }: stockProps) {
         <>
           <Title>{item.name}</Title>
           <section className="flex flex-col item-start gap-4">
-            <div className="flex flex-col justify-center  gap-1 bg-zinc-400/10 rounded-sm p-8 m-4 w-1/2 border-b-4  border-purple-700">
+            <div className="flex flex-col justify-center  gap-1 bg-zinc-400/10 rounded-sm p-8 w-full ">
               <MachineInfo label="Nome" value={item.name} />
               <MachineInfo label="Descrição" value={item.description} />
               <MachineInfo label="Tipo" value={item.type} />

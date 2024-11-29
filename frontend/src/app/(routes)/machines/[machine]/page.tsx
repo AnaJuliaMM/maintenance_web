@@ -4,12 +4,11 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import { Title } from "@/app/components/Title";
+import manteinanceTableColumns from "@/app/constants/manteinanceTableColumns";
+import { maintenanceList } from "@/app/constants/maintenance";
 import MachineInfo from "@/components/MachineInfo";
 import LoadingContainer from "@/components/LoadingContainer";
 import DataTable from "@/components/DataTable";
-
-import manteinanceTableColumns from "@/app/constants/manteinanceTableColumns";
-import { maintenanceList } from "@/app/constants/maintenance";
 
 import MachineService from "@/services/machine";
 
@@ -73,11 +72,6 @@ export default function machine({ params }: machineProps) {
     fetchMachine(parseInt(params.machine));
   }, []);
 
-  // Functions
-  const onRowSelect = (event: any) => {
-    router.push(`/maintenances/${event.data.code}`);
-  };
-
   return (
     <main className="flex flex-col p-6 w-svw h-fit">
       {loading ? (
@@ -89,7 +83,7 @@ export default function machine({ params }: machineProps) {
         <>
           <Title>{machine.name}</Title>
           <section className="flex flex-col items-start gap-4">
-            <div className="flex flex-col justify-center  gap-1 bg-zinc-400/10 rounded-sm p-8 m-4 w-1/2 border-b-4  border-purple-700">
+            <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-8 w-full ">
               <MachineInfo
                 label="Número de Série"
                 value={machine.serialNumber}
