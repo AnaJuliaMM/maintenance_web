@@ -1,9 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import { GoTools } from "react-icons/go";
 import { LuWarehouse } from "react-icons/lu";
-import { RxDashboard } from "react-icons/rx";
 import { PiWashingMachine } from "react-icons/pi";
 import { FaUsers } from "react-icons/fa";
 import { IoIosListBox } from "react-icons/io";
@@ -11,10 +9,9 @@ import { MdAttachMoney } from "react-icons/md";
 import { GoGraph } from "react-icons/go";
 
 import { NavIconItem } from "./NavIconItem";
-import { NavIconItemProps } from "./NavIconItem";
 
 export const Aside = () => {
-  const navItems: NavIconItemProps[] = [
+  const navItems = [
     {
       value: "Relatório",
       href: "/",
@@ -29,11 +26,6 @@ export const Aside = () => {
       value: "Manutenções",
       href: "/maintenances",
       icon: <IoIosListBox />,
-    },
-    {
-      value: "Despesas",
-      href: "/expenses",
-      icon: <MdAttachMoney />,
     },
     {
       value: "Estoque",
