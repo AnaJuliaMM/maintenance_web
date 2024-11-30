@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-import { Title } from "@/app/components/Title";
+import { Title } from "@/components/Title";
 import MachineInfo from "@/components/MachineInfo";
 import LoadingContainer from "@/components/LoadingContainer";
 import DataTable from "@/components/DataTable";
