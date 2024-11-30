@@ -134,19 +134,7 @@ export default function Stock() {
             className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
           >
             <IoAddCircle size={20} />
-            Novo registro
-          </button>
-          <button
-            onClick={openModal}
-            className="flex gap-2 justify-center items-center bg-purple-700 py-2 px-4 rounded-lg font-semibold text-sm"
-          >
-            <IoAddCircle size={20} />
-            Registrar entrada/saída
-          </button>
-
-          <button className="flex gap-2 justify-center items-center bg-pink-600 py-2 px-4 rounded-lg font-semibold text-sm">
-            <RiFileList2Line size={20} />
-            Gerar Relatório
+            Cadastrar item
           </button>
         </div>
       </header>
