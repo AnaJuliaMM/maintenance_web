@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 import { maintenanceList } from "@/app/constants/maintenance";
-import { Title } from "@/app/components/Title";
+import { Title } from "@/components/Title";
 import { AiOutlineAlert } from "react-icons/ai";
 import { SimpleModal } from "@/components/modals/SimpleModal";
 import { SelectOption } from "@/app/components/SelectOption";
