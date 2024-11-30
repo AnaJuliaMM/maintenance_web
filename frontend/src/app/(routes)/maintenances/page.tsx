@@ -7,9 +7,8 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
 import { RiFileList2Line } from "react-icons/ri";
-import { Dropdown } from "primereact/dropdown";
 
-import { Title } from "@/app/components/Title";
+import { Title } from "@/components/Title";
 import { maintenanceList } from "@/app/constants/maintenance";
 import RegisterModal from "@/components/modals/Register";
 import { SelectOption } from "@/app/components/SelectOption";
@@ -31,7 +30,6 @@ export default function Machine() {
   const [responsibleTeam, setResponsibleTeam] = useState<string>("");
   const [priority, setPriority] = useState<string>("");
 
-  // Functions
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
