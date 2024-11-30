@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { Title } from "@/app/components/Title";
-import manteinanceTableColumns from "@/app/constants/manteinanceTableColumns";
-import { maintenanceList } from "@/app/constants/maintenance";
+import { Title } from "@/components/Title";
 import MachineInfo from "@/components/MachineInfo";
 import LoadingContainer from "@/components/LoadingContainer";
 import DataTable from "@/components/DataTable";
+
+import manteinanceTableColumns from "@/app/constants/manteinanceTableColumns";
+import { maintenanceList } from "@/app/constants/maintenance";
 
 import MachineService from "@/services/machine";
 
