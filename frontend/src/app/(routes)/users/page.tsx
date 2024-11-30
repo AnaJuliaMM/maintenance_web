@@ -1,129 +1,182 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { execPath } from "process";
+import React, { useState, useEffect } from "react";
 
-function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+import { IoAddCircle } from "react-icons/io5";
 
-  const router = useRouter();
+import RegisterModal from "@/components/modals/Register";
+import LoadingContainer from "@/components/LoadingContainer";
+import InputLabel from "@/components/InputLabel";
+import DataTable from "@/components/DataTable";
 
-  const handleSubmit = (e: any) => {
+import { userType } from "@/types/userType";
+
+import userTableColumns from "@/app/constants/userTableColumns";
+
+import UserService from "@/services/user";
+
+export default function Machine() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [users, setUsers] = useState<userType[]>([]);
+  const [formData, setFormData] = useState<userType>({
+    id: 0,
+    name: "",
+    email: "",
+    username: "",
+    password: "",
+  });
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  /**
+   * Função para abrir o modal. Define o estado `isModalOpen` como `true`,
+   * tornando o modal visível na tela.
+   */
+  const openModal = () => setIsModalOpen(true);
+
+  /**
+   * Função para fechar o modal. Define o estado `isModalOpen` como `false`,
+   * tornando o modal invisível na tela.
+   */
+  const closeModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    /**
+     * Função assíncrona para buscar os itens da API e atualizar o estado do componente.
+     *
+     * A função tenta realizar uma requisição através de `MachineService.get("")` para buscar os dados.
+     * Em caso de sucesso, ela atualiza o estado de `machines` com os dados obtidos. Se ocorrer um erro,
+     * ela atualiza o estado `error` com uma mensagem de falha.
+     * Independentemente do sucesso ou falha da requisição, o estado `loading` é atualizado para `false`
+     * para indicar que o processo de carregamento foi concluído.
+     *
+     * @async
+     * @function
+     * @returns {Promise<void>} Retorna uma Promise que resolve quando a operação for concluída.
+     */
+    const fetchItems = async (): Promise<void> => {
+      try {
+        let data: any[] = await UserService.get("");
+        setUsers(data);
+      } catch (error) {
+        setError(`Falha ao carregar os dados: ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
+  /**
+   * Função para lidar com as mudanças nos campos de entrada de um formulário.
+   * Atualiza o estado `formData` com o valor do campo alterado.
+   * Para campos de texto e numeros, o valor é armazenado diretamente.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement | HTMLSelectElement>} e - O evento de mudança no campo de entrada.
+   */
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  /**
+   * Função para lidar com o envio do formulário.
+   * Previne o envio padrão, formata o payload e envia os dados para a API e lida com a resposta.
+   *
+   * @param {React.FormEvent<HTMLFormElement>} e - O evento de envio do formulário.
+   */
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-
-      // Aqui você pode adicionar a lógica para enviar o cadastro para a API
-      console.log("Nome:", name);
-      console.log("Email:", email);
-      console.log("Username:", username);
-      console.log("Senha:", password);
-
-      // Após o cadastro, redireciona para a página de login
-      router.push("/login");
-    } catch (e: any) {
-      setError(e.message);
+      await UserService.post("", formData);
+      setIsModalOpen(false);
+      window.location.reload();
+    } catch (error) {
+      setError(`Falha ao enviar os dados: ${error}`);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 w-full text-black">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-80">
-        <h2 className="text-2xl font-semibold text-center mb-6">
-          Cadastro de Usuário
-        </h2>
-
-        {error && <h2 className="font-semibold text-center mb-6">{error}</h2>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Nome
-            </label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Digite seu nome completo"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Digite seu email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Nome de Usuário
-            </label>
-            <input
-              type="text"
-              id="username"
-              placeholder="Escolha um nome de usuário"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Senha
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Crie uma senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+    <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
+      {/* Header */}
+      <header className="flex  justify-between p-5">
+        <h1 className="text-blue-100 text-2xl font-bold">
+          Usuários do Sistema
+        </h1>
+        <div className="flex gap-4">
           <button
-            type="submit"
-            className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onClick={openModal}
+            className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
           >
-            Cadastrar
-          </button>
-        </form>
-        <div className="mt-4 text-center">
-          <button
-            onClick={() => router.push("/login")}
-            className="text-blue-500 hover:underline"
-          >
-            Já tem uma conta? Faça login
+            <IoAddCircle size={20} />
+            Cadastrar Usuário
           </button>
         </div>
-      </div>
-    </div>
+      </header>
+
+      {/* Modal */}
+      <RegisterModal
+        isOpen={isModalOpen}
+        title="Cadastrar Usuário"
+        onClose={closeModal}
+        handleSubmit={handleSubmit}
+      >
+        <div>
+          <InputLabel
+            id="name"
+            type="text"
+            label="Nome"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <InputLabel
+            id="email"
+            type="text"
+            label="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
+          <InputLabel
+            id="username"
+            type="text"
+            label="Username"
+            value={formData.username}
+            onChange={handleChange}
+          />
+          <InputLabel
+            id="password"
+            type="password"
+            label="Senha"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
+        >
+          Cadastrar
+        </button>
+      </RegisterModal>
+
+      {loading ? (
+        <LoadingContainer />
+      ) : (
+        <DataTable columns={userTableColumns} data={users} />
+      )}
+    </main>
   );
 }
-
-export default Register;
