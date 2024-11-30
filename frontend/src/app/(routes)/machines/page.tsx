@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 
 import { IoAddCircle } from "react-icons/io5";
-import { RiFileList2Line } from "react-icons/ri";
 
 import RegisterModal from "@/components/modals/Register";
 import LoadingContainer from "@/components/LoadingContainer";
@@ -16,9 +15,9 @@ import { locationType } from "@/types/locationType";
 
 import machineTableColumns from "@/app/constants/machineTableColumns";
 
-import LocationService from "@/services/Location";
+import LocationService from "@/services/location";
 import MachineService from "@/services/machine";
-import CategoryService from "@/services/Category";
+import CategoryService from "@/services/category";
 
 export default function Machine() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -191,11 +190,6 @@ export default function Machine() {
           >
             <IoAddCircle size={20} />
             Cadastrar Máquina
-          </button>
-
-          <button className="flex gap-2 justify-center items-center bg-pink-600 py-2 px-4 rounded-lg font-semibold text-sm">
-            <RiFileList2Line size={20} />
-            Gerar Relatório
           </button>
         </div>
       </header>
