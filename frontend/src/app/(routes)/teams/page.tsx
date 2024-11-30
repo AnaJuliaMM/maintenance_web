@@ -5,7 +5,6 @@ import { IoAddCircle } from "react-icons/io5";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useRouter } from "next/navigation";
-import { RiFileList2Line } from "react-icons/ri";
 
 import RegisterModal from "@/components/modals/Register";
 import { machineList } from "@/app/constants/machine";
