@@ -1,7 +1,6 @@
 import React from "react";
 
-import { Title } from "../../app/components/Title";
-import { IoIosAddCircle } from "react-icons/io";
+import { Title } from "../Title";
 
 interface MachineRegisterModalProps {
   isOpen: boolean;

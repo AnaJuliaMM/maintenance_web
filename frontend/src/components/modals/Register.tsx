@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Title } from "../../app/components/Title";
+import { Title } from "../Title";
 import { IoIosAddCircle } from "react-icons/io";
 
 interface MachineRegisterModalProps {
