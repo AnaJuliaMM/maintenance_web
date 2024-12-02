@@ -12,7 +12,7 @@ interface InputLabelProps {
 
 const InputLabel = ({ id, type, label, value, onChange }: InputLabelProps) => {
   return (
-    <div className="flex flex-col items-start w-full">
+    <div className="flex flex-col items-start w-full gap-2">
       <label htmlFor={id} className="block font-medium">
         {label}:
       </label>
