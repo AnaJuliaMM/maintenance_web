@@ -5,7 +5,9 @@ interface InputLabelProps {
   type: string;
   label: string;
   value?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
 }
 
 const InputLabel = ({ id, type, label, value, onChange }: InputLabelProps) => {
