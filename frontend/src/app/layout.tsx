@@ -1,27 +1,25 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
+"use client";
+import { usePathname } from "next/navigation";
 import { Aside } from "@/components/Aside";
 
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Controle de Manutenção",
-  description:
-    "Sistema para controle e gerenciamento de manutenções em uma indústria",
-};
-
-export default function RootLayout({
+export default function ClientLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const isLoginRoute = pathname === "/";
+
   return (
     <html lang="en">
       <body className="bg-gray-950 h-svh">
-        <Aside />
-        <div className="flex h-svh pl-[20%]">{children}</div>
+        {/* Exibe o Aside com base na lógica de rota */}
+        {!isLoginRoute && <Aside />}
+        <div className={`flex h-svh ${!isLoginRoute && "pl-[20%]"}`}>
+          {children}
+        </div>
       </body>
     </html>
   );
