@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from "react";
 
 import { IoAddCircle } from "react-icons/io5";
+import { RiLoader2Fill } from "react-icons/ri";
+import { BiError } from "react-icons/bi";
 
 import RegisterModal from "@/components/modals/Register";
-import LoadingContainer from "@/components/LoadingContainer";
+import CatchAPIResponseContainer from "@/components/CatchAPIResponseContainer";
 import CustomSelect from "@/components/SelectLabel";
 import InputLabel from "@/components/InputLabel";
 import DataTable from "@/components/DataTable";
@@ -261,7 +263,15 @@ export default function Machine() {
       </RegisterModal>
 
       {loading ? (
-        <LoadingContainer />
+        <CatchAPIResponseContainer
+          text="Por favor, aguarde! Os dados estão sendo carregados"
+          icon={<RiLoader2Fill size={30} />}
+        />
+      ) : error ? (
+        <CatchAPIResponseContainer
+          text="Desculpe, houve um erro ao carregar seus dados!"
+          icon={<BiError size={30} />}
+        />
       ) : (
         <DataTable columns={machineTableColumns} data={machines} />
       )}
