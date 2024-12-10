@@ -3,9 +3,13 @@ import React, { useState, useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { RiLoader2Fill } from "react-icons/ri";
+import { BiError } from "react-icons/bi";
+import { TiDelete } from "react-icons/ti";
+
 import { Title } from "@/components/Title";
 import MachineInfo from "@/components/MachineInfo";
-import LoadingContainer from "@/components/LoadingContainer";
+import CatchAPIResponseContainer from "@/components/CatchAPIResponseContainer";
 import DataTable from "@/components/DataTable";
 
 import manteinanceTableColumns from "@/app/constants/manteinanceTableColumns";
@@ -75,16 +79,36 @@ export default function machine({ params }: machineProps) {
 
   return (
     <main className="flex flex-col p-6 w-svw h-fit">
+      <Title>Detalhes</Title>
+      <hr className="border-t-2 border-gray-500 my-4" />
+
       {loading ? (
-        <>
-          <Title>Detalhes da Máquina</Title>
-          <LoadingContainer />
-        </>
+        <CatchAPIResponseContainer
+          text="Por favor, aguarde! Os dados estão sendo carregados"
+          icon={<RiLoader2Fill size={30} />}
+        />
+      ) : error ? (
+        <CatchAPIResponseContainer
+          text={`Desculpe, houve um erro ao carregar seus dados!`}
+          icon={<BiError size={30} />}
+        />
       ) : (
         <>
-          <Title>{machine.name}</Title>
           <section className="flex flex-col items-start gap-4">
             <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-8 w-full ">
+              <span className="flex justify-between w-full">
+                <Title>{machine.name}</Title>
+
+                <button
+                  onClick={() => {
+                    MachineService.delete("", machine.id);
+                    window.location.href = "/machines";
+                  }}
+                  className="flex items-center justify-evenly gap-4 bg-slate-400 w-fit h-fit py-2 px-4 rounded-lg"
+                >
+                  Deletar <TiDelete size={30} />
+                </button>
+              </span>
               <MachineInfo
                 label="Número de Série"
                 value={machine.serialNumber}
@@ -100,8 +124,7 @@ export default function machine({ params }: machineProps) {
       )}
 
       {/* Maintenance table */}
-      <hr className="border-t-2 border-gray-500 my-4" />
-      <section>
+      <section className="flex flex-col py-8">
         <Title>Histórico de Manutenção</Title>
         <DataTable columns={manteinanceTableColumns} data={maintenanceList} />
       </section>
