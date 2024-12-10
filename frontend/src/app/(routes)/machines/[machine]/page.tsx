@@ -94,7 +94,6 @@ export default function machine({ params }: machineProps) {
   return (
     <main className="flex flex-col p-6 w-svw h-fit">
       <Title>Detalhes</Title>
-      <hr className="border-t-2 border-gray-500 my-4" />
 
       {loading ? (
         <CatchAPIResponseContainer
@@ -108,7 +107,7 @@ export default function machine({ params }: machineProps) {
         />
       ) : (
         <>
-          <section className="flex flex-col items-start gap-4">
+          <section className="flex flex-col self-center gap-4 w-2/3">
             <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-8 w-full ">
               <span className="flex justify-between w-full">
                 <Title>{machine.name}</Title>
@@ -120,6 +119,8 @@ export default function machine({ params }: machineProps) {
                   Deletar <TiDelete size={30} />
                 </button>
               </span>
+              <hr className="border-t-2 border-gray-500 my-4" />
+
               <MachineInfo
                 label="Número de Série"
                 value={machine.serialNumber}
