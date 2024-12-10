@@ -5,27 +5,15 @@ import { LuWarehouse } from "react-icons/lu";
 import { PiWashingMachine } from "react-icons/pi";
 import { FaUsers } from "react-icons/fa";
 import { IoIosListBox } from "react-icons/io";
-import { MdAttachMoney } from "react-icons/md";
-import { GoGraph } from "react-icons/go";
 
 import { NavIconItem } from "./NavIconItem";
 
 export const Aside = () => {
   const navItems = [
     {
-      value: "Relatório",
-      href: "/",
-      icon: <GoGraph />,
-    },
-    {
       value: "Máquinas",
       href: "/machines",
       icon: <PiWashingMachine />,
-    },
-    {
-      value: "Manutenções",
-      href: "/maintenances",
-      icon: <IoIosListBox />,
     },
     {
       value: "Estoque",
@@ -33,8 +21,13 @@ export const Aside = () => {
       icon: <LuWarehouse />,
     },
     {
-      value: "Equipes",
-      href: "/teams",
+      value: "Manutenções",
+      href: "/maintenances",
+      icon: <IoIosListBox />,
+    },
+    {
+      value: "Usuários",
+      href: "/users",
       icon: <FaUsers />,
     },
   ];
@@ -47,6 +40,7 @@ export const Aside = () => {
         width={200}
         height={200}
         className="w-full"
+        priority
       ></Image>
       <nav className="flex flex-col space-y-4 mt-8">
         {navItems.map((item, index) => (
