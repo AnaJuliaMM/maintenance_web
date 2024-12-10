@@ -46,7 +46,7 @@ function Login() {
     try {
       setLoading(true);
       await AuthService.login("", formData);
-      router.push("/report");
+      router.push("/machines");
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         setError("Usuário ou senha inválidos.");
