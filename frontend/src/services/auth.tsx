@@ -7,7 +7,7 @@ class AuthService {
 
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:3011/api/Auth",
+      baseURL: "http://localhost:3014/auth",
       headers: {
         "Content-Type": "application/json",
       },
@@ -27,6 +27,7 @@ class AuthService {
 
   static async logout() {
     localStorage.removeItem("token");
+    window.location.href = "/";
   }
 
   private handleError(error: AxiosError): void {
