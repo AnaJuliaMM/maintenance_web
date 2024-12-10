@@ -83,8 +83,13 @@ const warehouseTableColumns: ColumnDef<itemType>[] = [
 
             <DropdownMenuItem
               onClick={() => {
-                WarehouseService.delete("", item.id);
-                window.location.reload();
+                const confirmDelete = window.confirm(
+                  "Tem certeza que deseja deletar?"
+                );
+                if (confirmDelete) {
+                  WarehouseService.delete("", item.id);
+                  window.location.href = "/stock";
+                }
               }}
               className="flex items-center justify-evenly gap-4"
             >
