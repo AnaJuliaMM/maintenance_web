@@ -106,8 +106,13 @@ const machineTableColumns: ColumnDef<machineType>[] = [
 
             <DropdownMenuItem
               onClick={() => {
-                MachineService.delete("", machine.id);
-                window.location.reload();
+                const confirmDelete = window.confirm(
+                  "Tem certeza que deseja deletar?"
+                );
+                if (confirmDelete) {
+                  MachineService.delete("", machine.id);
+                  window.location.href = "/machines";
+                }
               }}
               className="flex items-center justify-evenly gap-4"
             >
