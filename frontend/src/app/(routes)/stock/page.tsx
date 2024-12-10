@@ -1,12 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import { IoAddCircle } from "react-icons/io5";
-import { useRouter } from "next/navigation";
-import { RiFileList2Line } from "react-icons/ri";
+import { RiLoader2Fill } from "react-icons/ri";
+import { BiError } from "react-icons/bi";
 
 import RegisterModal from "@/components/modals/Register";
-import LoadingContainer from "@/components/LoadingContainer";
+import CatchAPIResponseContainer from "@/components/CatchAPIResponseContainer";
+import CustomSelect from "@/components/SelectLabel";
 import InputLabel from "@/components/InputLabel";
 import DataTable from "@/components/DataTable";
 
@@ -17,8 +19,6 @@ import { itemType } from "@/types/itemType";
 import warehouseTableColumns from "@/app/constants/warehouseTableColumns";
 
 export default function Stock() {
-  const router = useRouter();
-  const [selectedRow, setSelectedRow] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<itemType>({
     id: 0,
@@ -28,22 +28,11 @@ export default function Stock() {
     acquisitionDate: "",
     supplier: "",
     quantity: 0,
-    status: "",
+    status: "Disponível",
   });
-
   const [items, setItems] = useState<itemType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  /**
-   * Função para lidar com a seleção de uma linha. Quando uma linha é selecionada,
-   * a função redireciona o usuário para a página correspondente ao item selecionada.
-   *
-   * @param {any} event - O evento de seleção da linha, que contém os dados da linha selecionada.
-   */
-  const onRowSelect = (event: any) => {
-    router.push(`/machines/${event.data.id}`);
-  };
 
   /**
    * Função para abrir o modal. Define o estado `isModalOpen` como `true`,
@@ -93,11 +82,13 @@ export default function Stock() {
    *
    * @param {React.ChangeEvent<HTMLInputElement>} e - O evento de mudança no campo de entrada.
    */
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: files ? files[0] : value,
+      [name]: value,
     }));
   };
 
@@ -181,13 +172,6 @@ export default function Stock() {
             value={formData.supplier}
             onChange={handleChange}
           />
-          <InputLabel
-            id="type"
-            type="text"
-            label="Tipo"
-            value={formData.type}
-            onChange={handleChange}
-          />
         </div>
 
         <div className="flex gap-5">
@@ -198,10 +182,10 @@ export default function Stock() {
             value={String(formData.quantity)}
             onChange={handleChange}
           />
-          <InputLabel
-            id="status"
-            type="text"
-            label="Status"
+          <CustomSelect
+            id="locationId"
+            label="Localização"
+            items={["Disponível", "Indísponível"]}
             value={formData.status}
             onChange={handleChange}
           />
@@ -216,7 +200,15 @@ export default function Stock() {
       </RegisterModal>
 
       {loading ? (
-        <LoadingContainer />
+        <CatchAPIResponseContainer
+          text="Por favor, aguarde! Os dados estão sendo carregados"
+          icon={<RiLoader2Fill size={30} />}
+        />
+      ) : error ? (
+        <CatchAPIResponseContainer
+          text="Desculpe, houve um erro ao carregar seus dados!"
+          icon={<BiError size={30} />}
+        />
       ) : (
         <DataTable columns={warehouseTableColumns} data={items} />
       )}
