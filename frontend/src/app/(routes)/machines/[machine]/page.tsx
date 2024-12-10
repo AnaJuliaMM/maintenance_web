@@ -1,8 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-import { useRouter } from "next/navigation";
-
 import { RiLoader2Fill } from "react-icons/ri";
 import { BiError } from "react-icons/bi";
 import { TiDelete } from "react-icons/ti";
@@ -28,8 +26,6 @@ interface machineProps {
 }
 
 export default function machine({ params }: machineProps) {
-  const router = useRouter();
-
   const [machine, setMachine] = useState<machineType>({
     id: 0,
     name: "",
