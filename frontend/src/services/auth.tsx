@@ -25,7 +25,7 @@ class AuthService {
     }
   }
 
-  static async logout() {
+  async logout() {
     localStorage.removeItem("token");
     window.location.href = "/";
   }
