@@ -8,10 +8,10 @@ interface MachineInfoProps {
 export default function MachineInfo({ label, value }: MachineInfoProps) {
   return (
     <div className="flex justify-between">
-      {label}:
       <span className="font-bold bg-slate-400 bg-opacity-30 rounded-md p-1 px-2">
-        {value ? value : "-"}
+        {label}:
       </span>
+      {value ? value : "-"}
     </div>
   );
 }
