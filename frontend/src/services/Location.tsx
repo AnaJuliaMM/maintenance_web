@@ -7,16 +7,18 @@ class LocationService {
 
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:3012/api/Location",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      baseURL: "http://localhost:3014/locations/",
     });
   }
 
   async get(endpoint: string): Promise<locationType[]> {
     try {
-      const response = await this.api.get(endpoint);
+      const response = await this.api.get(endpoint, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       return response.data;
     } catch (error: any) {
       this.handleError(error);
@@ -26,7 +28,12 @@ class LocationService {
 
   async post(endpoint: string, data: locationType): Promise<AxiosResponse> {
     try {
-      const response = await this.api.post(endpoint, data);
+      const response = await this.api.post(endpoint, data, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       return response;
     } catch (error: any) {
       this.handleError(error);
@@ -36,17 +43,19 @@ class LocationService {
 
   private handleError(error: AxiosError): void {
     if (error.response) {
-      console.error(error.response);
-
-      console.error(
-        `Erro na resposta: ${error.response.status}`,
-        error.response.data
-      );
-    } else if (error.request) {
+      if (error.response.status == 403 || error.response.status == 401) {
+        alert(
+          "Seu usuário não tem permissão para acessar esta página. Por favor, faça login."
+        );
+        window.location.href = "/";
+      } else
+        console.error(
+          `Erro na resposta: ${error.response.status}`,
+          error.response.data
+        );
+    } else if (error.request)
       console.error("Erro na requisição:", error.request);
-    } else {
-      console.error("Erro ao configurar a requisição:", error.message);
-    }
+    else console.error("Erro ao configurar a requisição:", error.message);
   }
 }
 
