@@ -77,6 +77,24 @@ export default function machine({ params }: machineProps) {
     fetchMachine(parseInt(params.machine));
   }, []);
 
+  /**
+   * Função de exclusão de uma máquina.
+   *
+   * Esta função exibe uma mensagem de confirmação para o usuário antes de excluir uma máquina.
+   * Se o usuário confirmar a exclusão, a função chama o serviço de exclusão e redireciona para a página de máquinas.
+   * Caso contrário, exibe uma mensagem informando que a operação foi cancelada.
+   *
+   * @function handleDelete
+   * @returns {void}
+   */
+  const handleDelete = () => {
+    const confirmDelete = window.confirm("Tem certeza que deseja deletar?");
+    if (confirmDelete) {
+      MachineService.delete("", machine.id);
+      window.location.href = "/machines";
+    }
+  };
+
   return (
     <main className="flex flex-col p-6 w-svw h-fit">
       <Title>Detalhes</Title>
@@ -100,10 +118,7 @@ export default function machine({ params }: machineProps) {
                 <Title>{machine.name}</Title>
 
                 <button
-                  onClick={() => {
-                    MachineService.delete("", machine.id);
-                    window.location.href = "/machines";
-                  }}
+                  onClick={handleDelete}
                   className="flex items-center justify-evenly gap-4 bg-slate-400 w-fit h-fit py-2 px-4 rounded-lg"
                 >
                   Deletar <TiDelete size={30} />
