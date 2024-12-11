@@ -1,8 +1,10 @@
 "use client";
 import { usePathname } from "next/navigation";
+import "./globals.css";
+
 import { Aside } from "@/components/Aside";
 
-import "./globals.css";
+import { AuthProvider } from "@/context/authContext";
 
 export default function ClientLayout({
   children,
@@ -13,14 +15,16 @@ export default function ClientLayout({
   const isLoginRoute = pathname === "/";
 
   return (
-    <html lang="en">
-      <body className="bg-gray-950 h-svh">
-        {/* Exibe o Aside com base na lógica de rota */}
-        {!isLoginRoute && <Aside />}
-        <div className={`flex h-svh ${!isLoginRoute && "pl-[20%]"}`}>
-          {children}
-        </div>
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+        <body className="bg-gray-950 h-svh">
+          {/*Do not show aside nav in login route*/}
+          {!isLoginRoute && <Aside />}
+          <div className={`flex h-svh ${!isLoginRoute && "pl-[20%]"}`}>
+            {children}
+          </div>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }
