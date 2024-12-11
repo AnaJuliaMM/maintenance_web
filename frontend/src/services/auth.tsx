@@ -1,6 +1,9 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 
+import { jwtDecode } from "jwt-decode";
+
 import { authType } from "@/types/authType";
+import { UserRole } from "@/types/userType";
 
 class AuthService {
   private api: AxiosInstance;
@@ -14,11 +17,26 @@ class AuthService {
     });
   }
 
-  async login(endpoint: string, data: authType): Promise<AxiosResponse> {
+  async login(
+    endpoint: string,
+    data: authType
+  ): Promise<{ token: string; role: UserRole }> {
     try {
       const response = await this.api.post(endpoint, data);
-      localStorage.setItem("token", response.data);
-      return response.data;
+
+      // Persist token in local storage
+      const token = response.data;
+      localStorage.setItem("token", token);
+
+      // Decode token to extract user role
+      const decodedToken: { role: UserRole } = jwtDecode(token);
+      console.log("Token: " + decodedToken);
+
+      const role = decodedToken.role;
+      console.log("Dentro do Service: " + role);
+
+      // Return token and role
+      return { token, role };
     } catch (error: any) {
       this.handleError(error);
       throw error;
