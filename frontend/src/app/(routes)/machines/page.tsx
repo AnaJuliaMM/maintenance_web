@@ -21,8 +21,12 @@ import LocationService from "@/services/location";
 import MachineService from "@/services/machine";
 import CategoryService from "@/services/category";
 
+import { useAuth } from "@/context/authContext";
+
 export default function Machine() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { userRole } = useAuth();
 
   const [machines, setMachines] = useState<machineType[]>([]);
   const [categories, setCategories] = useState<categoryType[]>([]);
@@ -185,6 +189,8 @@ export default function Machine() {
       {/* Header */}
       <header className="flex  justify-between p-5">
         <h1 className="text-blue-100 text-2xl font-bold">Máquinas</h1>
+        <p>Seu papel: {userRole || "Desconhecido"}</p>
+
         <div className="flex gap-4">
           <button
             onClick={openModal}
