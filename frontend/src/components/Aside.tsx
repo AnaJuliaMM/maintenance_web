@@ -7,9 +7,11 @@ import { IoIosListBox } from "react-icons/io";
 
 import { NavIconItem } from "./NavIconItem";
 
-import AuthService from "@/services/auth";
+import { useAuth } from "@/context/authContext";
 
 export const Aside = () => {
+  const { logout } = useAuth();
+
   const navItems = [
     {
       value: "Máquinas",
@@ -54,10 +56,7 @@ export const Aside = () => {
       </nav>
 
       <button
-        onClick={() => {
-          AuthService.logout();
-          window.location.href = "/";
-        }}
+        onClick={logout}
         className="flex justify-center gap-2 self-end  bg-blue-500 rounded-md font-semibold text-sm w-full py-2"
       >
         Sair
