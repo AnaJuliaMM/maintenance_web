@@ -2,14 +2,19 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { AxiosError, AxiosStatic } from "axios";
 
-import InputLabel from "@/components/InputLabel";
-import { authType } from "@/types/authType";
-import AuthService from "@/services/auth";
 import { RiLoader2Fill } from "react-icons/ri";
 
+import InputLabel from "@/components/InputLabel";
+
+import { authType } from "@/types/authType";
+
+import AuthService from "@/services/auth";
+
+import { useAuth } from "@/context/authContext";
+
 function Login() {
+  const { login } = useAuth();
   const router = useRouter();
   const [formData, setFormData] = useState<authType>({
     username: "",
@@ -45,8 +50,9 @@ function Login() {
     e.preventDefault();
     try {
       setLoading(true);
-      await AuthService.login("", formData);
-      router.push("/machines");
+      login(formData);
+      alert("Login realizado com sucesso!");
+      // router.push("/machines");
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         setError("Usuário ou senha inválidos.");
