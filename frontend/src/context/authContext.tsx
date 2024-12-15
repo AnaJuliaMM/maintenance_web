@@ -1,13 +1,12 @@
 "use client";
 import { createContext, useContext, useState, ReactNode } from "react";
 
-import { UserRole } from "@/types/userType";
-import { authType } from "@/types/authType";
+import { authType, JwtPayloadType } from "@/types/authType";
 
 import AuthService from "@/services/auth";
 
 interface AuthContextType {
-  userRole: UserRole;
+  user: JwtPayloadType;
   login: (role: authType) => void;
   logout: () => void;
 }
@@ -15,14 +14,15 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [userRole, setUserRole] = useState<UserRole>(null);
+  const [user, setUser] = useState<JwtPayloadType>({
+    username: "",
+    role: null,
+  });
 
   const login = async (data: authType) => {
     try {
-      const { role } = await AuthService.login("", data);
-      console.log("Dentro do Context: " + role);
-
-      setUserRole(role);
+      const { jwtPayload } = await AuthService.login("", data);
+      setUser(jwtPayload);
     } catch (error) {
       console.error("Erro ao realizar login:", error);
     }
@@ -30,11 +30,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     await AuthService.logout();
-    setUserRole(null);
+    setUser({ username: "", role: null });
   };
 
   return (
-    <AuthContext.Provider value={{ userRole, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
