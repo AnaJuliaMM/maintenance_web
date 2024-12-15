@@ -9,8 +9,6 @@ import InputLabel from "@/components/InputLabel";
 
 import { authType } from "@/types/authType";
 
-import AuthService from "@/services/auth";
-
 import { useAuth } from "@/context/authContext";
 
 function Login() {
