@@ -7,7 +7,7 @@ import { userRole } from "@/types/authType";
 
 interface ProtectedRouteProps {
   children: ReactNode;
-  requiredRole: userRole;
+  requiredRole: userRole[];
 }
 
 const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) => {
@@ -15,12 +15,12 @@ const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (user.role !== requiredRole) {
+    if (!requiredRole.includes(user.role)) {
       router.push("/");
     }
   }, [user, requiredRole, router]);
 
-  if (user.role !== requiredRole) {
+  if (!requiredRole.includes(user.role)) {
     return null;
   }
 
