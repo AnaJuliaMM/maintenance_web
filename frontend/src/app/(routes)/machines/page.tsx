@@ -21,12 +21,10 @@ import LocationService from "@/services/location";
 import MachineService from "@/services/machine";
 import CategoryService from "@/services/category";
 
-import { useAuth } from "@/context/authContext";
+import ProtectedRoute from "@/components/ProtectRoute";
 
 export default function Machine() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const { userRole } = useAuth();
 
   const [machines, setMachines] = useState<machineType[]>([]);
   const [categories, setCategories] = useState<categoryType[]>([]);
@@ -185,102 +183,102 @@ export default function Machine() {
   };
 
   return (
-    <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
-      {/* Header */}
-      <header className="flex  justify-between p-5">
-        <h1 className="text-blue-100 text-2xl font-bold">Máquinas</h1>
-        <p>Seu papel: {userRole || "Desconhecido"}</p>
+    <ProtectedRoute requiredRole="user:viewer">
+      <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
+        {/* Header */}
+        <header className="flex  justify-between p-5">
+          <h1 className="text-blue-100 text-2xl font-bold">Máquinas</h1>
+          <div className="flex gap-4">
+            <button
+              onClick={openModal}
+              className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
+            >
+              <IoAddCircle size={20} />
+              Cadastrar Máquina
+            </button>
+          </div>
+        </header>
 
-        <div className="flex gap-4">
-          <button
-            onClick={openModal}
-            className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
-          >
-            <IoAddCircle size={20} />
-            Cadastrar Máquina
-          </button>
-        </div>
-      </header>
-
-      {/* Modal */}
-      <RegisterModal
-        isOpen={isModalOpen}
-        title="Cadastrar Máquina"
-        onClose={closeModal}
-        handleSubmit={handleSubmit}
-      >
-        <div>
-          <InputLabel
-            id="name"
-            type="text"
-            label="Nome"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          <InputLabel
-            id="serialNumber"
-            type="number"
-            label="Nº de Série"
-            value={formData.serialNumber}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="flex gap-5">
-          <InputLabel
-            id="model"
-            type="text"
-            label="Modelo"
-            value={formData.model}
-            onChange={handleChange}
-          />
-          <InputLabel
-            id="manufactureDate"
-            type="date"
-            label="Dt de Fabricação"
-            value={formData.manufactureDate}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="flex gap-5">
-          <CustomSelect
-            id="categoryId"
-            label="Categoria"
-            items={categories.map((category) => category.name)}
-            value={formData.categoryId}
-            onChange={handleChange}
-          />
-          <CustomSelect
-            id="locationId"
-            label="Localização"
-            items={locations.map((location) => location.name)}
-            value={formData.locationId}
-            onChange={handleChange}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
+        {/* Modal */}
+        <RegisterModal
+          isOpen={isModalOpen}
+          title="Cadastrar Máquina"
+          onClose={closeModal}
+          handleSubmit={handleSubmit}
         >
-          Cadastrar
-        </button>
-      </RegisterModal>
+          <div>
+            <InputLabel
+              id="name"
+              type="text"
+              label="Nome"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <InputLabel
+              id="serialNumber"
+              type="number"
+              label="Nº de Série"
+              value={formData.serialNumber}
+              onChange={handleChange}
+            />
+          </div>
 
-      {loading ? (
-        <CatchAPIResponseContainer
-          text="Por favor, aguarde! Os dados estão sendo carregados"
-          icon={<RiLoader2Fill size={30} />}
-        />
-      ) : error ? (
-        <CatchAPIResponseContainer
-          text="Desculpe, houve um erro ao carregar seus dados!"
-          icon={<BiError size={30} />}
-        />
-      ) : (
-        <DataTable columns={machineTableColumns} data={machines} />
-      )}
-    </main>
+          <div className="flex gap-5">
+            <InputLabel
+              id="model"
+              type="text"
+              label="Modelo"
+              value={formData.model}
+              onChange={handleChange}
+            />
+            <InputLabel
+              id="manufactureDate"
+              type="date"
+              label="Dt de Fabricação"
+              value={formData.manufactureDate}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="flex gap-5">
+            <CustomSelect
+              id="categoryId"
+              label="Categoria"
+              items={categories.map((category) => category.name)}
+              value={formData.categoryId}
+              onChange={handleChange}
+            />
+            <CustomSelect
+              id="locationId"
+              label="Localização"
+              items={locations.map((location) => location.name)}
+              value={formData.locationId}
+              onChange={handleChange}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
+          >
+            Cadastrar
+          </button>
+        </RegisterModal>
+
+        {loading ? (
+          <CatchAPIResponseContainer
+            text="Por favor, aguarde! Os dados estão sendo carregados"
+            icon={<RiLoader2Fill size={30} />}
+          />
+        ) : error ? (
+          <CatchAPIResponseContainer
+            text="Desculpe, houve um erro ao carregar seus dados!"
+            icon={<BiError size={30} />}
+          />
+        ) : (
+          <DataTable columns={machineTableColumns} data={machines} />
+        )}
+      </main>
+    </ProtectedRoute>
   );
 }
