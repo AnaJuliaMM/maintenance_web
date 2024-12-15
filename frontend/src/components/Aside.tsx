@@ -10,7 +10,7 @@ import { NavIconItem } from "./NavIconItem";
 import { useAuth } from "@/context/authContext";
 
 export const Aside = () => {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const navItems = [
     {
@@ -55,12 +55,24 @@ export const Aside = () => {
         ))}
       </nav>
 
-      <button
-        onClick={logout}
-        className="flex justify-center gap-2 self-end  bg-blue-500 rounded-md font-semibold text-sm w-full py-2"
-      >
-        Sair
-      </button>
+      <div>
+        <div className="flex flex-col py-4">
+          <p>
+            <span className="font-semibold">Usuário:</span>{" "}
+            {user.username || "-"}
+          </p>
+          <p>
+            <span className="font-semibold">Papel:</span> {user.role || "-"}
+          </p>
+        </div>
+
+        <button
+          onClick={logout}
+          className="flex justify-center gap-2 self-end  bg-blue-500 rounded-md font-semibold text-sm w-full py-2"
+        >
+          Sair
+        </button>
+      </div>
     </aside>
   );
 };
