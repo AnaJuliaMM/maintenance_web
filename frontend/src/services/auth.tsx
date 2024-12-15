@@ -2,8 +2,20 @@ import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 
 import { jwtDecode } from "jwt-decode";
 
-import { authType } from "@/types/authType";
-import { UserRole } from "@/types/userType";
+import { authType, JwtPayloadType } from "@/types/authType";
+
+interface DecodedJwtPayload {
+  "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": string;
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role":
+    | "user:admin"
+    | "user:user"
+    | "user:viewer"
+    | "user:editor"
+    | null;
+  exp?: number;
+  iss?: string;
+  aud?: string;
+}
 
 class AuthService {
   private api: AxiosInstance;
@@ -20,7 +32,7 @@ class AuthService {
   async login(
     endpoint: string,
     data: authType
-  ): Promise<{ token: string; role: UserRole }> {
+  ): Promise<{ token: string; jwtPayload: JwtPayloadType }> {
     try {
       const response = await this.api.post(endpoint, data);
 
@@ -29,14 +41,21 @@ class AuthService {
       localStorage.setItem("token", token);
 
       // Decode token to extract user role
-      const decodedToken: { role: UserRole } = jwtDecode(token);
-      console.log("Token: " + decodedToken);
+      const decodedToken = jwtDecode<DecodedJwtPayload>(token);
+      const jwtPayload: JwtPayloadType = {
+        username:
+          decodedToken[
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+          ],
+        role: decodedToken[
+          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        ],
+        exp: decodedToken.exp,
+        iss: decodedToken.iss,
+        aud: decodedToken.aud,
+      };
 
-      const role = decodedToken.role;
-      console.log("Dentro do Service: " + role);
-
-      // Return token and role
-      return { token, role };
+      return { token, jwtPayload };
     } catch (error: any) {
       this.handleError(error);
       throw error;
