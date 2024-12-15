@@ -13,6 +13,7 @@ import DataTable from "@/components/DataTable";
 import { userType } from "@/types/userType";
 
 import userTableColumns from "@/app/constants/userTableColumns";
+import ProtectedRoute from "@/components/ProtectRoute";
 
 import UserService from "@/services/user";
 
@@ -108,85 +109,87 @@ export default function User() {
   };
 
   return (
-    <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
-      {/* Header */}
-      <header className="flex  justify-between p-5">
-        <h1 className="text-blue-100 text-2xl font-bold">
-          Usuários do Sistema
-        </h1>
-        <div className="flex gap-4">
-          <button
-            onClick={openModal}
-            className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
-          >
-            <IoAddCircle size={20} />
-            Cadastrar Usuário
-          </button>
-        </div>
-      </header>
+    <ProtectedRoute requiredRole="user:admin">
+      <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
+        {/* Header */}
+        <header className="flex  justify-between p-5">
+          <h1 className="text-blue-100 text-2xl font-bold">
+            Usuários do Sistema
+          </h1>
+          <div className="flex gap-4">
+            <button
+              onClick={openModal}
+              className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
+            >
+              <IoAddCircle size={20} />
+              Cadastrar Usuário
+            </button>
+          </div>
+        </header>
 
-      {/* Modal */}
-      <RegisterModal
-        isOpen={isModalOpen}
-        title="Cadastrar Usuário"
-        onClose={closeModal}
-        handleSubmit={handleSubmit}
-      >
-        <div>
-          <InputLabel
-            id="name"
-            type="text"
-            label="Nome"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          <InputLabel
-            id="email"
-            type="email"
-            label="Email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <InputLabel
-            id="username"
-            type="text"
-            label="Username"
-            value={formData.username}
-            onChange={handleChange}
-          />
-          <InputLabel
-            id="password"
-            type="password"
-            label="Senha"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
+        {/* Modal */}
+        <RegisterModal
+          isOpen={isModalOpen}
+          title="Cadastrar Usuário"
+          onClose={closeModal}
+          handleSubmit={handleSubmit}
         >
-          Cadastrar
-        </button>
-      </RegisterModal>
+          <div>
+            <InputLabel
+              id="name"
+              type="text"
+              label="Nome"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <InputLabel
+              id="email"
+              type="email"
+              label="Email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
 
-      {loading ? (
-        <CatchAPIResponseContainer
-          text="Por favor, aguarde! Os dados estão sendo carregados"
-          icon={<RiLoader2Fill size={30} />}
-        />
-      ) : error ? (
-        <CatchAPIResponseContainer
-          text="Desculpe, houve um erro ao carregar seus dados!"
-          icon={<BiError size={30} />}
-        />
-      ) : (
-        <DataTable columns={userTableColumns} data={users} />
-      )}
-    </main>
+          <div>
+            <InputLabel
+              id="username"
+              type="text"
+              label="Username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+            <InputLabel
+              id="password"
+              type="password"
+              label="Senha"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
+          >
+            Cadastrar
+          </button>
+        </RegisterModal>
+
+        {loading ? (
+          <CatchAPIResponseContainer
+            text="Por favor, aguarde! Os dados estão sendo carregados"
+            icon={<RiLoader2Fill size={30} />}
+          />
+        ) : error ? (
+          <CatchAPIResponseContainer
+            text="Desculpe, houve um erro ao carregar seus dados!"
+            icon={<BiError size={30} />}
+          />
+        ) : (
+          <DataTable columns={userTableColumns} data={users} />
+        )}
+      </main>
+    </ProtectedRoute>
   );
 }
