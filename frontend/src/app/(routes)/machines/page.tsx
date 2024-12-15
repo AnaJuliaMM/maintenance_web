@@ -183,7 +183,7 @@ export default function Machine() {
   };
 
   return (
-    <ProtectedRoute requiredRole="user:viewer">
+    <ProtectedRoute requiredRole={["user:viewer", "user:editor", "user:admin"]}>
       <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
         {/* Header */}
         <header className="flex  justify-between p-5">
