@@ -1,3 +1,5 @@
+import { userRole } from "./authType";
+
 export type userType = {
   id: number;
   name: string;
@@ -5,14 +7,7 @@ export type userType = {
   username: string;
   password: string;
   role?: {
-    id: number;
-    name: UserRole;
+    id?: number;
+    name: userRole;
   };
 };
-
-export type UserRole =
-  | "user:admin"
-  | "user:user"
-  | "user:viewer"
-  | "user:editor"
-  | null;
