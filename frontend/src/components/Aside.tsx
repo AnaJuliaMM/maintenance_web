@@ -30,11 +30,6 @@ export const Aside = () => {
       icon: <LuWarehouse />,
     },
     {
-      value: "Manutenções",
-      href: "/maintenances",
-      icon: <IoIosListBox />,
-    },
-    {
       value: "Usuários",
       href: "/users",
       icon: <IoIosListBox />,

@@ -11,7 +11,7 @@ import { RiFileList2Line } from "react-icons/ri";
 import { Title } from "@/components/Title";
 import { maintenanceList } from "@/app/constants/maintenance";
 import RegisterModal from "@/components/modals/Register";
-import { SelectOption } from "@/app/components/SelectOption";
+// import { SelectOption } from "@/app/components/SelectOption";
 
 export default function Machine() {
   const router = useRouter();
@@ -91,7 +91,7 @@ export default function Machine() {
             />
           </div>
 
-          <SelectOption
+          {/* <SelectOption
             id="maintenanceType"
             label="Tipo"
             value={maintenanceType}
@@ -113,7 +113,7 @@ export default function Machine() {
               { value: "P2", label: "P2" },
               { value: "P3", label: "P3" },
             ]}
-          />
+          /> */}
         </div>
 
         {/* Requisition date, priority and responsable team*/}
