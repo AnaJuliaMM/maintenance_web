@@ -7,7 +7,7 @@ class UserService {
 
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:3011/api/User",
+      baseURL: "http://localhost:3014/users/",
     });
   }
 
