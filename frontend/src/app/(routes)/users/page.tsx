@@ -5,15 +5,16 @@ import { IoAddCircle } from "react-icons/io5";
 import { RiLoader2Fill } from "react-icons/ri";
 import { BiError } from "react-icons/bi";
 
+import Header from "@/components/Header";
 import RegisterModal from "@/components/modals/Register";
 import CatchAPIResponseContainer from "@/components/CatchAPIResponseContainer";
 import InputLabel from "@/components/InputLabel";
 import DataTable from "@/components/DataTable";
+import ProtectedRoute from "@/components/ProtectRoute";
 
 import { userType } from "@/types/userType";
 
 import userTableColumns from "@/app/constants/userTableColumns";
-import ProtectedRoute from "@/components/ProtectRoute";
 
 import UserService from "@/services/user";
 
@@ -109,23 +110,13 @@ export default function User() {
   };
 
   return (
-    <ProtectedRoute requiredRole="user:admin">
+    <ProtectedRoute requiredRole={["user:admin"]}>
       <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
-        {/* Header */}
-        <header className="flex  justify-between p-5">
-          <h1 className="text-blue-100 text-2xl font-bold">
-            Usuários do Sistema
-          </h1>
-          <div className="flex gap-4">
-            <button
-              onClick={openModal}
-              className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
-            >
-              <IoAddCircle size={20} />
-              Cadastrar Usuário
-            </button>
-          </div>
-        </header>
+        <Header
+          title="Usuários do Sistema"
+          buttonText="Cadastrar Usuário"
+          onClick={openModal}
+        />
 
         {/* Modal */}
         <RegisterModal
@@ -133,6 +124,8 @@ export default function User() {
           title="Cadastrar Usuário"
           onClose={closeModal}
           handleSubmit={handleSubmit}
+          buttonText="Cadastrar"
+          buttonType="submit"
         >
           <div>
             <InputLabel
@@ -167,13 +160,6 @@ export default function User() {
               onChange={handleChange}
             />
           </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
-          >
-            Cadastrar
-          </button>
         </RegisterModal>
 
         {loading ? (
