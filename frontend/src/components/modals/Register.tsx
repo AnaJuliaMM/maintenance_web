@@ -9,6 +9,8 @@ interface MachineRegisterModalProps {
   title: string;
   children: React.ReactNode;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  buttonText: string;
+  buttonType: "button" | "submit" | "reset" | undefined;
 }
 
 const RegisterModal: React.FC<MachineRegisterModalProps> = ({
@@ -17,6 +19,8 @@ const RegisterModal: React.FC<MachineRegisterModalProps> = ({
   title,
   children,
   handleSubmit,
+  buttonText,
+  buttonType,
 }) => {
   if (!isOpen) return null;
 
@@ -39,6 +43,13 @@ const RegisterModal: React.FC<MachineRegisterModalProps> = ({
 
         <form className="space-y-4 register-form" onSubmit={handleSubmit}>
           {children}
+
+          <button
+            type={buttonType}
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
+          >
+            {buttonText}
+          </button>
         </form>
       </div>
     </div>
