@@ -45,14 +45,18 @@ export const Aside = () => {
           height={200}
           className="w-full"
         ></Image>
-        {navItems.map((item, index) => (
-          <NavIconItem
-            href={item.href}
-            icon={item.icon}
-            value={item.value}
-            key={index}
-          />
-        ))}
+        {navItems
+          .filter((item) =>
+            item.href === "/users" ? user.role === "user:admin" : true
+          )
+          .map((item, index) => (
+            <NavIconItem
+              href={item.href}
+              icon={item.icon}
+              value={item.value}
+              key={index}
+            />
+          ))}
       </nav>
 
       <div>
