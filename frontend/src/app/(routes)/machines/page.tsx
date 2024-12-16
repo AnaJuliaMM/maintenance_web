@@ -173,7 +173,7 @@ export default function Machine() {
       setIsModalOpen(false);
       window.location.reload();
     } catch (error) {
-      setError(`Falha ao enviar os dados: ${error}`);
+      setError(`${error}`);
     } finally {
       setLoading(false);
     }
@@ -198,6 +198,12 @@ export default function Machine() {
           buttonText="Cadastrar"
           buttonType="submit"
         >
+          {error && (
+            <CatchAPIResponseContainer
+              text={`Desculpe, houve um erro ao carregar seus dados! ${error} `}
+              icon={<BiError size={30} />}
+            />
+          )}
           <div className="flex gap-5">
             <InputLabel
               id="name"
@@ -214,7 +220,6 @@ export default function Machine() {
               onChange={handleFormChange}
             />
           </div>
-
           <div className="flex gap-5">
             <InputLabel
               id="model"
@@ -231,7 +236,6 @@ export default function Machine() {
               onChange={handleFormChange}
             />
           </div>
-
           <div className="flex gap-5">
             <CustomSelect
               id="categoryId"
@@ -257,7 +261,7 @@ export default function Machine() {
           />
         ) : error ? (
           <CatchAPIResponseContainer
-            text="Desculpe, houve um erro ao carregar seus dados!"
+            text={`Desculpe, houve um erro ao carregar seus dados! ${error} `}
             icon={<BiError size={30} />}
           />
         ) : (

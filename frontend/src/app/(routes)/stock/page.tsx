@@ -106,7 +106,7 @@ export default function Stock() {
       setIsModalOpen(false);
       window.location.reload();
     } catch (error) {
-      setError(`Falha ao enviar os dados: ${error}`);
+      setError(`${error}`);
     } finally {
       setLoading(false);
     }
@@ -132,6 +132,12 @@ export default function Stock() {
           buttonText="Cadastrar"
           buttonType="submit"
         >
+          {error && (
+            <CatchAPIResponseContainer
+              text={`Desculpe, houve um erro ao carregar seus dados! ${error} `}
+              icon={<BiError size={30} />}
+            />
+          )}
           <div className="flex gap-5">
             <InputLabel
               id="name"
