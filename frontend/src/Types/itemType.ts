@@ -6,5 +6,5 @@ export type itemType = {
   acquisitionDate: string;
   supplier: string;
   quantity: number;
-  status: string;
+  status: "Disponível" | "Indisponível";
 };
