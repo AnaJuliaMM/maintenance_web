@@ -69,17 +69,16 @@ class AuthService {
 
   private handleError(error: AxiosError): void {
     if (error.response) {
-      console.error(error.response);
-
-      console.error(
-        `Erro na resposta: ${error.response.status}`,
-        error.response.data
-      );
-    } else if (error.request) {
+      if (error.response.status === 403 || error.response.status === 401) {
+        alert("Seu usuário não tem permissão");
+      } else
+        console.error(
+          `Erro na resposta: ${error.response.status}`,
+          error.response.data
+        );
+    } else if (error.request)
       console.error("Erro na requisição:", error.request);
-    } else {
-      console.error("Erro ao configurar a requisição:", error.message);
-    }
+    else console.error("Erro ao configurar a requisição:", error.message);
   }
 }
 

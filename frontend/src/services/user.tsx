@@ -93,10 +93,7 @@ class UserService {
   private handleError(error: AxiosError): void {
     if (error.response) {
       if (error.response.status === 403 || error.response.status === 401) {
-        alert(
-          "Seu usuário não tem permissão para acessar esta página. Por favor, faça login."
-        );
-        window.location.href = "/";
+        alert("Seu usuário não tem permissão");
       } else
         console.error(
           `Erro na resposta: ${error.response.status}`,

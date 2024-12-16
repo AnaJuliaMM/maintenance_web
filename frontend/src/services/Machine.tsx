@@ -96,7 +96,6 @@ class MachineService {
         alert(
           "Seu usuário não tem permissão para acessar esta página. Por favor, faça login."
         );
-        window.location.href = "/";
       } else
         console.error(
           `Erro na resposta: ${error.response.status}`,
