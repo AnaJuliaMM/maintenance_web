@@ -5,11 +5,13 @@ import { IoAddCircle } from "react-icons/io5";
 import { RiLoader2Fill } from "react-icons/ri";
 import { BiError } from "react-icons/bi";
 
+import Header from "@/components/Header";
 import RegisterModal from "@/components/modals/Register";
 import CatchAPIResponseContainer from "@/components/CatchAPIResponseContainer";
 import CustomSelect from "@/components/SelectLabel";
 import InputLabel from "@/components/InputLabel";
 import DataTable from "@/components/DataTable";
+import ProtectedRoute from "@/components/ProtectRoute";
 
 import WarehouseService from "@/services/warehouse";
 
@@ -113,21 +115,11 @@ export default function Stock() {
 
   return (
     <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
-      {/* Header */}
-      <header className="flex  justify-between p-5">
-        <h1 className="text-blue-100 text-2xl font-bold">
-          Estoque de peças e materiais
-        </h1>
-        <div className="flex gap-4">
-          <button
-            onClick={openModal}
-            className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
-          >
-            <IoAddCircle size={20} />
-            Cadastrar item
-          </button>
-        </div>
-      </header>
+      <Header
+        title="Estoque de peças e materiais"
+        buttonText="Cadastrar Item"
+        onClick={openModal}
+      />
 
       {/* Modal */}
       <RegisterModal
@@ -135,8 +127,10 @@ export default function Stock() {
         title="Cadastrar Peça"
         onClose={closeModal}
         handleSubmit={handleSubmit}
+        buttonText="Cadastrar"
+        buttonType="submit"
       >
-        <div>
+        <div className="flex gap-5">
           <InputLabel
             id="name"
             type="text"
@@ -144,21 +138,11 @@ export default function Stock() {
             value={formData.name}
             onChange={handleChange}
           />
-        </div>
-
-        <div>
           <InputLabel
             id="description"
             type="text"
             label="Descrição"
             value={formData.description}
-            onChange={handleChange}
-          />
-          <InputLabel
-            id="acquisitionDate"
-            type="date"
-            label="Aquisição"
-            value={formData.acquisitionDate}
             onChange={handleChange}
           />
         </div>
@@ -169,6 +153,13 @@ export default function Stock() {
             type="text"
             label="Fornecedor"
             value={formData.supplier}
+            onChange={handleChange}
+          />
+          <InputLabel
+            id="acquisitionDate"
+            type="date"
+            label="Aquisição"
+            value={formData.acquisitionDate}
             onChange={handleChange}
           />
         </div>
@@ -189,13 +180,6 @@ export default function Stock() {
             onChange={handleChange}
           />
         </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
-        >
-          Cadastrar
-        </button>
       </RegisterModal>
 
       {loading ? (
