@@ -1,6 +1,4 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
-import { TiDelete } from "react-icons/ti";
 
 import { machineType } from "@/types/machineType";
 import { categoryType } from "@/types/categoryType";
@@ -8,14 +6,6 @@ import { locationType } from "@/types/locationType";
 
 import TableCellRow from "@/components/TableCellRow";
 import TableCellHeader from "@/components/TableCellHeader";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import TableRowDropdownMenu from "@/components/TableRowDropdownMenu";
 
 import MachineService from "@/services/machine";
