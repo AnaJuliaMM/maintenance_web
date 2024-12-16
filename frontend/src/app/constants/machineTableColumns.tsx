@@ -16,6 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import TableRowDropdownMenu from "@/components/TableRowDropdownMenu";
 
 import MachineService from "@/services/machine";
 
@@ -86,40 +87,19 @@ const machineTableColumns: ColumnDef<machineType>[] = [
       const machine: machineType = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => {
-                window.location.href = `/machines/${machine.id}`;
-              }}
-              className="flex items-center justify-evenly gap-4"
-            >
-              Ver Detalhes
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem
-              onClick={() => {
-                const confirmDelete = window.confirm(
-                  "Tem certeza que deseja deletar?"
-                );
-                if (confirmDelete) {
-                  MachineService.delete("", machine.id);
-                  window.location.href = "/machines";
-                }
-              }}
-              className="flex items-center justify-evenly gap-4"
-            >
-              Deletar <TiDelete />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <TableRowDropdownMenu
+          id={machine.id}
+          route="machines"
+          onDeleteClick={() => {
+            const confirmDelete = window.confirm(
+              "Tem certeza que deseja deletar?"
+            );
+            if (confirmDelete) {
+              MachineService.delete("", machine.id);
+              window.location.href = "/machines";
+            }
+          }}
+        />
       );
     },
   },
