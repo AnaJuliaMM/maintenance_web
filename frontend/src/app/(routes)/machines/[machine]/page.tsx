@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react";
 
 import { RiLoader2Fill } from "react-icons/ri";
 import { BiError } from "react-icons/bi";
-import { TiDelete } from "react-icons/ti";
 
 import { Title } from "@/components/Title";
 import MachineInfo from "@/components/MachineInfo";
 import CatchAPIResponseContainer from "@/components/CatchAPIResponseContainer";
 import DataTable from "@/components/DataTable";
+import ProtectedRoute from "@/components/ProtectRoute";
+import DeleteItemButton from "@/components/DeleteItemButton";
 
 import manteinanceTableColumns from "@/app/constants/manteinanceTableColumns";
 import { maintenanceList } from "@/app/constants/maintenance";
@@ -92,54 +93,53 @@ export default function machine({ params }: machineProps) {
   };
 
   return (
-    <main className="flex flex-col p-6 w-svw h-fit">
-      <Title>Detalhes</Title>
+    <ProtectedRoute requiredRole={["user:viewer", "user:editor", "user:admin"]}>
+      <main className="flex flex-col p-6 w-svw h-fit">
+        <Title>Detalhes</Title>
 
-      {loading ? (
-        <CatchAPIResponseContainer
-          text="Por favor, aguarde! Os dados estão sendo carregados"
-          icon={<RiLoader2Fill size={30} />}
-        />
-      ) : error ? (
-        <CatchAPIResponseContainer
-          text={`Desculpe, houve um erro ao carregar seus dados!`}
-          icon={<BiError size={30} />}
-        />
-      ) : (
-        <>
-          <section className="flex flex-col self-center gap-4 w-2/3">
-            <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-8 w-full ">
-              <span className="flex justify-between w-full">
-                <Title>{machine.name}</Title>
+        {loading ? (
+          <CatchAPIResponseContainer
+            text="Por favor, aguarde! Os dados estão sendo carregados"
+            icon={<RiLoader2Fill size={30} />}
+          />
+        ) : error ? (
+          <CatchAPIResponseContainer
+            text={`Desculpe, houve um erro ao carregar seus dados!`}
+            icon={<BiError size={30} />}
+          />
+        ) : (
+          <>
+            <section className="flex flex-col self-center gap-4 w-2/3">
+              <div className="flex flex-col justify-center gap-1 bg-zinc-400/10 rounded-sm p-8 w-full ">
+                <span className="flex justify-between w-full">
+                  <Title>{machine.name}</Title>
+                  <DeleteItemButton text="Deletar" onClick={handleDelete} />
+                </span>
+                <hr className="border-t-2 border-gray-500 my-4" />
 
-                <button
-                  onClick={handleDelete}
-                  className="flex items-center justify-evenly gap-4 bg-slate-400 w-fit h-fit py-2 px-4 rounded-lg"
-                >
-                  Deletar <TiDelete size={30} />
-                </button>
-              </span>
-              <hr className="border-t-2 border-gray-500 my-4" />
+                <MachineInfo
+                  label="Número de Série"
+                  value={machine.serialNumber}
+                />
+                <MachineInfo label="Nome" value={machine.name} />
+                <MachineInfo label="Modelo" value={machine.model} />
+                <MachineInfo label="Categoria" value={machine.category?.name} />
+                <MachineInfo label="Local" value={machine.location?.name} />
+                <MachineInfo
+                  label="Fabricação"
+                  value={machine.manufactureDate}
+                />
+              </div>
+            </section>
+          </>
+        )}
 
-              <MachineInfo
-                label="Número de Série"
-                value={machine.serialNumber}
-              />
-              <MachineInfo label="Nome" value={machine.name} />
-              <MachineInfo label="Modelo" value={machine.model} />
-              <MachineInfo label="Categoria" value={machine.category?.name} />
-              <MachineInfo label="Local" value={machine.location?.name} />
-              <MachineInfo label="Fabricação" value={machine.manufactureDate} />
-            </div>
-          </section>
-        </>
-      )}
-
-      {/* Maintenance table */}
-      <section className="flex flex-col py-8">
-        <Title>Histórico de Manutenção</Title>
-        <DataTable columns={manteinanceTableColumns} data={maintenanceList} />
-      </section>
-    </main>
+        {/* Maintenance table */}
+        <section className="flex flex-col py-8">
+          <Title>Histórico de Manutenção</Title>
+          <DataTable columns={manteinanceTableColumns} data={maintenanceList} />
+        </section>
+      </main>
+    </ProtectedRoute>
   );
 }
