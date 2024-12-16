@@ -4,6 +4,7 @@ import Image from "next/image";
 import { LuWarehouse } from "react-icons/lu";
 import { PiWashingMachine } from "react-icons/pi";
 import { IoIosListBox } from "react-icons/io";
+import { BsFileEarmarkBarGraph } from "react-icons/bs";
 
 import { NavIconItem } from "./NavIconItem";
 
@@ -13,6 +14,11 @@ export const Aside = () => {
   const { user, logout } = useAuth();
 
   const navItems = [
+    {
+      value: "Relatório",
+      href: "/report",
+      icon: <BsFileEarmarkBarGraph />,
+    },
     {
       value: "Máquinas",
       href: "/machines",
