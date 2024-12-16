@@ -183,7 +183,7 @@ export default function Stock() {
             <CustomSelect
               id="locationId"
               label="Localização"
-              items={["Disponível", "Indísponível"]}
+              items={["Disponível", "Indisponível"]}
               value={formData.status}
               onChange={handleChange}
             />
