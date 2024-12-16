@@ -6,14 +6,7 @@ import { itemType } from "@/types/itemType";
 
 import TableCellRow from "@/components/TableCellRow";
 import TableCellHeader from "@/components/TableCellHeader";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import TableRowDropdownMenu from "@/components/TableRowDropdownMenu";
 
 import WarehouseService from "@/services/warehouse";
 
@@ -63,40 +56,19 @@ const warehouseTableColumns: ColumnDef<itemType>[] = [
       const item: itemType = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => {
-                window.location.href = `/stock/${item.id}`;
-              }}
-              className="flex items-center justify-evenly gap-4"
-            >
-              Ver Detalhes
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem
-              onClick={() => {
-                const confirmDelete = window.confirm(
-                  "Tem certeza que deseja deletar?"
-                );
-                if (confirmDelete) {
-                  WarehouseService.delete("", item.id);
-                  window.location.href = "/stock";
-                }
-              }}
-              className="flex items-center justify-evenly gap-4"
-            >
-              Deletar <TiDelete />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <TableRowDropdownMenu
+          id={item.id}
+          route="stock"
+          onDeleteClick={() => {
+            const confirmDelete = window.confirm(
+              "Tem certeza que deseja deletar?"
+            );
+            if (confirmDelete) {
+              WarehouseService.delete("", item.id);
+              window.location.href = "/stock";
+            }
+          }}
+        />
       );
     },
   },
