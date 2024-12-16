@@ -114,87 +114,89 @@ export default function Stock() {
   };
 
   return (
-    <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
-      <Header
-        title="Estoque de peças e materiais"
-        buttonText="Cadastrar Item"
-        onClick={openModal}
-      />
-
-      {/* Modal */}
-      <RegisterModal
-        isOpen={isModalOpen}
-        title="Cadastrar Peça"
-        onClose={closeModal}
-        handleSubmit={handleSubmit}
-        buttonText="Cadastrar"
-        buttonType="submit"
-      >
-        <div className="flex gap-5">
-          <InputLabel
-            id="name"
-            type="text"
-            label="Nome"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          <InputLabel
-            id="description"
-            type="text"
-            label="Descrição"
-            value={formData.description}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="flex gap-5">
-          <InputLabel
-            id="supplier"
-            type="text"
-            label="Fornecedor"
-            value={formData.supplier}
-            onChange={handleChange}
-          />
-          <InputLabel
-            id="acquisitionDate"
-            type="date"
-            label="Aquisição"
-            value={formData.acquisitionDate}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="flex gap-5">
-          <InputLabel
-            id="quantity"
-            type="number"
-            label="Qtd."
-            value={String(formData.quantity)}
-            onChange={handleChange}
-          />
-          <CustomSelect
-            id="locationId"
-            label="Localização"
-            items={["Disponível", "Indísponível"]}
-            value={formData.status}
-            onChange={handleChange}
-          />
-        </div>
-      </RegisterModal>
-
-      {loading ? (
-        <CatchAPIResponseContainer
-          text="Por favor, aguarde! Os dados estão sendo carregados"
-          icon={<RiLoader2Fill size={30} />}
+    <ProtectedRoute requiredRole={["user:viewer", "user:editor", "user:admin"]}>
+      <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
+        <Header
+          title="Estoque de peças e materiais"
+          buttonText="Cadastrar Item"
+          onClick={openModal}
         />
-      ) : error ? (
-        <CatchAPIResponseContainer
-          text="Desculpe, houve um erro ao carregar seus dados!"
-          icon={<BiError size={30} />}
-        />
-      ) : (
-        <DataTable columns={warehouseTableColumns} data={items} />
-      )}
-    </main>
+
+        {/* Modal */}
+        <RegisterModal
+          isOpen={isModalOpen}
+          title="Cadastrar Peça"
+          onClose={closeModal}
+          handleSubmit={handleSubmit}
+          buttonText="Cadastrar"
+          buttonType="submit"
+        >
+          <div className="flex gap-5">
+            <InputLabel
+              id="name"
+              type="text"
+              label="Nome"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <InputLabel
+              id="description"
+              type="text"
+              label="Descrição"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="flex gap-5">
+            <InputLabel
+              id="supplier"
+              type="text"
+              label="Fornecedor"
+              value={formData.supplier}
+              onChange={handleChange}
+            />
+            <InputLabel
+              id="acquisitionDate"
+              type="date"
+              label="Aquisição"
+              value={formData.acquisitionDate}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="flex gap-5">
+            <InputLabel
+              id="quantity"
+              type="number"
+              label="Qtd."
+              value={String(formData.quantity)}
+              onChange={handleChange}
+            />
+            <CustomSelect
+              id="locationId"
+              label="Localização"
+              items={["Disponível", "Indísponível"]}
+              value={formData.status}
+              onChange={handleChange}
+            />
+          </div>
+        </RegisterModal>
+
+        {loading ? (
+          <CatchAPIResponseContainer
+            text="Por favor, aguarde! Os dados estão sendo carregados"
+            icon={<RiLoader2Fill size={30} />}
+          />
+        ) : error ? (
+          <CatchAPIResponseContainer
+            text="Desculpe, houve um erro ao carregar seus dados!"
+            icon={<BiError size={30} />}
+          />
+        ) : (
+          <DataTable columns={warehouseTableColumns} data={items} />
+        )}
+      </main>
+    </ProtectedRoute>
   );
 }
