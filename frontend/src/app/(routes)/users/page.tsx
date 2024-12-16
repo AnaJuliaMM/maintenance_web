@@ -110,7 +110,7 @@ export default function User() {
   };
 
   return (
-    <ProtectedRoute requiredRole={["user:admin"]}>
+    <ProtectedRoute requiredRoles={["user:admin"]}>
       <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
         <Header
           title="Usuários do Sistema"

@@ -88,7 +88,9 @@ export default function Stock({ params }: stockProps) {
   };
 
   return (
-    <ProtectedRoute requiredRole={["user:viewer", "user:editor", "user:admin"]}>
+    <ProtectedRoute
+      requiredRoles={["user:viewer", "user:editor", "user:admin"]}
+    >
       <main className="flex flex-col p-6 w-svw h-fit">
         <Title>Detalhes</Title>
 

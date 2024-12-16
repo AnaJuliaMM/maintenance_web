@@ -7,10 +7,13 @@ import { userRole } from "@/types/authType";
 
 interface ProtectedRouteProps {
   children: ReactNode;
-  requiredRole: userRole[];
+  requiredRoles: userRole[];
 }
 
-const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) => {
+const ProtectedRoute = ({
+  children,
+  requiredRoles: requiredRole,
+}: ProtectedRouteProps) => {
   const { user } = useAuth();
   const router = useRouter();
 

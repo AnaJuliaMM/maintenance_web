@@ -113,7 +113,9 @@ export default function Stock() {
   };
 
   return (
-    <ProtectedRoute requiredRole={["user:viewer", "user:editor", "user:admin"]}>
+    <ProtectedRoute
+      requiredRoles={["user:viewer", "user:editor", "user:admin"]}
+    >
       <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
         <Header
           title="Estoque de peças e materiais"
