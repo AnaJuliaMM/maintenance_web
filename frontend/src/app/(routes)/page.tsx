@@ -50,7 +50,7 @@ function Login() {
       setLoading(true);
       login(formData);
       alert("Login realizado com sucesso!");
-      router.push("/machines");
+      router.push("/report");
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         setError("Usuário ou senha inválidos.");
