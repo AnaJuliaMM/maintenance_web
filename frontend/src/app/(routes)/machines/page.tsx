@@ -1,15 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-import { IoAddCircle } from "react-icons/io5";
 import { RiLoader2Fill } from "react-icons/ri";
 import { BiError } from "react-icons/bi";
 
+import Header from "@/components/Header";
 import RegisterModal from "@/components/modals/Register";
 import CatchAPIResponseContainer from "@/components/CatchAPIResponseContainer";
 import CustomSelect from "@/components/SelectLabel";
 import InputLabel from "@/components/InputLabel";
 import DataTable from "@/components/DataTable";
+import ProtectedRoute from "@/components/ProtectRoute";
 
 import { machineType, machinePostType } from "@/types/machineType";
 import { categoryType } from "@/types/categoryType";
@@ -20,8 +21,6 @@ import machineTableColumns from "@/app/constants/machineTableColumns";
 import LocationService from "@/services/location";
 import MachineService from "@/services/machine";
 import CategoryService from "@/services/category";
-
-import ProtectedRoute from "@/components/ProtectRoute";
 
 export default function Machine() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -138,7 +137,7 @@ export default function Machine() {
    *
    * @param {React.ChangeEvent<HTMLInputElement | HTMLSelectElement>} e - O evento de mudança no campo de entrada.
    */
-  const handleChange = (
+  const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
@@ -161,14 +160,12 @@ export default function Machine() {
       let categoryId = categories.filter(
         (category) => category.name == formData.categoryId
       )[0].id;
-      // Replace category name by id to sent to backend
       formData.categoryId = categoryId;
 
       // Find location chosen category id
       let locationId = locations.filter(
         (location) => location.name == formData.locationId
       )[0].id;
-      // Replace location name by id to sent to backend
       formData.locationId = locationId;
 
       await MachineService.post("", formData);
@@ -185,41 +182,34 @@ export default function Machine() {
   return (
     <ProtectedRoute requiredRole={["user:viewer", "user:editor", "user:admin"]}>
       <main className="flex flex-col p-6 pt-10 w-svw gap-4 h-fit">
-        {/* Header */}
-        <header className="flex  justify-between p-5">
-          <h1 className="text-blue-100 text-2xl font-bold">Máquinas</h1>
-          <div className="flex gap-4">
-            <button
-              onClick={openModal}
-              className="flex gap-2 justify-center items-center bg-blue-500 py-2 px-4 rounded-lg font-semibold text-sm"
-            >
-              <IoAddCircle size={20} />
-              Cadastrar Máquina
-            </button>
-          </div>
-        </header>
+        <Header
+          title="Máquinas"
+          buttonText="Cadastrar Máquina"
+          onClick={openModal}
+        />
 
-        {/* Modal */}
         <RegisterModal
           isOpen={isModalOpen}
           title="Cadastrar Máquina"
           onClose={closeModal}
           handleSubmit={handleSubmit}
+          buttonText="Cadastrar"
+          buttonType="submit"
         >
-          <div>
+          <div className="flex gap-5">
             <InputLabel
               id="name"
               type="text"
               label="Nome"
               value={formData.name}
-              onChange={handleChange}
+              onChange={handleFormChange}
             />
             <InputLabel
               id="serialNumber"
               type="number"
               label="Nº de Série"
               value={formData.serialNumber}
-              onChange={handleChange}
+              onChange={handleFormChange}
             />
           </div>
 
@@ -229,14 +219,14 @@ export default function Machine() {
               type="text"
               label="Modelo"
               value={formData.model}
-              onChange={handleChange}
+              onChange={handleFormChange}
             />
             <InputLabel
               id="manufactureDate"
               type="date"
               label="Dt de Fabricação"
               value={formData.manufactureDate}
-              onChange={handleChange}
+              onChange={handleFormChange}
             />
           </div>
 
@@ -246,23 +236,16 @@ export default function Machine() {
               label="Categoria"
               items={categories.map((category) => category.name)}
               value={formData.categoryId}
-              onChange={handleChange}
+              onChange={handleFormChange}
             />
             <CustomSelect
               id="locationId"
               label="Localização"
               items={locations.map((location) => location.name)}
               value={formData.locationId}
-              onChange={handleChange}
+              onChange={handleFormChange}
             />
           </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold"
-          >
-            Cadastrar
-          </button>
         </RegisterModal>
 
         {loading ? (
